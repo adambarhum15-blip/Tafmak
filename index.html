@@ -166,6 +166,39 @@
   .tavhin-item .ti-title { font-size: 14px; font-weight: 700; color: #fff; flex: 1; line-height: 1.5; }
   .tavhin-item .ti-desc { font-size: 13px; color: var(--gray); line-height: 1.7; padding-right: 38px; }
   .tavhin-item .ti-bold { font-size: 13px; color: #a78bfa; font-weight: 600; margin-top: 6px; padding-right: 38px; line-height: 1.5; }
+
+  /* סגנון לטופס עצורים */
+  .form-input, .form-select {
+    width: 100%;
+    background: var(--navy);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #fff;
+    padding: 12px;
+    border-radius: 10px;
+    font-family: 'Heebo', sans-serif;
+    font-size: 16px;
+    outline: none;
+    margin-bottom: 10px;
+  }
+  .form-input:focus, .form-select:focus {
+    border-color: var(--blue);
+  }
+  .prisoner-card {
+    background: var(--navy-light);
+    border-right: 4px solid var(--gray);
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: slideUp 0.3s ease;
+  }
+  .prisoner-card.atzur { border-color: var(--red); }
+  .prisoner-card.meukav { border-color: var(--gold); }
+  .p-info h4 { font-size: 16px; font-weight: 700; color: #fff; }
+  .p-info span { font-size: 13px; color: var(--gray); }
+  .btn-delete { background: none; border: none; color: var(--gray-dark); font-size: 20px; cursor: pointer; padding: 5px; }
 </style>
 </head>
 <body>
@@ -190,9 +223,10 @@
     <div class="welcome-card"><h2>שלום, קצין תורן</h2><p id="currentDate"></p></div>
     <div class="menu-grid">
       <div class="menu-card" onclick="showScreen('dutyTasks')"><div class="card-icon gold">📋</div><div class="card-info"><h3>משימות קצין תורן</h3><p>צ׳קליסט לפני ותוך כדי משמרת</p></div></div>
+      <div class="menu-card" onclick="showScreen('atzurim')"><div class="card-icon" style="background: linear-gradient(135deg, #f43f5e, #be123c); color: white;">⛓️</div><div class="card-info"><h3>ניהול עצורים</h3><p>נוסח אזהרה, רישום ומעקב</p></div></div>
       <div class="menu-card" onclick="showScreen('eventTypes')"><div class="card-icon green">🚨</div><div class="card-info"><h3>עיקרון טיפול באירוע</h3><p>סד״פ לפי סוג אירוע</p></div></div>
       <div class="menu-card" onclick="showScreen('profile')"><div class="card-icon blue">🏛️</div><div class="card-info"><h3>פרופיל תחנה</h3><p>פרטי קשר, גבולות גזרה ומידע</p></div></div>
-      <div class="menu-card" onclick="showScreen('tavhin')" style="border: 1px solid rgba(124,58,237,0.25)"><div class="card-icon" style="background:linear-gradient(135deg,rgba(124,58,237,0.15),rgba(124,58,237,0.05))">🎓</div><div class="card-info"><h3>דף תבחין</h3><p>קריטריונים למבחן התנסות פיקודית בשטח</p></div></div>
+      <div class="menu-card" onclick="showScreen('tavhin')" style="border: 1px solid rgba(124,58,237,0.25)"><div class="card-icon" style="background:linear-gradient(135deg,rgba(124,58,237,0.15),rgba(124,58,237,0.05))">🎓</div><div class="card-info"><h3>דף תבחין</h3><p>קריטריונים למבחן התנסות פיקודית</p></div></div>
     </div>
   </div>
 </div>
@@ -203,6 +237,58 @@
     <div class="progress-bar-container"><div class="progress-header"><span>התקדמות</span><strong id="progressPercent">0%</strong></div><div class="progress-track"><div class="progress-fill" id="progressFill" style="width: 0%"></div></div></div>
     <div id="checklistContainer"></div>
     <button class="reset-btn" onclick="resetChecklist()">אפס את כל המשימות</button>
+  </div>
+</div>
+
+<div id="atzurim" class="screen">
+  <div class="header">
+    <button class="back-btn" onclick="goBack('mainMenu')">&rarr;</button>
+    <span class="header-title">יומן עצורים ומעוכבים</span>
+  </div>
+  <div class="checklist-content">
+    
+    <div class="info-block" style="border-right: 4px solid var(--red);">
+      <h4>📢 נוסח אזהרה לעצור (חובה)</h4>
+      <p style="font-size:16px; line-height:1.6; font-weight:600;">
+        "הנך חשוד ב[סוג העבירה].<br>
+        אין חובתך לומר דבר, אך כל מה שתאמר עשוי לשמש ראיה נגדך.<br>
+        הימנעות מלהשיב לשאלות עשויה לחזק את הראיות נגדך.<br>
+        זכותו להיוועץ בעורך דין."
+      </p>
+    </div>
+
+    <div class="info-block" style="background: var(--navy-mid); border: 1px solid var(--blue-light);">
+       <h4 style="margin-bottom:12px; color: #fff;">הוספת רישום חדש</h4>
+       
+       <input type="text" id="pName" class="form-input" placeholder="שם מלא">
+       
+       <div style="display:flex; gap:10px; margin-bottom:10px;">
+         <select id="pGender" class="form-select" style="width: 90px;">
+           <option value="זכר">זכר</option>
+           <option value="נקבה">נקבה</option>
+         </select>
+         <input type="number" id="pAge" class="form-input" placeholder="גיל" style="width: 80px;">
+       </div>
+
+       <input type="text" id="pOffense" class="form-input" placeholder="סוג עבירה (לדוגמה: תקיפה)">
+
+       <div style="display:flex; gap:10px;">
+         <select id="pType" class="form-select">
+           <option value="atzur">עצור 🛑</option>
+           <option value="meukav">מעוכב ✋</option>
+         </select>
+         <input type="time" id="pTime" class="form-input" style="width: 120px;">
+       </div>
+       
+       <button class="btn-confirm" style="width:100%; margin-top:5px;" onclick="addPrisoner()">+ הוסף לרשימה</button>
+    </div>
+
+    <div class="checklist-section">
+      <div class="section-title">רשימת מעקב פעילה</div>
+      <div id="prisonersListContainer">
+        <p style="text-align:center; color:var(--gray); margin-top:20px;">אין עצורים ברשימה</p>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -254,7 +340,6 @@ var eventTypes = [
 var currentStation = null;
 var checkedTasks = {};
 
-// כאן עדכנתי את התוכן לפי התמונות ששלחת
 var tavhinSections = [
   {
     id: 'ts1',
@@ -311,7 +396,6 @@ var tavhinSections = [
 
 function renderTavhin() {
   var container = document.getElementById('tavhinContainer');
-  // עדכון כותרת וניקוד כולל (20+50+10+20=100)
   var html = '<div class="tavhin-header"><h2>דף תבחין התנסות פיקודית בשטח</h2><p>קק"צ ייעודי 2025</p><div class="tavhin-total">סה"כ: 100 נקודות</div></div>';
   for (var i = 0; i < tavhinSections.length; i++) {
     var sec = tavhinSections[i];
@@ -337,10 +421,23 @@ function showTavhinDetail(sectionId) {
   showScreen('tavhinDetail');
 }
 
-function loadState() { try { var saved = localStorage.getItem('tafmak_checked'); if (saved) { checkedTasks = JSON.parse(saved); } localStorage.removeItem('tafmak_station'); } catch(e) {} }
-function saveState() { try { localStorage.setItem('tafmak_checked', JSON.stringify(checkedTasks)); } catch(e) {} }
+function showScreen(screenId) { 
+  var screens = document.querySelectorAll('.screen'); 
+  for (var i = 0; i < screens.length; i++) { screens[i].classList.remove('active'); } 
+  document.getElementById(screenId).classList.add('active'); 
+  window.scrollTo(0, 0); 
+  if (screenId === 'mainMenu') { renderMainMenu(); } 
+  if (screenId === 'dutyTasks') { renderChecklist(); } 
+  if (screenId === 'eventTypes') { renderEventTypes(); } 
+  if (screenId === 'profile') { renderProfile(); } 
+  if (screenId === 'tavhin') { renderTavhin(); } 
+  if (screenId === 'atzurim') { 
+    var now = new Date();
+    var timeStr = ("0" + now.getHours()).slice(-2) + ":" + ("0" + now.getMinutes()).slice(-2);
+    document.getElementById('pTime').value = timeStr;
+  }
+}
 
-function showScreen(screenId) { var screens = document.querySelectorAll('.screen'); for (var i = 0; i < screens.length; i++) { screens[i].classList.remove('active'); } document.getElementById(screenId).classList.add('active'); window.scrollTo(0, 0); if (screenId === 'mainMenu') { renderMainMenu(); } if (screenId === 'dutyTasks') { renderChecklist(); } if (screenId === 'eventTypes') { renderEventTypes(); } if (screenId === 'profile') { renderProfile(); } if (screenId === 'tavhin') { renderTavhin(); } }
 function goBack(t) { showScreen(t); }
 function selectStation(id) { currentStation = id; saveState(); showScreen('mainMenu'); }
 
@@ -382,6 +479,109 @@ function closeAdminModal() { document.getElementById('adminModal').classList.rem
 function verifyPin() { var pin = document.getElementById('pinInput').value; if (pin === ADMIN_PIN) { closeAdminModal(); showToast('מצב עריכה פעיל'); } else { document.getElementById('pinInput').classList.add('error'); setTimeout(function() { document.getElementById('pinInput').classList.remove('error'); }, 500); } }
 document.getElementById('pinInput').addEventListener('keyup', function(e) { if (e.key === 'Enter') { verifyPin(); } });
 function showToast(msg) { var toast = document.getElementById('toast'); toast.textContent = msg; toast.classList.add('show'); setTimeout(function() { toast.classList.remove('show'); }, 2500); }
+
+// --- ניהול עצורים ---
+var prisoners = [];
+
+function loadPrisoners() {
+  try {
+    var savedP = localStorage.getItem('tafmak_prisoners');
+    if (savedP) {
+      prisoners = JSON.parse(savedP);
+      renderPrisonersList();
+    }
+  } catch(e) {}
+}
+
+function savePrisoners() {
+  localStorage.setItem('tafmak_prisoners', JSON.stringify(prisoners));
+}
+
+function addPrisoner() {
+  var name = document.getElementById('pName').value;
+  var gender = document.getElementById('pGender').value;
+  var age = document.getElementById('pAge').value;
+  var offense = document.getElementById('pOffense').value;
+  var type = document.getElementById('pType').value;
+  var time = document.getElementById('pTime').value;
+
+  if (!name || !time || !offense) {
+    showToast('נא למלא שם, עבירה ושעה');
+    return;
+  }
+
+  var newP = {
+    id: Date.now(),
+    name: name,
+    gender: gender,
+    age: age,
+    offense: offense,
+    type: type,
+    time: time,
+    date: new Date().toLocaleDateString('he-IL')
+  };
+
+  prisoners.unshift(newP);
+  savePrisoners();
+  renderPrisonersList();
+  
+  // ניקוי השדות
+  document.getElementById('pName').value = '';
+  document.getElementById('pAge').value = '';
+  document.getElementById('pOffense').value = '';
+  showToast('הרישום נוסף בהצלחה');
+}
+
+function deletePrisoner(id) {
+  if (confirm('למחוק את הרישום?')) {
+    prisoners = prisoners.filter(function(p) { return p.id !== id; });
+    savePrisoners();
+    renderPrisonersList();
+  }
+}
+
+function renderPrisonersList() {
+  var container = document.getElementById('prisonersListContainer');
+  if (prisoners.length === 0) {
+    container.innerHTML = '<p style="text-align:center; color:var(--gray); margin-top:20px;">אין עצורים ברשימה</p>';
+    return;
+  }
+  
+  var html = '';
+  for (var i = 0; i < prisoners.length; i++) {
+    var p = prisoners[i];
+    var typeText = p.type === 'atzur' ? 'עצור' : 'מעוכב';
+    var ageText = p.age ? ' (' + p.age + ')' : '';
+    
+    html += '<div class="prisoner-card ' + p.type + '">';
+    html += '<div class="p-info" style="width:100%">';
+    // שורה ראשונה: שם + גיל + אייקון מחיקה
+    html += '<div style="display:flex; justify-content:space-between; align-items:center;">';
+    html += '<h4>' + p.name + ageText + '</h4>';
+    html += '<button class="btn-delete" onclick="deletePrisoner(' + p.id + ')">🗑️</button>';
+    html += '</div>';
+    
+    // שורה שניה: עבירה
+    html += '<div style="color:#fff; font-size:14px; margin:4px 0;">עבירה: ' + p.offense + '</div>';
+    
+    // שורה שלישית: פרטים טכניים
+    html += '<span style="display:block; margin-top:4px;">' + typeText + ' • ' + p.gender + ' • הוכנס ב: <b style="color:#fff">' + p.time + '</b></span>';
+    
+    html += '</div></div>';
+  }
+  container.innerHTML = html;
+}
+
+function loadState() { 
+  try { 
+    var saved = localStorage.getItem('tafmak_checked'); 
+    if (saved) { checkedTasks = JSON.parse(saved); } 
+    localStorage.removeItem('tafmak_station'); 
+    loadPrisoners(); 
+  } catch(e) {} 
+}
+
+function saveState() { try { localStorage.setItem('tafmak_checked', JSON.stringify(checkedTasks)); } catch(e) {} }
 
 loadState();
 </script>
