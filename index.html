@@ -149,6 +149,23 @@
   .btn-confirm { background: var(--blue); color: #fff; }
   .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px); background: var(--green); color: #fff; padding: 12px 24px; border-radius: 12px; font-size: 14px; font-weight: 600; z-index: 2000; transition: transform 0.3s ease; white-space: nowrap; }
   .toast.show { transform: translateX(-50%) translateY(0); }
+  .tavhin-header { background: linear-gradient(135deg, #7c3aed, #6d28d9); border-radius: 16px; padding: 22px; margin-bottom: 20px; text-align: center; }
+  .tavhin-header h2 { font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 4px; }
+  .tavhin-header p { font-size: 13px; color: rgba(255,255,255,0.7); }
+  .tavhin-total { display: inline-block; background: rgba(255,255,255,0.15); padding: 6px 16px; border-radius: 20px; margin-top: 10px; font-size: 14px; font-weight: 700; color: #fff; }
+  .score-badge { display: inline-block; background: linear-gradient(135deg, #7c3aed, #6d28d9); color: #fff; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 12px; white-space: nowrap; }
+  .tavhin-card { background: var(--navy-light); border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius); padding: 18px 20px; margin-bottom: 12px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 14px; }
+  .tavhin-card:active { transform: scale(0.98); }
+  .tavhin-card .tc-icon { width: 44px; height: 44px; border-radius: 12px; background: rgba(124,58,237,0.12); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+  .tavhin-card .tc-info { flex: 1; }
+  .tavhin-card .tc-info h3 { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 3px; }
+  .tavhin-card .tc-info p { font-size: 12px; color: var(--gray); }
+  .tavhin-item { background: var(--navy-light); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 16px 18px; margin-bottom: 10px; }
+  .tavhin-item .ti-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .tavhin-item .ti-num { width: 28px; height: 28px; border-radius: 50%; background: rgba(124,58,237,0.2); color: #a78bfa; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+  .tavhin-item .ti-title { font-size: 14px; font-weight: 700; color: #fff; flex: 1; line-height: 1.5; }
+  .tavhin-item .ti-desc { font-size: 13px; color: var(--gray); line-height: 1.7; padding-right: 38px; }
+  .tavhin-item .ti-bold { font-size: 13px; color: #a78bfa; font-weight: 600; margin-top: 6px; padding-right: 38px; line-height: 1.5; }
 </style>
 </head>
 <body>
@@ -175,6 +192,7 @@
       <div class="menu-card" onclick="showScreen('dutyTasks')"><div class="card-icon gold">📋</div><div class="card-info"><h3>משימות קצין תורן</h3><p>צ׳קליסט לפני ותוך כדי משמרת</p></div></div>
       <div class="menu-card" onclick="showScreen('eventTypes')"><div class="card-icon green">🚨</div><div class="card-info"><h3>עיקרון טיפול באירוע</h3><p>סד״פ לפי סוג אירוע</p></div></div>
       <div class="menu-card" onclick="showScreen('profile')"><div class="card-icon blue">🏛️</div><div class="card-info"><h3>פרופיל תחנה</h3><p>פרטי קשר, גבולות גזרה ומידע</p></div></div>
+      <div class="menu-card" onclick="showScreen('tavhin')" style="border: 1px solid rgba(124,58,237,0.25)"><div class="card-icon" style="background:linear-gradient(135deg,rgba(124,58,237,0.15),rgba(124,58,237,0.05))">🎓</div><div class="card-info"><h3>דף תבחין</h3><p>קריטריונים למבחן התנסות פיקודית בשטח</p></div></div>
     </div>
   </div>
 </div>
@@ -203,6 +221,16 @@
   <div class="profile-content" id="profileContainer"></div>
 </div>
 
+<div id="tavhin" class="screen">
+  <div class="header"><button class="back-btn" onclick="goBack('mainMenu')">&rarr;</button><span class="header-title">דף תבחין</span></div>
+  <div class="checklist-content" id="tavhinContainer"></div>
+</div>
+
+<div id="tavhinDetail" class="screen">
+  <div class="header"><button class="back-btn" onclick="goBack('tavhin')">&rarr;</button><span class="header-title" id="tavhinDetailTitle"></span><span class="score-badge" id="tavhinDetailScore"></span></div>
+  <div class="checklist-content" id="tavhinDetailContent"></div>
+</div>
+
 <div id="adminModal" class="modal-overlay" onclick="if(event.target===this)closeAdminModal()">
   <div class="modal-box"><h3>מצב ניהול</h3><p>הזן קוד מנהל לעריכת תוכן</p><input type="password" class="pin-input" id="pinInput" maxlength="4" inputmode="numeric" placeholder="----"><div class="modal-btns"><button class="btn-cancel" onclick="closeAdminModal()">ביטול</button><button class="btn-confirm" onclick="verifyPin()">אישור</button></div></div>
 </div>
@@ -226,10 +254,93 @@ var eventTypes = [
 var currentStation = null;
 var checkedTasks = {};
 
+// כאן עדכנתי את התוכן לפי התמונות ששלחת
+var tavhinSections = [
+  {
+    id: 'ts1',
+    icon: '👮',
+    title: 'תפיסת תפקיד',
+    subtitle: 'הופעה, ציוד ומוכנות',
+    points: 20,
+    items: [
+       { title: 'הופעה וייצוגיות', desc: 'הופעה תקנית עפ"י נהלים: מדים מגוהצים, גילוח/שיער מסודר, דרגות, תגי שם, תעודת מינוי.' },
+       { title: 'בדיקת ציוד ואמצעים', desc: 'בדיקת תקינות ניידת, מכשיר קשר, טאבלט, אפוד זוהר, פנס וציוד אישי.' },
+       { title: 'קבלת משמרת ותדריך', desc: 'הגעה בזמן, השתתפות בתדריך, קבלת דגשים והבנת המשימות למשמרת.' },
+       { title: 'הכרת הגזרה', desc: 'התמצאות בגזרה, הכרת נקודות תורפה ואירועים גזרתיים רלוונטיים.' }
+    ]
+  },
+  {
+    id: 'ts2',
+    icon: '🚨',
+    title: 'ניהול זירה ואירוע',
+    subtitle: 'תפעול אירוע מקצה לקצה',
+    points: 50,
+    items: [
+       { title: 'הגעה ודיווח ראשוני', desc: 'הגעה מהירה ובטוחה לאירוע, דיווח ראשוני למשל"ט על הגעה ותמונת מצב ראשונית.' },
+       { title: 'סגירת זירה', desc: 'תיחום הזירה, שימוש בסרטי סימון, הרחקת סקרנים ומניעת זיהום הזירה.' },
+       { title: 'ניהול והפעלת כוחות', desc: 'חלוקת גזרות ומשימות לשוטרים/מתנדבים, שליטה בכוח ומתן הוראות ברורות.' },
+       { title: 'טיפול במעורבים', desc: 'זיהוי מעורבים (חשודים/מתלוננים), תשאול ראשוני, עיכוב או מעצר עפ"י סמכות.' },
+       { title: 'טיפול במוצגים', desc: 'איתור מוצגים בזירה, שמירה עליהם ותפיסתם עפ"י נהלים (שרשרת סם/מוצג).' }
+    ]
+  },
+  {
+    id: 'ts3',
+    icon: '👑',
+    title: 'ניהול ומנהיגות באירוע',
+    subtitle: 'פיקוד תחת לחץ',
+    points: 10,
+    items: [
+       { title: 'קור רוח ושליטה', desc: 'תפקוד רגוע ומקצועי תחת לחץ, הקרנת ביטחון לכוח ולאזרחים.' },
+       { title: 'קבלת החלטות', desc: 'קבלת החלטות עניינית ומקצועית המבוססת על נתונים והערכת מצב.' },
+       { title: 'אסרטיביות', desc: 'עמידה על עקרונות אכיפה, הפגנת סמכות מול מעורבים וחשודים.' }
+    ]
+  },
+  {
+    id: 'ts4',
+    icon: '🤝',
+    title: 'תפקוד כללי',
+    subtitle: 'בטיחות, אתיקה ושירות',
+    points: 20,
+    items: [
+       { title: 'בטיחות', desc: 'שמירה על בטיחות אישית, בטיחות הכוח והאזרחים, נהיגה מבצעית זהירה.' },
+       { title: 'יחסי אנוש ושירות', desc: 'מתן שירות מכבד לאזרח, שפה נאותה, יחסי עבודה תקינים עם עמיתים.' },
+       { title: 'אמינות ודיווח', desc: 'דיווח אמת, דיווחים אמינים ומדויקים למשל"ט ולמפקדים, רישום דוחות מפורט.' }
+    ]
+  }
+];
+
+function renderTavhin() {
+  var container = document.getElementById('tavhinContainer');
+  // עדכון כותרת וניקוד כולל (20+50+10+20=100)
+  var html = '<div class="tavhin-header"><h2>דף תבחין התנסות פיקודית בשטח</h2><p>קק"צ ייעודי 2025</p><div class="tavhin-total">סה"כ: 100 נקודות</div></div>';
+  for (var i = 0; i < tavhinSections.length; i++) {
+    var sec = tavhinSections[i];
+    html += '<div class="tavhin-card" onclick="showTavhinDetail(\'' + sec.id + '\')"><div class="tc-icon">' + sec.icon + '</div><div class="tc-info"><h3>' + sec.title + '</h3><p>' + sec.subtitle + '</p></div><span class="score-badge">' + sec.points + ' נק</span></div>';
+  }
+  container.innerHTML = html;
+}
+
+function showTavhinDetail(sectionId) {
+  var sec = null;
+  for (var i = 0; i < tavhinSections.length; i++) { if (tavhinSections[i].id === sectionId) { sec = tavhinSections[i]; break; } }
+  if (!sec) return;
+  document.getElementById('tavhinDetailTitle').textContent = sec.title;
+  document.getElementById('tavhinDetailScore').textContent = sec.points + ' נקודות';
+  var html = '<div class="section-title">' + sec.subtitle + '</div>';
+  for (var i = 0; i < sec.items.length; i++) {
+    var item = sec.items[i];
+    html += '<div class="tavhin-item"><div class="ti-head"><div class="ti-num">' + (i+1) + '</div><div class="ti-title">' + item.title + '</div></div><div class="ti-desc">' + item.desc + '</div>';
+    if (item.bold) { html += '<div class="ti-bold">' + item.bold + '</div>'; }
+    html += '</div>';
+  }
+  document.getElementById('tavhinDetailContent').innerHTML = html;
+  showScreen('tavhinDetail');
+}
+
 function loadState() { try { var saved = localStorage.getItem('tafmak_checked'); if (saved) { checkedTasks = JSON.parse(saved); } localStorage.removeItem('tafmak_station'); } catch(e) {} }
 function saveState() { try { localStorage.setItem('tafmak_checked', JSON.stringify(checkedTasks)); } catch(e) {} }
 
-function showScreen(screenId) { var screens = document.querySelectorAll('.screen'); for (var i = 0; i < screens.length; i++) { screens[i].classList.remove('active'); } document.getElementById(screenId).classList.add('active'); window.scrollTo(0, 0); if (screenId === 'mainMenu') { renderMainMenu(); } if (screenId === 'dutyTasks') { renderChecklist(); } if (screenId === 'eventTypes') { renderEventTypes(); } if (screenId === 'profile') { renderProfile(); } }
+function showScreen(screenId) { var screens = document.querySelectorAll('.screen'); for (var i = 0; i < screens.length; i++) { screens[i].classList.remove('active'); } document.getElementById(screenId).classList.add('active'); window.scrollTo(0, 0); if (screenId === 'mainMenu') { renderMainMenu(); } if (screenId === 'dutyTasks') { renderChecklist(); } if (screenId === 'eventTypes') { renderEventTypes(); } if (screenId === 'profile') { renderProfile(); } if (screenId === 'tavhin') { renderTavhin(); } }
 function goBack(t) { showScreen(t); }
 function selectStation(id) { currentStation = id; saveState(); showScreen('mainMenu'); }
 
