@@ -5,193 +5,199 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#0d0f12">
+<meta name="theme-color" content="#060810">
 <title>תפמ״ק - מערכת ניהול משימות</title>
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-  :root {
-    /* צבעים קרביים */
-    --navy: #0d0f12;          
-    --navy-light: #161a20;    
-    --navy-mid: #1d222b;      
-    --blue: #1e3a8a;          
-    --blue-light: #3b82f6;
-    --blue-glow: rgba(59, 130, 246, 0.2);
-    --gold: #d4af37;          
-    --green: #059669;
-    --green-light: #10b981;
-    --red: #dc2626;
-    --siren-red: #ff002b;
-    --siren-blue: #0044ff;
-    --gray: #94a3b8;
-    --gray-dark: #475569;
-    --text: #f1f5f9;
-    --radius: 6px;            
-    --shadow: 0 4px 15px rgba(0,0,0,0.5);
-    --cyan: #06b6d4;
-  }
+:root{
+  --bg:#060810;--s1:#0d1119;--s2:#141924;--s3:#1c2333;
+  --accent:#3b82f6;--accent2:#60a5fa;--accent-dim:rgba(59,130,246,0.08);
+  --gold:#e5a825;--gold2:#fbbf24;--gold-dim:rgba(229,168,37,0.1);
+  --green:#10b981;--green2:#34d399;--green-dim:rgba(16,185,129,0.08);
+  --red:#ef4444;--red2:#f87171;--red-dim:rgba(239,68,68,0.06);
+  --cyan:#06b6d4;--cyan2:#22d3ee;--cyan-dim:rgba(6,182,212,0.08);
+  --purple:#8b5cf6;
+  --gray:#8494a7;--gray2:#4b5563;--text:#e8ecf4;
+  --glass:rgba(13,17,25,0.7);--glass2:rgba(20,25,36,0.85);
+  --R:12px;--R2:16px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-tap-highlight-color:transparent}
+body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse 80% 60% at 50% -20%,rgba(59,130,246,0.06),transparent 70%),radial-gradient(ellipse 50% 40% at 80% 100%,rgba(139,92,246,0.04),transparent);pointer-events:none;z-index:0}
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  
-  body { 
-    font-family: 'Heebo', sans-serif; 
-    background-color: var(--navy); 
-    background-image: 
-      radial-gradient(circle at 50% 0%, #171d26 0%, transparent 60%),
-      repeating-linear-gradient(45deg, rgba(255,255,255,0.01) 0px, rgba(255,255,255,0.01) 2px, transparent 2px, transparent 6px);
-    color: var(--text); 
-    min-height: 100vh; 
-    overflow-x: hidden; 
-    -webkit-tap-highlight-color: transparent; 
-  }
-  
-  .screen { display: none; min-height: 100vh; padding-bottom: 100px; animation: fadeIn 0.3s ease; }
-  .screen.active { display: block; }
-  
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes shake { 25% { transform: translateX(6px); } 50% { transform: translateX(-6px); } 75% { transform: translateX(4px); } }
+.siren-bar{position:fixed;top:0;left:0;width:100%;height:3px;z-index:9000;background:linear-gradient(90deg,#ff003c 0%,#ff003c 50%,#003cff 50%,#003cff 100%);background-size:200% 100%;animation:sirenSlide .7s linear infinite}
+@keyframes sirenSlide{to{background-position:-200% 0}}
 
-  /* סירנות */
-  .siren-bar { position: fixed; top: 0; left: 0; width: 100%; height: 4px; z-index: 2000; animation: policeSiren 1s infinite alternate; }
-  @keyframes policeSiren { 0% { background: var(--siren-red); box-shadow: 0 0 15px var(--siren-red); } 100% { background: var(--siren-blue); box-shadow: 0 0 15px var(--siren-blue); } }
+.screen{display:none;min-height:100vh;padding-bottom:100px;position:relative;z-index:1}
+.screen.active{display:block;animation:screenIn .3s ease}
+@keyframes screenIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pop{from{opacity:0;transform:scale(.96) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes slideUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes shake{25%{transform:translateX(5px)}50%{transform:translateX(-5px)}75%{transform:translateX(3px)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 
-  .station-select { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 30px; position: relative; overflow: hidden; }
-  .logo-area { text-align: center; margin-bottom: 50px; animation: slideUp 0.6s ease; z-index: 10; }
-  
-  .police-logo { width: 130px; height: 130px; margin: 0 auto 20px; display: block; filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.4)); }
-  .fallback-logo { display: none; width: 100px; height: 100px; background: linear-gradient(135deg, var(--blue), #1d4ed8); border-radius: 24px; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 50px; box-shadow: 0 0 20px rgba(59, 130, 246, 0.4); }
-  
-  .logo-area h1 { font-size: 34px; font-weight: 900; color: #fff; letter-spacing: 1px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
-  .logo-area p { font-size: 15px; color: var(--gray); margin-top: 6px; font-weight: 500; text-transform: uppercase; letter-spacing: 2px; }
-  
-  .station-buttons { width: 100%; max-width: 360px; display: flex; flex-direction: column; gap: 16px; animation: slideUp 0.8s ease; z-index: 10; }
-  .station-btn { background: var(--navy-light); border: 2px solid #2a3441; border-radius: var(--radius); padding: 22px 24px; display: flex; align-items: center; gap: 16px; cursor: pointer; transition: all 0.2s ease; text-align: right; box-shadow: var(--shadow); }
-  .station-btn:active { background: var(--navy-mid); border-color: var(--blue-light); transform: scale(0.98); }
-  .station-btn .icon { width: 48px; height: 48px; border-radius: 4px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
-  .station-btn .info h3 { font-size: 18px; font-weight: 800; color: #fff; }
-  .station-btn .info p { font-size: 13px; color: var(--gold); margin-top: 3px; font-weight: 600; }
-  .station-btn .arrow { margin-right: auto; color: var(--gray-dark); font-size: 18px; }
+/* ===== STATION SELECT ===== */
+.station-select{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:30px}
+.logo-area{text-align:center;margin-bottom:48px;animation:pop .6s ease}
+.logo-ring{width:130px;height:130px;border-radius:32px;background:linear-gradient(145deg,rgba(59,130,246,0.12),rgba(139,92,246,0.08));display:flex;align-items:center;justify-content:center;margin:0 auto 24px;position:relative;border:1px solid rgba(59,130,246,0.15);box-shadow:0 0 60px rgba(59,130,246,0.1),inset 0 1px 0 rgba(255,255,255,0.05)}
+.logo-ring::before{content:'';position:absolute;top:-2px;left:-2px;right:-2px;bottom:-2px;border-radius:34px;background:linear-gradient(135deg,rgba(59,130,246,0.2),transparent,rgba(139,92,246,0.2),transparent);animation:spin 6s linear infinite;z-index:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+.logo-ring img{width:85px;height:85px;position:relative;z-index:2;filter:drop-shadow(0 0 15px rgba(59,130,246,0.3))}
+.logo-ring .fb{display:none;font-size:50px;position:relative;z-index:2}
+.logo-area h1{font-size:38px;font-weight:900;color:#fff;letter-spacing:2px;text-shadow:0 0 40px rgba(59,130,246,0.25)}
+.logo-area>p{font-size:12px;color:var(--gray);margin-top:8px;font-weight:600;letter-spacing:4px;text-transform:uppercase}
 
-  .header { background: rgba(13, 15, 18, 0.95); padding: 20px 20px; display: flex; align-items: center; gap: 14px; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(10px); }
-  .back-btn { background: #1f2532; border: 1px solid rgba(255,255,255,0.1); color: var(--text); width: 38px; height: 38px; border-radius: var(--radius); font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-  .header-title { font-size: 18px; font-weight: 800; color: #fff; flex: 1; letter-spacing: 0.5px; }
-  .header-badge { background: var(--blue-light); color: #fff; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 4px; box-shadow: 0 0 10px rgba(59,130,246,0.5); }
-  .admin-gear { background: none; border: none; color: var(--gray-dark); font-size: 22px; cursor: pointer; padding: 4px; transition: color 0.2s; }
-  .admin-gear:active { color: #fff; }
+.s-btns{width:100%;max-width:380px;display:flex;flex-direction:column;gap:12px;animation:pop .8s ease}
+.s-btn{background:var(--s1);border:1px solid rgba(255,255,255,0.05);border-radius:var(--R2);padding:20px 22px;display:flex;align-items:center;gap:16px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.s-btn::after{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(135deg,rgba(59,130,246,0.04),transparent);opacity:0;transition:.2s}
+.s-btn:active{transform:scale(.97);border-color:var(--accent)}
+.s-btn:active::after{opacity:1}
+.s-btn .ic{width:50px;height:50px;border-radius:var(--R);background:var(--accent-dim);border:1px solid rgba(59,130,246,0.1);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.s-btn h3{font-size:18px;font-weight:800;color:#fff}
+.s-btn .sub{font-size:12px;color:var(--gold);margin-top:2px;font-weight:700}
+.s-btn .arr{margin-right:auto;color:var(--gray2);font-size:18px}
 
-  .menu-content { padding: 24px 20px; }
-  .welcome-card { background: linear-gradient(135deg, #111827, #1e3a8a); border-left: 5px solid var(--blue-light); border-radius: var(--radius); padding: 24px; margin-bottom: 28px; box-shadow: var(--shadow); position: relative; overflow: hidden; }
-  .welcome-card h2 { font-size: 22px; font-weight: 900; color: #fff; margin-bottom: 4px; }
-  .welcome-card p { font-size: 14px; color: var(--gray); font-weight: 500; }
-  
-  .menu-grid { display: flex; flex-direction: column; gap: 12px; }
-  .menu-card { background: var(--navy-light); border: 1px solid rgba(255,255,255,0.05); border-radius: var(--radius); padding: 20px; display: flex; align-items: center; gap: 18px; cursor: pointer; transition: all 0.2s ease; position: relative; overflow: hidden; }
-  .menu-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: transparent; transition: 0.2s; }
-  .menu-card:active { transform: scale(0.98); background: var(--navy-mid); }
-  .menu-card.c-gold::before { background: var(--gold); }
-  .menu-card.c-cyan::before { background: var(--cyan); }
-  .menu-card.c-red::before { background: var(--red); }
-  .menu-card.c-green::before { background: var(--green); }
-  .menu-card.c-blue::before { background: var(--blue-light); }
-  .menu-card .card-icon { width: 50px; height: 50px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.05); }
-  .menu-card .card-info h3 { font-size: 16px; font-weight: 800; color: #fff; margin-bottom: 4px; }
-  .menu-card .card-info p { font-size: 13px; color: var(--gray); line-height: 1.4; }
+/* ===== HEADER ===== */
+.hdr{background:var(--glass);padding:16px 20px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(255,255,255,0.04);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
+.hdr-back{background:var(--s2);border:1px solid rgba(255,255,255,0.06);color:var(--text);width:36px;height:36px;border-radius:10px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s}
+.hdr-back:active{transform:scale(.9);background:var(--s3)}
+.hdr-t{font-size:17px;font-weight:800;color:#fff;flex:1}
+.hdr-badge{background:linear-gradient(135deg,var(--accent),#2563eb);color:#fff;font-size:11px;font-weight:800;padding:5px 12px;border-radius:20px;box-shadow:0 0 16px rgba(59,130,246,0.3);letter-spacing:.3px}
+.hdr-gear{background:none;border:none;color:var(--gray2);font-size:20px;cursor:pointer;padding:6px;transition:.15s}
+.hdr-gear:active{color:var(--gold)}
 
-  .checklist-content { padding: 20px; }
-  .checklist-section { margin-bottom: 28px; }
-  .section-title { font-size: 15px; font-weight: 800; color: var(--gold); letter-spacing: 1px; margin-bottom: 14px; padding-right: 4px; text-transform: uppercase; border-bottom: 1px solid rgba(212,175,55,0.2); padding-bottom: 6px; display: inline-block; }
-  .checklist-item { background: var(--navy-light); border: 1px solid rgba(255,255,255,0.05); border-radius: var(--radius); padding: 16px; margin-bottom: 10px; display: flex; align-items: flex-start; gap: 14px; cursor: pointer; transition: all 0.2s ease; }
-  .checklist-item:active { transform: scale(0.98); }
-  .checklist-item.checked { background: rgba(16,185,129,0.05); border-color: rgba(16,185,129,0.3); opacity: 0.8; }
-  .check-box { width: 24px; height: 24px; border-radius: 4px; border: 2px solid var(--gray-dark); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; transition: all 0.2s ease; font-size: 14px; color: transparent; background: #000; }
-  .checklist-item.checked .check-box { background: var(--green); border-color: var(--green); color: #fff; }
-  .check-text { flex: 1; }
-  .check-text h4 { font-size: 15px; font-weight: 700; color: #fff; line-height: 1.5; }
-  .checklist-item.checked .check-text h4 { color: var(--gray); text-decoration: line-through; }
-  .check-text p { font-size: 13px; color: var(--gray); margin-top: 4px; line-height: 1.4; }
-  .check-time { font-size: 12px; color: var(--green-light); font-weight: 700; white-space: nowrap; font-family: monospace; }
+/* ===== WELCOME CARD ===== */
+.pad{padding:20px}
+.welcome{background:linear-gradient(135deg,#0c1a38 0%,#14306a 50%,#1a3d80 100%);border-radius:var(--R2);padding:26px;margin-bottom:24px;position:relative;overflow:hidden;border:1px solid rgba(59,130,246,0.12);box-shadow:0 8px 40px rgba(0,0,0,0.3)}
+.welcome::before{content:'';position:absolute;top:-60%;right:-40%;width:100%;height:200%;background:radial-gradient(ellipse,rgba(59,130,246,0.1),transparent 70%);pointer-events:none}
+.welcome::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(96,165,250,0.3),transparent)}
+.welcome h2{font-size:24px;font-weight:900;color:#fff;position:relative;z-index:2}
+.welcome p{font-size:13px;color:rgba(255,255,255,0.55);margin-top:5px;font-weight:500;position:relative;z-index:2}
 
-  .progress-bar-container { background: var(--navy-light); border-radius: var(--radius); padding: 18px; margin-bottom: 24px; border: 1px solid rgba(255,255,255,0.05); }
-  .progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-  .progress-header span { font-size: 13px; color: var(--gray); font-weight: 700; text-transform: uppercase; }
-  .progress-header strong { font-size: 16px; color: var(--blue-light); font-weight: 800; }
-  .progress-track { height: 6px; background: rgba(0,0,0,0.5); border-radius: 3px; overflow: hidden; }
-  .progress-fill { height: 100%; background: var(--blue-light); box-shadow: 0 0 10px var(--blue-light); border-radius: 3px; transition: width 0.4s ease; }
+/* ===== MENU GRID ===== */
+.mgrid{display:flex;flex-direction:column;gap:10px}
+.mc{background:var(--s1);border:1px solid rgba(255,255,255,0.04);border-radius:var(--R2);padding:18px 20px;display:flex;align-items:center;gap:16px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.mc::before{content:'';position:absolute;right:0;top:0;bottom:0;width:3px;border-radius:3px 0 0 3px}
+.mc:active{transform:scale(.98);background:var(--s2)}
+.mc.cg::before{background:var(--gold);box-shadow:0 0 8px var(--gold-dim)}
+.mc.cc::before{background:var(--cyan);box-shadow:0 0 8px var(--cyan-dim)}
+.mc.cr::before{background:var(--red);box-shadow:0 0 8px var(--red-dim)}
+.mc.ce::before{background:var(--green);box-shadow:0 0 8px var(--green-dim)}
+.mc.cb::before{background:var(--accent);box-shadow:0 0 8px var(--accent-dim)}
+.mc .mi{width:48px;height:48px;border-radius:var(--R);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04)}
+.mc h3{font-size:15px;font-weight:800;color:#fff;margin-bottom:3px}
+.mc p{font-size:12px;color:var(--gray);line-height:1.4}
 
-  /* טפסים */
-  .form-input, .form-select { width: 100%; background: #080a0c; border: 1px solid #2a3441; color: #fff; padding: 14px; border-radius: 4px; font-family: 'Heebo', sans-serif; font-size: 15px; font-weight: 500; outline: none; margin-bottom: 10px; transition: 0.2s; }
-  .form-input:focus, .form-select:focus { border-color: var(--blue-light); box-shadow: 0 0 8px rgba(59,130,246,0.3); }
-  
-  .btn-confirm { background: var(--blue); color: #fff; padding: 14px; border-radius: 4px; font-family: 'Heebo', sans-serif; font-size: 15px; font-weight: 800; cursor: pointer; border: none; text-transform: uppercase; letter-spacing: 1px; transition: 0.2s; }
-  .btn-confirm:active { transform: scale(0.98); background: var(--blue-light); }
-  .reset-btn { background: rgba(220,38,38,0.1); border: 1px solid rgba(220,38,38,0.3); color: var(--red); padding: 14px; border-radius: 4px; font-family: 'Heebo', sans-serif; font-size: 14px; font-weight: 800; cursor: pointer; width: 100%; margin-top: 10px; text-transform: uppercase; }
+/* ===== CHECKLIST ===== */
+.sec{margin-bottom:26px}
+.sec-t{font-size:12px;font-weight:800;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid rgba(229,168,37,0.12);display:inline-block}
+.ci{background:var(--s1);border:1px solid rgba(255,255,255,0.04);border-radius:var(--R);padding:14px 16px;margin-bottom:8px;display:flex;align-items:flex-start;gap:12px;cursor:pointer;transition:all .15s}
+.ci:active{transform:scale(.98)}
+.ci.checked{background:var(--green-dim);border-color:rgba(16,185,129,0.18)}
+.ck{width:22px;height:22px;border-radius:6px;border:2px solid var(--gray2);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;font-size:12px;color:transparent;transition:.2s;background:rgba(0,0,0,0.3)}
+.ci.checked .ck{background:var(--green);border-color:var(--green);color:#fff;box-shadow:0 0 12px rgba(16,185,129,0.25)}
+.ci .ct{flex:1}
+.ci .ct h4{font-size:14px;font-weight:700;color:#fff;line-height:1.5}
+.ci.checked .ct h4{color:var(--gray);text-decoration:line-through}
+.ci .ct p{font-size:12px;color:var(--gray2);margin-top:3px;line-height:1.5}
+.ci .tm{font-size:11px;color:var(--green2);font-weight:700;font-family:monospace;white-space:nowrap}
 
-  /* כרטיסי עצורים וכוח אדם */
-  .prisoner-card, .manpower-card { background: var(--navy-light); border: 1px solid rgba(255,255,255,0.05); border-radius: var(--radius); padding: 16px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: flex-start; animation: slideUp 0.3s ease; position: relative; overflow: hidden; }
-  .prisoner-card::before, .manpower-card::before { content: ''; position: absolute; right: 0; top: 0; bottom: 0; width: 4px; }
-  .prisoner-card.atzur::before { background: var(--red); box-shadow: 0 0 10px var(--red); }
-  .prisoner-card.meukav::before { background: var(--gold); box-shadow: 0 0 10px var(--gold); }
-  .manpower-card::before { background: var(--cyan); box-shadow: 0 0 10px var(--cyan); }
-  
-  .p-info { width: 100%; }
-  .p-info h4 { font-size: 16px; font-weight: 800; color: #fff; margin-bottom: 4px; }
-  .p-tech { font-size: 13px; color: var(--gray); font-family: monospace; background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 3px; border: 1px solid rgba(255,255,255,0.1); display: inline-block; margin-top: 6px; }
-  .btn-delete { background: none; border: none; color: var(--gray-dark); font-size: 18px; cursor: pointer; padding: 5px; transition: 0.2s; }
-  .btn-delete:active { color: var(--red); transform: scale(1.2); }
+/* ===== PROGRESS ===== */
+.prog{background:var(--s1);border-radius:var(--R2);padding:16px 18px;margin-bottom:20px;border:1px solid rgba(255,255,255,0.04)}
+.prog-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.prog-h span{font-size:11px;color:var(--gray);font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.prog-h strong{font-size:16px;color:var(--accent2);font-weight:900}
+.prog-bar{height:4px;background:rgba(0,0,0,0.4);border-radius:10px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:10px;transition:width .5s ease;box-shadow:0 0 14px rgba(59,130,246,0.4);position:relative}
 
-  /* סד"פ ועיצוב תרשימים (שהוחזרו למלואם!) */
-  .event-card { background: var(--navy-light); border: 1px solid rgba(255,255,255,0.05); border-left: 3px solid var(--green); border-radius: var(--radius); padding: 20px; margin-bottom: 14px; cursor: pointer; transition: all 0.2s ease; }
-  .event-card:active { transform: scale(0.98); }
-  .event-card .event-header { display: flex; align-items: center; gap: 14px; margin-bottom: 8px; }
-  .event-card h3 { font-size: 16px; font-weight: 800; color: #fff; }
-  .event-card > p { font-size: 13px; color: var(--gray); line-height: 1.5; margin-right: 0; }
+/* ===== FORMS ===== */
+.fi,.fs{width:100%;background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.07);color:#fff;padding:13px 16px;border-radius:8px;font-family:'Heebo',sans-serif;font-size:14px;font-weight:500;outline:none;margin-bottom:10px;transition:.2s;-webkit-appearance:none}
+.fi:focus,.fs:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(59,130,246,0.1)}
+.fs{color:#ccc}
+.fs option{background:var(--s2);color:#fff}
 
-  .step-item { display: flex; gap: 16px; margin-bottom: 24px; position: relative; }
-  .step-number { width: 30px; height: 30px; border-radius: 4px; background: #080a0c; border: 1px solid var(--blue-light); color: var(--blue-light); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 900; flex-shrink: 0; z-index: 2; box-shadow: 0 0 10px rgba(59,130,246,0.2); }
-  .step-item:not(:last-child)::after { content: ''; position: absolute; right: 14px; top: 30px; bottom: -24px; width: 2px; background: rgba(59,130,246,0.2); z-index: 1; }
-  .step-content h4 { font-size: 15px; font-weight: 800; color: #fff; margin-bottom: 4px; line-height: 30px; }
-  .step-content p { font-size: 13px; color: var(--gray); line-height: 1.6; }
+.btn-action{background:linear-gradient(135deg,var(--accent),#1d4ed8);color:#fff;padding:14px;border-radius:10px;font-family:'Heebo',sans-serif;font-size:14px;font-weight:800;cursor:pointer;border:none;letter-spacing:.5px;transition:.15s;box-shadow:0 4px 16px rgba(59,130,246,0.2)}
+.btn-action:active{transform:scale(.97);filter:brightness(1.1)}
+.reset-btn{background:var(--red-dim);border:1px solid rgba(239,68,68,0.15);color:var(--red);padding:13px;border-radius:10px;font-family:'Heebo',sans-serif;font-size:13px;font-weight:700;cursor:pointer;width:100%;margin-top:12px}
 
-  .info-container { padding: 20px; }
-  .info-block { background: var(--navy-light); border: 1px solid rgba(255,255,255,0.05); border-radius: var(--radius); padding: 18px; margin-bottom: 14px; }
-  .info-block.add-form { border-top: 3px solid var(--gray-dark); }
-  .info-block h4 { font-size: 15px; font-weight: 800; color: var(--gold); margin-bottom: 10px; line-height: 1.4; }
-  .info-block ul { list-style: none; padding: 0; margin-right: 10px; }
-  .info-block li { font-size: 14px; color: var(--text); line-height: 1.8; padding-right: 14px; position: relative; margin-bottom: 4px; }
-  .info-block li::before { content: '\2022'; position: absolute; right: 0; color: var(--blue-light); font-weight: bold; font-size: 18px; }
+/* ===== FORM BLOCKS ===== */
+.fblock{background:var(--s1);border:1px solid rgba(255,255,255,0.04);border-radius:var(--R2);padding:20px;margin-bottom:16px;position:relative;overflow:hidden}
+.fblock::before{content:'';position:absolute;top:0;right:0;left:0;height:2px}
+.fblock.fc::before{background:linear-gradient(90deg,var(--cyan),transparent)}
+.fblock.fr::before{background:linear-gradient(90deg,var(--red),transparent)}
+.fblock h4{margin-bottom:14px;font-size:14px;font-weight:800}
 
-  .flow-title { font-size: 16px; font-weight: 800; color: var(--gold); text-align: center; margin: 20px 0 16px; }
-  .flow-box { background: var(--navy-light); border: 1.5px solid rgba(59,130,246,0.3); border-radius: var(--radius); padding: 14px 18px; text-align: center; margin: 0 auto 8px; max-width: 310px; font-size: 14px; font-weight: 700; color: #fff; line-height: 1.5; box-shadow: var(--shadow); }
-  .flow-box.blue-bg { background: rgba(30,58,138,0.5); border-color: var(--blue-light); }
-  .flow-box.green-bg { background: rgba(5,150,105,0.2); border-color: var(--green); }
-  .flow-box.red-bg { background: rgba(220,38,38,0.2); border-color: var(--red); }
-  .flow-arrow { text-align: center; color: var(--gray-dark); font-size: 20px; margin: 4px 0; font-weight: bold; }
-  .flow-split { display: flex; justify-content: center; gap: 20px; margin: 8px 0; }
-  .flow-split-col { flex: 1; max-width: 145px; }
-  .flow-label { text-align: center; font-size: 13px; color: var(--gray); margin-bottom: 6px; font-weight: 700; }
-  .flow-list { background: rgba(0,0,0,0.3); border: 1px dashed rgba(255,255,255,0.1); border-radius: var(--radius); padding: 14px 18px; margin: 10px auto 16px; max-width: 330px; }
-  .flow-list li { font-size: 13px; color: var(--text); line-height: 1.8; list-style: none; padding-right: 14px; position: relative; margin-bottom: 4px; }
-  .flow-list li::before { content: '\2022'; position: absolute; right: 0; color: var(--blue-light); font-weight: bold; }
+/* ===== PRISONER / MANPOWER CARDS ===== */
+.pcard{background:var(--s1);border:1px solid rgba(255,255,255,0.04);border-radius:var(--R);padding:16px;margin-bottom:10px;position:relative;overflow:hidden;animation:pop .3s ease}
+.pcard::after{content:'';position:absolute;right:0;top:0;bottom:0;width:3px}
+.pcard.at::after{background:var(--red);box-shadow:0 0 10px var(--red-dim)}
+.pcard.mk::after{background:var(--gold);box-shadow:0 0 10px var(--gold-dim)}
+.pcard.mp::after{background:var(--cyan);box-shadow:0 0 10px var(--cyan-dim)}
+.pcard h4{font-size:15px;font-weight:800;color:#fff}
+.pcard .meta{font-size:11px;color:var(--gray);font-family:monospace;background:rgba(0,0,0,0.3);padding:4px 8px;border-radius:6px;display:inline-block;margin-top:6px;border:1px solid rgba(255,255,255,0.04)}
+.del-btn{background:none;border:none;color:var(--gray2);font-size:16px;cursor:pointer;padding:4px;transition:.15s}
+.del-btn:active{color:var(--red);transform:scale(1.15)}
 
-  /* פרופיל תחנה */
-  .profile-card { background: var(--navy-light); border: 1px solid rgba(255,255,255,0.05); border-radius: var(--radius); padding: 20px; margin-bottom: 16px; }
-  .profile-card h3 { font-size: 14px; font-weight: 800; color: var(--gold); margin-bottom: 14px; text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 8px; }
-  .profile-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px dashed rgba(255,255,255,0.05); }
-  .profile-row:last-child { border: none; }
-  .profile-row .label { font-size: 13px; color: var(--gray); font-weight: 600; }
-  .profile-row .value { font-size: 14px; font-weight: 800; color: #fff; }
-  .profile-row .value.phone { color: var(--blue-light); direction: ltr; font-family: monospace; font-size: 15px; }
+/* ===== WARNING ===== */
+.warn-box{background:var(--red-dim);border:1px solid rgba(239,68,68,0.1);border-right:3px solid var(--red);border-radius:var(--R2);padding:18px;margin-bottom:16px}
+.warn-box h4{color:var(--red2);font-size:14px;margin-bottom:10px;font-weight:800}
+.warn-box p{font-size:15px;line-height:1.7;font-weight:600;color:var(--text)}
 
-  .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); z-index: 1000; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(5px); }
-  .modal-overlay.show { display: flex; }
-  .modal-box { background: var(--navy-light); border: 1px solid var(--blue-light); border-radius: var(--radius); padding: 30px; width: 100%; max-width: 320px; text-align: center; animation: slideUp 0.3s ease; box-shadow: 0 0 30px rgba(59,130,246,0.2); }
-  .pin-input { width: 100%; background: #000; border: 2px solid #333; color: var(--blue-light); font-family: monospace; font-size: 32px; font-weight: 900; text-align: center; letter-spacing: 15px; padding: 14px; border-radius: 4px; outline: none; margin: 20px 0; }
-  .pin-input:focus { border-color: var(--blue-light); box-shadow: 0 0 15px rgba(59,130,246,0.3); }
-  .modal-btns { display: flex; gap: 10px; }
-  
-  .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px); background: rgba(16,185,129,0.9); border: 1px solid #10b981; color: #fff; padding: 12px 24px; border-radius: 4px; font-size: 14px; font-weight: 800; z-index: 2000; transition: transform 0.3s ease; white-space: nowrap; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
-  .toast.show { transform: translateX(-50%) translateY(0); }
+/* ===== EVENTS ===== */
+.ecard{background:var(--s1);border:1px solid rgba(255,255,255,0.04);border-radius:var(--R2);padding:18px 20px;margin-bottom:10px;cursor:pointer;transition:.2s;position:relative;overflow:hidden}
+.ecard::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--green);border-radius:0 2px 2px 0}
+.ecard:active{transform:scale(.98);background:var(--s2)}
+.ecard .eh{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.ecard .eic{width:42px;height:42px;border-radius:var(--R);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.ecard h3{font-size:15px;font-weight:800;color:#fff}
+.ecard>p{font-size:12px;color:var(--gray);line-height:1.4;padding-right:54px}
+
+/* ===== STEPS ===== */
+.steps-wrap{padding:20px}
+.stp{display:flex;gap:14px;margin-bottom:22px;position:relative}
+.stp-n{width:28px;height:28px;border-radius:8px;background:rgba(0,0,0,0.4);border:1px solid rgba(59,130,246,0.4);color:var(--accent2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0;z-index:2;box-shadow:0 0 12px rgba(59,130,246,0.12)}
+.stp:not(:last-child)::after{content:'';position:absolute;right:13px;top:28px;bottom:-22px;width:1px;background:linear-gradient(180deg,rgba(59,130,246,0.25),transparent);z-index:1}
+.stp-c h4{font-size:14px;font-weight:700;color:#fff;line-height:28px;margin-bottom:3px}
+.stp-c p{font-size:13px;color:var(--gray);line-height:1.6}
+
+/* ===== PROFILE ===== */
+.pf-card{background:var(--s1);border:1px solid rgba(255,255,255,0.04);border-radius:var(--R2);padding:20px;margin-bottom:14px}
+.pf-card h3{font-size:11px;font-weight:800;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.04)}
+.pf-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.025)}
+.pf-row:last-child{border:none}
+.pf-row .lb{font-size:12px;color:var(--gray);font-weight:600}
+.pf-row .vl{font-size:13px;font-weight:800;color:#fff}
+.pf-row .vl.ph{color:var(--accent2);direction:ltr;font-family:monospace;font-size:14px}
+.brd{background:rgba(255,255,255,0.025);padding:9px 14px;margin-bottom:6px;border-radius:8px;font-size:12px;border-right:2px solid var(--accent);color:rgba(255,255,255,0.8);line-height:1.5}
+
+/* ===== INFO PANELS ===== */
+.info-sec{padding:20px}
+.info-panel{background:var(--s1);border:1px solid rgba(255,255,255,0.04);border-radius:var(--R2);padding:22px;margin-bottom:14px}
+.info-panel h3{color:var(--gold);font-size:14px;margin-bottom:14px;font-weight:800}
+.info-panel ul{list-style:none;padding:0}
+.info-panel li{font-size:13px;color:var(--gray);line-height:2;padding-right:18px;position:relative}
+.info-panel li::before{content:'';position:absolute;right:0;top:12px;width:5px;height:5px;border-radius:50%;background:var(--accent);opacity:.5}
+.info-panel li b{color:var(--text);font-weight:700}
+
+/* ===== MODAL ===== */
+.modal-bg{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.85);z-index:1000;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.modal-bg.show{display:flex}
+.modal{background:var(--s2);border:1px solid rgba(59,130,246,0.15);border-radius:20px;padding:32px;width:100%;max-width:320px;text-align:center;animation:pop .3s ease;box-shadow:0 0 50px rgba(59,130,246,0.08)}
+.modal h3{color:#fff;font-size:18px;font-weight:800;margin-bottom:6px}
+.modal>p{color:var(--gray);font-size:13px;margin-bottom:18px}
+.pin{width:100%;background:rgba(0,0,0,0.4);border:2px solid rgba(255,255,255,0.08);color:var(--accent2);font-family:monospace;font-size:32px;font-weight:900;text-align:center;letter-spacing:14px;padding:14px;border-radius:var(--R);outline:none;margin-bottom:18px}
+.pin:focus{border-color:var(--accent);box-shadow:0 0 20px rgba(59,130,246,0.15)}
+.pin.error{border-color:var(--red);animation:shake .4s}
+.mbtn{flex:1;padding:13px;border-radius:var(--R);font-family:'Heebo',sans-serif;font-size:14px;font-weight:700;cursor:pointer;border:none;transition:.15s}
+.mbtn:active{transform:scale(.96)}
+.mbtn-c{background:rgba(255,255,255,0.04);color:var(--gray)}
+.mbtn-ok{background:linear-gradient(135deg,var(--accent),#1d4ed8);color:#fff;box-shadow:0 4px 16px rgba(59,130,246,0.2)}
+
+/* ===== TOAST ===== */
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(100px);background:rgba(16,185,129,0.95);color:#fff;padding:12px 28px;border-radius:14px;font-size:13px;font-weight:700;z-index:2000;transition:transform .3s ease;white-space:nowrap;box-shadow:0 8px 30px rgba(0,0,0,0.3);backdrop-filter:blur(10px)}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.empty{text-align:center;color:var(--gray2);padding:30px 0;font-size:13px}
 </style>
 </head>
 <body>
@@ -201,264 +207,204 @@
 <div id="stationSelect" class="screen active">
   <div class="station-select">
     <div class="logo-area">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Israel_police_logo.svg/512px-Israel_police_logo.svg.png" alt="משטרת ישראל" class="police-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-      <div class="fallback-logo">🛡️</div>
+      <div class="logo-ring">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Israel_police_logo.svg/512px-Israel_police_logo.svg.png" alt="משטרת ישראל" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <div class="fb" style="display:none">🛡️</div>
+      </div>
       <h1>תפמ״ק</h1>
       <p>מערכת ניהול משימות אופרטיבית</p>
     </div>
-    <div class="station-buttons">
-      <div class="station-btn" onclick="selectStation('ashkelon')"><div class="icon">🏢</div><div class="info"><h3>תחנת אשקלון</h3><p>מרחב לכיש</p></div><span class="arrow">&larr;</span></div>
-      <div class="station-btn" onclick="selectStation('beersheva')"><div class="icon">🏢</div><div class="info"><h3>תחנת באר שבע</h3><p>מרחב הנגב</p></div><span class="arrow">&larr;</span></div>
+    <div class="s-btns">
+      <div class="s-btn" onclick="selectStation('ashkelon')"><div class="ic">🏢</div><div><h3>תחנת אשקלון</h3><div class="sub">מרחב לכיש</div></div><span class="arr">&larr;</span></div>
+      <div class="s-btn" onclick="selectStation('beersheva')"><div class="ic">🏢</div><div><h3>תחנת באר שבע</h3><div class="sub">מרחב הנגב</div></div><span class="arr">&larr;</span></div>
     </div>
   </div>
 </div>
 
 <div id="mainMenu" class="screen">
-  <div class="header"><button class="back-btn" onclick="goBack('stationSelect')">&rarr;</button><span class="header-title" id="menuStationName"></span><button class="admin-gear" onclick="showAdminModal()">&#9881;</button></div>
-  <div class="menu-content">
-    <div class="welcome-card"><h2>שלום, קצין תורן</h2><p id="currentDate"></p></div>
-    <div class="menu-grid">
-      <div class="menu-card c-gold" onclick="showScreen('dutyTasks')"><div class="card-icon">📋</div><div class="card-info"><h3>משימות קצין תורן</h3><p>צ׳קליסט לפני ותוך כדי משמרת</p></div></div>
-      <div class="menu-card c-cyan" onclick="showScreen('manpower')"><div class="card-icon">👥</div><div class="card-info"><h3>ניהול כוח אדם</h3><p>שיבוץ משימות וקודי קריאה</p></div></div>
-      <div class="menu-card c-red" onclick="showScreen('atzurim')"><div class="card-icon">⛓️</div><div class="card-info"><h3>ניהול עצורים</h3><p>נוסח אזהרה, רישום ומעקב</p></div></div>
-      <div class="menu-card c-green" onclick="showScreen('eventTypes')"><div class="card-icon">🚨</div><div class="card-info"><h3>עיקרון טיפול באירוע</h3><p>סד״פ לפי סוג אירוע ונוהל</p></div></div>
-      <div class="menu-card c-blue" onclick="showScreen('profile')"><div class="card-icon">🏛️</div><div class="card-info"><h3>פרופיל תחנה</h3><p>פרטי קשר, גבולות גזרה ומידע</p></div></div>
+  <div class="hdr"><button class="hdr-back" onclick="goBack('stationSelect')">&rarr;</button><span class="hdr-t" id="menuStationName"></span><button class="hdr-gear" onclick="showAdminModal()">&#9881;</button></div>
+  <div class="pad">
+    <div class="welcome"><h2>שלום, קצין תורן</h2><p id="currentDate"></p></div>
+    <div class="mgrid">
+      <div class="mc cg" onclick="showScreen('dutyTasks')"><div class="mi">📋</div><div><h3>משימות קצין תורן</h3><p>צ׳קליסט + דגשי תבחין</p></div></div>
+      <div class="mc cc" onclick="showScreen('manpower')"><div class="mi">👥</div><div><h3>ניהול כוח אדם</h3><p>שיבוץ משימות וקודי קריאה</p></div></div>
+      <div class="mc cr" onclick="showScreen('atzurim')"><div class="mi">⛓️</div><div><h3>ניהול עצורים</h3><p>נוסח אזהרה, רישום ומעקב</p></div></div>
+      <div class="mc ce" onclick="showScreen('eventTypes')"><div class="mi">🚨</div><div><h3>עיקרון טיפול באירוע</h3><p>סד״פ לפי סוג אירוע</p></div></div>
+      <div class="mc cb" onclick="showScreen('profile')"><div class="mi">🏛️</div><div><h3>פרופיל תחנה</h3><p>פרטי קשר, גבולות גזרה ומידע</p></div></div>
     </div>
   </div>
 </div>
 
 <div id="dutyTasks" class="screen">
-  <div class="header"><button class="back-btn" onclick="goBack('mainMenu')">&rarr;</button><span class="header-title">משימות קצין תורן</span><span class="header-badge" id="taskCount">0/0</span></div>
-  <div class="checklist-content">
-    <div class="progress-bar-container"><div class="progress-header"><span>התקדמות מבצעית</span><strong id="progressPercent">0%</strong></div><div class="progress-track"><div class="progress-fill" id="progressFill" style="width: 0%"></div></div></div>
+  <div class="hdr"><button class="hdr-back" onclick="goBack('mainMenu')">&rarr;</button><span class="hdr-t">משימות קצין תורן</span><span class="hdr-badge" id="taskCount">0/0</span></div>
+  <div class="pad">
+    <div class="prog"><div class="prog-h"><span>התקדמות מבצעית</span><strong id="progressPercent">0%</strong></div><div class="prog-bar"><div class="prog-fill" id="progressFill" style="width:0%"></div></div></div>
     <div id="checklistContainer"></div>
-    <button class="reset-btn" onclick="resetChecklist()">אפס משימות למשמרת חדשה</button>
+    <button class="reset-btn" onclick="resetChecklist()">&#x21bb; אפס משימות למשמרת חדשה</button>
   </div>
 </div>
 
 <div id="manpower" class="screen">
-  <div class="header"><button class="back-btn" onclick="goBack('mainMenu')">&rarr;</button><span class="header-title">ניהול סד"כ ושיבוץ</span></div>
-  <div class="checklist-content">
-    <div class="info-block add-form" style="border-top-color: var(--cyan);">
-       <h4 style="margin-bottom:12px; color: var(--cyan);">שיבוץ משימה / כוח חדש</h4>
-       <input type="text" id="mpMission" class="form-input" placeholder="שם המשימה (לדוג': מחסום צפוני)">
-       <input type="text" id="mpCallSign" class="form-input" placeholder="קוד קריאה בקשר / גל (לדוג': 212)" inputmode="numeric">
-       <textarea id="mpOfficers" class="form-input" placeholder="שמות שוטרים המשובצים לכוח" style="height: 80px; resize: none;"></textarea>
-       <button class="btn-confirm" style="width:100%; background: var(--cyan);" onclick="addManpowerItem()">שגר כוח למשימה</button>
+  <div class="hdr"><button class="hdr-back" onclick="goBack('mainMenu')">&rarr;</button><span class="hdr-t">ניהול סד"כ ושיבוץ</span></div>
+  <div class="pad">
+    <div class="fblock fc">
+      <h4 style="color:var(--cyan)">שיבוץ משימה / כוח חדש</h4>
+      <input type="text" id="mpMission" class="fi" placeholder="שם המשימה (לדוג': מחסום צפוני)">
+      <input type="text" id="mpCallSign" class="fi" placeholder="קוד קריאה בקשר / גל" inputmode="numeric">
+      <textarea id="mpOfficers" class="fi" placeholder="שמות שוטרים המשובצים" style="height:80px;resize:none"></textarea>
+      <button class="btn-action" style="width:100%;background:linear-gradient(135deg,var(--cyan),#0891b2)" onclick="addManpowerItem()">שגר כוח למשימה</button>
     </div>
-    <div class="checklist-section">
-      <div class="section-title" style="color: var(--cyan); border-bottom-color: rgba(6,182,212,0.3);">פריסת כוחות פעילה</div>
-      <div id="manpowerListContainer"><p style="text-align:center; color:var(--gray); margin-top:20px;">אין כוחות משובצים</p></div>
-    </div>
+    <div class="sec"><div class="sec-t" style="color:var(--cyan);border-bottom-color:rgba(6,182,212,0.12)">פריסת כוחות פעילה</div><div id="manpowerListContainer"><p class="empty">אין כוחות משובצים</p></div></div>
   </div>
 </div>
 
 <div id="atzurim" class="screen">
-  <div class="header"><button class="back-btn" onclick="goBack('mainMenu')">&rarr;</button><span class="header-title">יומן עצורים ומעוכבים</span></div>
-  <div class="checklist-content">
-    <div class="info-block" style="border-right: 4px solid var(--red); background: rgba(220,38,38,0.05);">
-      <h4 style="color:var(--red);">📢 נוסח אזהרה לעצור (חובה)</h4>
-      <p style="font-size:16px; line-height:1.6; font-weight:700;">"הנך חשוד ב[סוג העבירה]. אין חובתך לומר דבר, אך כל מה שתאמר עשוי לשמש ראיה נגדך. הימנעות מלהשיב לשאלות עשויה לחזק את הראיות נגדך. זכותך להיוועץ בעורך דין."</p>
+  <div class="hdr"><button class="hdr-back" onclick="goBack('mainMenu')">&rarr;</button><span class="hdr-t">יומן עצורים ומעוכבים</span></div>
+  <div class="pad">
+    <div class="warn-box">
+      <h4>📢 נוסח אזהרה לעצור (חובה)</h4>
+      <p>"הנך חשוד ב[סוג העבירה]. אין חובתך לומר דבר, אך כל מה שתאמר עשוי לשמש ראיה נגדך. הימנעות מלהשיב לשאלות עשויה לחזק את הראיות נגדך. זכותך להיוועץ בעורך דין."</p>
     </div>
-    <div class="info-block add-form" style="border-top-color: var(--red);">
-       <h4 style="margin-bottom:12px; color: #fff;">רישום קליטה חדש</h4>
-       <input type="text" id="pName" class="form-input" placeholder="שם החשוד המלא">
-       <div style="display:flex; gap:10px; margin-bottom:10px;">
-         <select id="pGender" class="form-select" style="width: 100px;"><option value="זכר">זכר</option><option value="נקבה">נקבה</option></select>
-         <input type="number" id="pAge" class="form-input" placeholder="גיל" style="width: 80px;">
-       </div>
-       <input type="text" id="pOffense" class="form-input" placeholder="סעיף עבירה (לדוגמה: תקיפה)">
-       <div style="display:flex; gap:10px;">
-         <select id="pType" class="form-select"><option value="atzur">עצור 🛑</option><option value="meukav">מעוכב ✋</option></select>
-         <input type="time" id="pTime" class="form-input" style="width: 120px; font-family:monospace; font-size:16px;">
-       </div>
-       <button class="btn-confirm" style="width:100%; background: var(--red);" onclick="addPrisoner()">הכנס ליומן המשמרת</button>
+    <div class="fblock fr">
+      <h4 style="color:#fff">רישום קליטה חדש</h4>
+      <input type="text" id="pName" class="fi" placeholder="שם החשוד המלא">
+      <div style="display:flex;gap:10px;margin-bottom:0">
+        <select id="pGender" class="fs" style="width:100px"><option value="זכר">זכר</option><option value="נקבה">נקבה</option></select>
+        <input type="number" id="pAge" class="fi" placeholder="גיל" style="width:80px">
+      </div>
+      <input type="text" id="pOffense" class="fi" placeholder="סעיף עבירה (לדוגמה: תקיפה)">
+      <div style="display:flex;gap:10px">
+        <select id="pType" class="fs"><option value="atzur">עצור 🛑</option><option value="meukav">מעוכב ✋</option></select>
+        <input type="time" id="pTime" class="fi" style="width:120px;font-family:monospace;font-size:16px">
+      </div>
+      <button class="btn-action" style="width:100%;background:linear-gradient(135deg,var(--red),#b91c1c)" onclick="addPrisoner()">הכנס ליומן המשמרת</button>
     </div>
-    <div class="checklist-section">
-      <div class="section-title" style="color: var(--red); border-bottom-color: rgba(220,38,38,0.3);">רשימת סטטוס פעילה</div>
-      <div id="prisonersListContainer"><p style="text-align:center; color:var(--gray); margin-top:20px;">אין רשומות ביומן</p></div>
-    </div>
+    <div class="sec"><div class="sec-t" style="color:var(--red);border-bottom-color:rgba(239,68,68,0.12)">רשימת סטטוס פעילה</div><div id="prisonersListContainer"><p class="empty">אין רשומות ביומן</p></div></div>
   </div>
 </div>
 
 <div id="eventTypes" class="screen">
-  <div class="header"><button class="back-btn" onclick="goBack('mainMenu')">&rarr;</button><span class="header-title">עיקרון טיפול באירוע</span></div>
-  <div class="checklist-content" id="eventTypesContainer"></div>
+  <div class="hdr"><button class="hdr-back" onclick="goBack('mainMenu')">&rarr;</button><span class="hdr-t">עיקרון טיפול באירוע</span></div>
+  <div class="pad" id="eventTypesContainer"></div>
 </div>
 
 <div id="eventDetail" class="screen">
-  <div class="header"><button class="back-btn" onclick="goBack('eventTypes')">&rarr;</button><span class="header-title" id="eventDetailTitle"></span></div>
+  <div class="hdr"><button class="hdr-back" onclick="goBack('eventTypes')">&rarr;</button><span class="hdr-t" id="eventDetailTitle"></span></div>
   <div id="eventDetailContent"></div>
 </div>
 
 <div id="profile" class="screen">
-  <div class="header"><button class="back-btn" onclick="goBack('mainMenu')">&rarr;</button><span class="header-title">פרופיל תחנה</span></div>
-  <div class="profile-content" id="profileContainer"></div>
+  <div class="hdr"><button class="hdr-back" onclick="goBack('mainMenu')">&rarr;</button><span class="hdr-t">פרופיל תחנה</span></div>
+  <div class="pad" id="profileContainer"></div>
 </div>
 
-<div id="adminModal" class="modal-overlay" onclick="if(event.target===this)closeAdminModal()">
-  <div class="modal-box"><h3 style="color:#fff;">הזדהות מערכת</h3><p style="color:var(--gray); margin-bottom:10px;">הזן קוד אבטחה</p><input type="password" class="pin-input" id="pinInput" maxlength="4" inputmode="numeric" placeholder="----"><div class="modal-btns"><button class="btn-confirm" style="background:#333; color:var(--gray);" onclick="closeAdminModal()">ביטול</button><button class="btn-confirm" onclick="verifyPin()">אישור</button></div></div>
+<div id="adminModal" class="modal-bg" onclick="if(event.target===this)closeAdminModal()">
+  <div class="modal"><h3>הזדהות מערכת</h3><p>הזן קוד אבטחה</p><input type="password" class="pin" id="pinInput" maxlength="4" inputmode="numeric" placeholder="----"><div style="display:flex;gap:10px"><button class="mbtn mbtn-c" onclick="closeAdminModal()">ביטול</button><button class="mbtn mbtn-ok" onclick="verifyPin()">אישור</button></div></div>
 </div>
 <div class="toast" id="toast"></div>
 
 <script>
-var ADMIN_PIN = '1234';
-var stationsData = {ashkelon:{name:'תחנת אשקלון',area:'מרחב לכיש',profile:{address:'רח׳ הנשיא 1, אשקלון',phone:'08-6612222',fax:'08-6612233',commander:'סנ״צ ישראל כהן',dutyOfficer:'08-6612200',moked:'100',borders:['צפון: נחל לכיש עד צומת אשדוד','דרום: נחל שקמה עד גבול עזה','מזרח: כביש 4 - צומת אשקלון','מערב: קו חוף הים התיכון']}},beersheva:{name:'תחנת באר שבע',area:'מרחב הנגב',profile:{address:'שד׳ טוביהו 1, באר שבע',phone:'08-6468222',fax:'08-6468233',commander:'סנ״צ דוד לוי',dutyOfficer:'08-6468200',moked:'100',borders:['צפון: צומת שוקת עד צומת להבים','דרום: צומת ערד עד תל ערד','מזרח: כביש 40 - צומת כסיפה','מערב: כביש 25 - צומת בית קמה']}}};
+var ADMIN_PIN='1234';
+var stationsData={ashkelon:{name:'תחנת אשקלון',area:'מרחב לכיש',profile:{address:'רח׳ הנשיא 1, אשקלון',phone:'08-6612222',fax:'08-6612233',commander:'סנ״צ ישראל כהן',dutyOfficer:'08-6612200',moked:'100',borders:['צפון: נחל לכיש עד צומת אשדוד','דרום: נחל שקמה עד גבול עזה','מזרח: כביש 4 - צומת אשקלון','מערב: קו חוף הים התיכון']}},beersheva:{name:'תחנת באר שבע',area:'מרחב הנגב',profile:{address:'שד׳ טוביהו 1, באר שבע',phone:'08-6468222',fax:'08-6468233',commander:'סנ״צ דוד לוי',dutyOfficer:'08-6468200',moked:'100',borders:['צפון: צומת שוקת עד צומת להבים','דרום: צומת ערד עד תל ערד','מזרח: כביש 40 - צומת כסיפה','מערב: כביש 25 - צומת בית קמה']}}};
 
-var dutyTasks = {
-  '❗ דגשים קריטיים למבחן (תבחין)': [
-    {id:'crit1', text:'* הופעה וייצוגיות מלאה', desc:'מדים מגוהצים, גילוח/שיער, צחצוח, דרגות, תגי שם ותעודת מינוי'},
-    {id:'crit2', text:'* בדיקת ציוד אישי וניידת', desc:'תקינות קשר, טאבלט, פנס, אפוד זוהר וציוד אישי'},
-    {id:'crit3', text:'* בקיאות בגזרה ובתדריך', desc:'הפגנת שליטה באירועים גזרתיים וקבלת דגשים בתדריך'},
-    {id:'crit4', text:'* הגעה לזירה: דיווח + תמונת מצב', desc:'דיווח ראשוני מהיר למשל"ט על הגעה ותמונת מצב ראשונית'},
-    {id:'crit5', text:'* סגירת זירה הרמטית', desc:'שימוש בסרטי סימון, הרחקת סקרנים ומניעת זיהום הזירה'},
-    {id:'crit6', text:'* הפעלת כוח ושליטה', desc:'חלוקת גזרות ומשימות ברורות לשוטרים/מתנדבים'},
-    {id:'crit7', text:'* הפגנת מנהיגות וקור רוח', desc:'תפקוד רגוע תחת לחץ, קבלת החלטות עניינית ואסרטיביות'},
-    {id:'crit8', text:'* אמינות ודיווח', desc:'דיווח אמת, אמינות מלאה ורישום דוחות מפורט'}
-  ],
-  'לפני המשמרת': [
-    {id:'t1',text:'התייצבות מול מת"ח / ק.אג"מ',desc:'קבלת תדרוך ותיק ק.תורן (מעודכן)'},
-    {id:'t2',text:'נהלי תחנה, מדיניות מפקד, נהלי דיווח',desc:'לימוד והכרת נהלים עדכניים'},
-    {id:'t3',text:'בדיקה לגבי מצב שוטף',desc:'ד.ח, מעצרים, זימון חשודים, ידיעות, מאוימים, סד"כ, יס"מ, תגבור, ניידות, מתקנים, גבולות גזרה, כוחות ואירועים נוספים'},
-    {id:'t4',text:'חבירה ליומנאי ובדיקת אמצעים',desc:'יומנים, נשקים, קשרים, רכבים, ציוד, ארון מוצגים, סד"כ כוחות (ומספרי פלאפון)'},
-    {id:'t5',text:'דרכי תקשורת וחבירה לבעלי תפקידים',desc:'קצין חקירות, קצין בילוש, קצין סיור'},
-    {id:'t6',text:'חפיפה',desc:'אירועים מתמשכים / חריגים, עצורים, סטטוס מאוימים'},
-    {id:'t7',text:'חבירה לראש משמרת',desc:'וידוא סד"כים, פערים ומשימות מתוכננות'},
-    {id:'t8',text:'התייצבות מול משל"ט',desc:'דיווח מוכנות'}
-  ],
-  'תוך כדי משמרת': [
-    {id:'t9',text:'עצורים',desc:'מחיצת מגן, מסמכי עצורים, קיום תנאים הולמים, תיאום מעצר / נחשון'},
-    {id:'t10',text:'נוכחות ודגשים בתדריך למשמרת',desc:'תדרוך כוחות נוספים (מתנדבים / רגלי / תגבור)'},
-    {id:'t11',text:'קשר עם כלל גורמי התחנה',desc:'ניידות, בילוש, מש"קים, מתנדבים, חוקר, תגבור, כוחות נוספים'},
-    {id:'t12',text:'וידוא ציוותים מול משל"ט',desc:'בדיקת שיבוצים ותקינות'},
-    {id:'t13',text:'בקרה על מערך אבטחה וזקיפות',desc:'ביקורת פיזית בנקודות'},
-    {id:'t14',text:'בקרה על ביצוע מטלות מבצעיות',desc:'מעקב אחר ביצוע משימות'},
-    {id:'t15',text:'טיפול באזרחים',desc:'וידוא מענה של היומן / מש"ל / חוקר תורן'},
-    {id:'t16',text:'קיום תרגיל',desc:'לניידות / יומן / מש"ל / חוקר תורן'}
-  ]
-};
+var dutyTasks={
+'❗ דגשים קריטיים למבחן (תבחין)':[
+{id:'crit1',text:'* הופעה וייצוגיות מלאה',desc:'מדים מגוהצים, גילוח/שיער, צחצוח, דרגות, תגי שם ותעודת מינוי'},
+{id:'crit2',text:'* בדיקת ציוד אישי וניידת',desc:'תקינות קשר, טאבלט, פנס, אפוד זוהר וציוד אישי'},
+{id:'crit3',text:'* בקיאות בגזרה ובתדריך',desc:'הפגנת שליטה באירועים גזרתיים וקבלת דגשים בתדריך'},
+{id:'crit4',text:'* הגעה לזירה: דיווח + תמונת מצב',desc:'דיווח ראשוני מהיר למשל"ט על הגעה ותמונת מצב ראשונית'},
+{id:'crit5',text:'* סגירת זירה הרמטית',desc:'שימוש בסרטי סימון, הרחקת סקרנים ומניעת זיהום הזירה'},
+{id:'crit6',text:'* הפעלת כוח ושליטה',desc:'חלוקת גזרות ומשימות ברורות לשוטרים/מתנדבים'},
+{id:'crit7',text:'* הפגנת מנהיגות וקור רוח',desc:'תפקוד רגוע תחת לחץ, קבלת החלטות עניינית ואסרטיביות'},
+{id:'crit8',text:'* אמינות ודיווח',desc:'דיווח אמת, אמינות מלאה ורישום דוחות מפורט'}
+],
+'לפני המשמרת':[
+{id:'t1',text:'התייצבות מול מת"ח / ק.אג"מ',desc:'קבלת תדרוך ותיק ק.תורן (מעודכן)'},
+{id:'t2',text:'נהלי תחנה, מדיניות מפקד, נהלי דיווח',desc:'לימוד והכרת נהלים עדכניים'},
+{id:'t3',text:'בדיקה לגבי מצב שוטף',desc:'ד.ח, מעצרים, זימון חשודים, ידיעות, מאוימים, סד"כ, יס"מ, תגבור, ניידות, מתקנים, גבולות גזרה, כוחות ואירועים נוספים'},
+{id:'t4',text:'חבירה ליומנאי ובדיקת אמצעים',desc:'יומנים, נשקים, קשרים, רכבים, ציוד, ארון מוצגים, סד"כ כוחות (ומספרי פלאפון)'},
+{id:'t5',text:'דרכי תקשורת וחבירה לבעלי תפקידים',desc:'קצין חקירות, קצין בילוש, קצין סיור'},
+{id:'t6',text:'חפיפה',desc:'אירועים מתמשכים / חריגים, עצורים, סטטוס מאוימים'},
+{id:'t7',text:'חבירה לראש משמרת',desc:'וידוא סד"כים, פערים ומשימות מתוכננות'},
+{id:'t8',text:'התייצבות מול משל"ט',desc:'דיווח מוכנות'}
+],
+'תוך כדי משמרת':[
+{id:'t9',text:'עצורים',desc:'מחיצת מגן, מסמכי עצורים, קיום תנאים הולמים, תיאום מעצר / נחשון'},
+{id:'t10',text:'נוכחות ודגשים בתדריך למשמרת',desc:'תדרוך כוחות נוספים (מתנדבים / רגלי / תגבור)'},
+{id:'t11',text:'קשר עם כלל גורמי התחנה',desc:'ניידות, בילוש, מש"קים, מתנדבים, חוקר, תגבור, כוחות נוספים'},
+{id:'t12',text:'וידוא ציוותים מול משל"ט',desc:'בדיקת שיבוצים ותקינות'},
+{id:'t13',text:'בקרה על מערך אבטחה וזקיפות',desc:'ביקורת פיזית בנקודות'},
+{id:'t14',text:'בקרה על ביצוע מטלות מבצעיות',desc:'מעקב אחר ביצוע משימות'},
+{id:'t15',text:'טיפול באזרחים',desc:'וידוא מענה של היומן / מש"ל / חוקר תורן'},
+{id:'t16',text:'קיום תרגיל',desc:'לניידות / יומן / מש"ל / חוקר תורן'}
+]};
 
-var eventTypes = [
-{id:'murder',icon:'🔪',color:'rgba(220,38,38,0.15)',title:'סד"פ זירת פשע חמור / רצח',desc:'טיפול ראשוני בזירה מורכבת',type:'steps',steps:[{title:'הגעה בטוחה ודיווח',desc:'הגעה תוך סריקת נתיב מילוט של חשודים. דיווח מיידי למשל"ט ולפיקוד.'},{title:'הקפאת מצב וסגירת זירה',desc:'סגירת זירה רחבה ככל הניתן בסרט סימון. הרחקת סקרנים והצבת שוטרים בשערים.'},{title:'הצלת חיים',desc:'סיוע לכוחות הרפואה תוך פגיעה מינימלית בזירה ובראיות.'},{title:'איתור ובידוד עדים',desc:'איתור עדי ראייה, לקיחת פרטיהם ובידודם זה מזה למניעת תיאום גרסאות.'},{title:'מעורבים וחשודים',desc:'מעצר חשודים במידה וישנם, חיפוש נשק, כבילה והפרדה.'},{title:'הזעקת כוחות מקצועיים',desc:'זימון חוקר תורן, קצין חקירות, מעבדת זיהוי פלילי (מז"פ) ופיקוד.'}]},
-{id:'sexcrime',icon:'⚠️',color:'rgba(234,179,8,0.15)',title:'סד"פ עבירות מין',desc:'דגשים לטיפול בעבירות מין',type:'steps',steps:[{title:'רגישות ופרטיות',desc:'הרחקת סקרנים, מתן פרטיות מלאה לנפגע/ת, יחס מכיל ורגיש.'},{title:'גביית עדות ראשונית',desc:'תחקור ראשוני קצר בלבד להבנת האירוע ואיתור החשוד. לא לחקור לעומק!'},{title:'חוקר/ת עבירות מין',desc:'הזעקת חוקר/ת עבירות מין במיידי. עדיפות לחוקרת אישה עבור נפגעת אישה.'},{title:'שמירת ראיות פתולוגיות',desc:'הדרכת הנפגע/ת לא להתקלח, לא לצחצח שיניים ולא להחליף בגדים.'},{title:'איסוף פריטים',desc:'במידה והבגדים הוחלפו, יש לאסוף אותם אך ורק בשקית נייר (לא פלסטיק!).'},{title:'חדר אקוטי',desc:'תיאום הפניה וליווי של הנפגע/ת לחדר אקוטי (מרכז סיוע בבית חולים).'}]},
-{id:'accident',icon:'💥',color:'rgba(249,115,22,0.15)',title:'סד"פ ת.ד קשה / קטלנית',desc:'טיפול בתאונת דרכים עם נפגעים',type:'steps',steps:[{title:'חסימת ציר',desc:'חסימת התנועה למניעת תאונת שרשרת והגנה על הכוחות המטפלים.'},{title:'הזעקת כוחות',desc:'מד"א, כיבוי והצלה (ללכודים), בוחן תנועה וקצין תנועה.'},{title:'שמירת הזירה',desc:'סימון מיקומי כלי הרכב, שברים על הכביש וסימני בלימה.'},{title:'זיהוי מעורבים',desc:'לקיחת פרטי הנהגים המעורבים, רישיונות ופרטי עדים.'},{title:'נהג פוגע',desc:'עיכוב נהג פוגע / חשוד, שלילת שימוש בסמים/אלכוהול (בדיקת נשיפון).'}]},
-{id:'almab',icon:'🏠',color:'rgba(168,85,247,0.12)',title:'סד"פ קצין בטיפול באלמ"ב',desc:'אלימות במשפחה - סדר פעולות',type:'steps',steps:[{title:'הפרדות',desc:'יש לוודא הפרדה בין בני הזוג ולשמוע את גרסתם לאירוע.'},{title:'נשק',desc:'לבדוק אם לחשוד נשק ואם כן לדרוש תפיסתו והעברתו לחוקר תורן.'},{title:'בחינת הזירה',desc:'במידה ויש הרס / סימני אלימות / ראיות - יש לצלם ולתפוס את הראיות.'},{title:'אירועים קודמים',desc:'לבדוק עבר פלילי של המעורבים בדגש על רצידיביזם באירועים קודמים.'},{title:'קבלת החלטה',desc:'האם לעכב / לעצור את מי מהמעורבים. במידה ואין עיכוב - גביית עדות במידת הצורך.'},{title:'רווחה',desc:'לערב גורמי רווחה במידת הצורך.'},{title:'הפניה למקלט נשים מוכות',desc:'במידה והיא מעוניינת.'},{title:'בדיקה עם החוקר המטפל',desc:'התרשמות החוקר המטפל.'},{title:'מילוי דוח הערכת מסוכנות',desc:'וידוא ביצוע של החוקר.'},{title:'בדוק האם החשוד מחזיק בנשק',desc:'תפוס במידת הצורך.'},{title:'בדוק דו"ח מסוכנות',desc:'סקירת דוחות קודמים.'},{title:'ערב גורמי רווחה',desc:'שירותי רווחה, קב"ס.'},{title:'בדוק התרשמות החוקר',desc:'מבני הזוג והאירוע.'},{title:'בדוק אירועים קודמים ועבר פלילי',desc:'של המעורבים.'},{title:'במידה והוחלט לשחרר',desc:'בחר חלופת מעצר מתאימה.'}]},
-{id:'missing',icon:'🔍',color:'rgba(59,130,246,0.12)',title:'סד"פ קצין בטיפול בנעדרים',desc:'טיפול באירוע נעדרים',type:'steps',steps:[{title:'מידע',desc:'קבלת מירב הפרטים אודות הנעדר מהחוקר. באירוע תגובה הסייר יאסוף מידע ראשוני מהמשל"ט ומהמודיע.'},{title:'מודיע',desc:'חבירה למודיע, תחקור וביצוע הערכת מצב ראשונית.'},{title:'עדויות',desc:'גביית עדות מפורטת מהמודיע.'},{title:'נעדר בסיכון',desc:'בדיקה עם המודיע האם הנעדר סובל ממחלות, מסוכן לעצמו או לסביבה.'},{title:'תמונה',desc:'לקיחת תמונות עדכניות של הנעדר והפצתם ביחד עם תיאור הנעדר לכוחות הרלוונטיים.'},{title:'עדכון מצודה באירוע',desc:'לעלות מול מצודה ולעדכן באירוע וכן לבדוק אירועים קודמים ומודיעינית על הנעדר.'},{title:'סריקות',desc:'ביצוע סריקות עפ"י מודל המעגלים.'},{title:'בתי חולים',desc:'בדיקת בתי חולים בגזרה האם הגיע מטופל אנונימי.'},{title:'איכון',desc:'איכון טלפוני במידה ויש חשש לחיי הנעדר. איתור, פלט שיחות, מעקב אשראי, עין הנץ, רב קו.'},{title:'חבירה וזיהוי',desc:'ברגע שהנעדר אותר - חבירה פיזית, הבנת סיפור המקרה, זיהוי על ידי תעודה מזהה.'},{title:'פתיחת יומן מבצר',desc:'במידה והנעדר לא אותר בזמן סביר.'},{title:'גביית עדויות מהמעגל הקרוב',desc:'חקירת קרובים ומכרים.'},{title:'קטין - עדכון מחלק נוער',desc:'חובה לעדכן.'},{title:'העברת דיווח לסיור',desc:'בצירוף תמונה ותיאור חיצוני ומקומות אפשריים לאיתור.'},{title:'דיווח לחוליית נעדרים ולמשל"ט',desc:'מרחבי / מחוזי.'},{title:'חיפוש במאגרי מידע',desc:'איכונים, אשראי, חשבונות בנק, מצלמות אבטחה, איתוראן.'},{title:'בדיקה במוסדות רפואיים',desc:'בתי חולים, מרפאות באזור.'},{title:'הזעקת כוחות סיוע',desc:'מסוקים, פרשים.'},{title:'העברת דיווח ליחידות נוספות',desc:'בהתאם לנסיבות.'},{title:'פרסומים',desc:'באמצעות חוליית נעדרים.'}]},
-{id:'death',icon:'⚰️',color:'rgba(107,114,128,0.15)',title:'סד"פ קצין בעבירת מ"מ',desc:'מקרה מוות - סדר פעולות',type:'steps',steps:[{title:'מסמכי שחרור גופה',desc:'הבאת 2 מסמכי שחרור גופה ומזכרים לאירוע.'},{title:'תעודת פטירה',desc:'קבלת תעודת פטירה ממד"א.'},{title:'זיהוי הנפטר',desc:'זיהוי על ידי ת.ז, דרכון, תעודה מזהה אחרת עם תמונה.'},{title:'עדויות',desc:'גביית עדויות מאנשים (בד"כ קרובי משפחה מדרגה ראשונה) שיכולים לשפוך אור על סיבות המוות.'},{title:'בדיקה חיצונית של הגופה',desc:'בחינה חיצונית לשלילת פלילי.'},{title:'סריקת זירה',desc:'איתור חפצים שיכולים לשפוך אור על נסיבות המוות.'},{title:'דיווח',desc:'דיווח וקבלת אישורים מהרל"ח המרחבי.'},{title:'נתיחה',desc:'שאילת המשפחה בנוגע לנתיחה.'},{title:'דוחות',desc:'רישום דוחות ומילוי טפסים.'},{title:'שירות',desc:'גישת שירותית - המשפחה באבל, יש להבין ולהכיל.'},{title:'בדיקת סימני פריצה לדירה',desc:'בדיקת סימנים בזירה.'},{title:'סימני פציעה על הגופה',desc:'תיעוד כל סימן חשוד.'},{title:'סימני שקיעת דם בגופה',desc:'בדיקה והתאמה למיקום.'},{title:'סימני מאבק בזירה / גופה',desc:'בחינת סימנים פיזיים.'},{title:'מצב רפואי של הנפטר טרם מותו',desc:'בירור מצב בריאותי קודם.'},{title:'עדויות סותרות',desc:'השוואת גרסאות בין עדים.'},{title:'מאבקי ירושה',desc:'בדיקת מניעים כלכליים.'},{title:'אמירות מעורבים שמעלות חשד',desc:'תיעוד ודיווח.'}]},
-{id:'arrest',icon:'⚖️',color:'rgba(245,158,11,0.12)',title:'חובות הקצין / עצור ללא צו',desc:'הליך מעצר וזכויות עצור (סעיף 23)',type:'arrest'},
-{id:'bail',icon:'📄',color:'rgba(16,185,129,0.12)',title:'שחרור בערובה',desc:'תנאים לשחרור חשוד',type:'bail'},
-{id:'court',icon:'🚔',color:'rgba(239,68,68,0.12)',title:'הבאת העצור בפני שופט',desc:'מועדים וחוקים',type:'court'}
+var eventTypes=[
+{id:'murder',icon:'🔪',color:'rgba(220,38,38,0.1)',title:'סד"פ זירת פשע חמור / רצח',desc:'טיפול ראשוני בזירה מורכבת',type:'steps',steps:[{title:'הגעה בטוחה ודיווח',desc:'הגעה תוך סריקת נתיב מילוט של חשודים. דיווח מיידי למשל"ט ולפיקוד.'},{title:'הקפאת מצב וסגירת זירה',desc:'סגירת זירה רחבה ככל הניתן בסרט סימון. הרחקת סקרנים והצבת שוטרים בשערים.'},{title:'הצלת חיים',desc:'סיוע לכוחות הרפואה תוך פגיעה מינימלית בזירה ובראיות.'},{title:'איתור ובידוד עדים',desc:'איתור עדי ראייה, לקיחת פרטיהם ובידודם זה מזה למניעת תיאום גרסאות.'},{title:'מעורבים וחשודים',desc:'מעצר חשודים במידה וישנם, חיפוש נשק, כבילה והפרדה.'},{title:'הזעקת כוחות מקצועיים',desc:'זימון חוקר תורן, קצין חקירות, מעבדת זיהוי פלילי (מז"פ) ופיקוד.'}]},
+{id:'sexcrime',icon:'⚠️',color:'rgba(234,179,8,0.1)',title:'סד"פ עבירות מין',desc:'דגשים לטיפול בעבירות מין',type:'steps',steps:[{title:'רגישות ופרטיות',desc:'הרחקת סקרנים, מתן פרטיות מלאה לנפגע/ת, יחס מכיל ורגיש.'},{title:'גביית עדות ראשונית',desc:'תחקור ראשוני קצר בלבד להבנת האירוע ואיתור החשוד. לא לחקור לעומק!'},{title:'חוקר/ת עבירות מין',desc:'הזעקת חוקר/ת עבירות מין במיידי. עדיפות לחוקרת אישה עבור נפגעת אישה.'},{title:'שמירת ראיות פתולוגיות',desc:'הדרכת הנפגע/ת לא להתקלח, לא לצחצח שיניים ולא להחליף בגדים.'},{title:'איסוף פריטים',desc:'במידה והבגדים הוחלפו, יש לאסוף אותם אך ורק בשקית נייר (לא פלסטיק!).'},{title:'חדר אקוטי',desc:'תיאום הפניה וליווי של הנפגע/ת לחדר אקוטי (מרכז סיוע בבית חולים).'}]},
+{id:'accident',icon:'💥',color:'rgba(249,115,22,0.1)',title:'סד"פ ת.ד קשה / קטלנית',desc:'טיפול בתאונת דרכים עם נפגעים',type:'steps',steps:[{title:'חסימת ציר',desc:'חסימת התנועה למניעת תאונת שרשרת והגנה על הכוחות המטפלים.'},{title:'הזעקת כוחות',desc:'מד"א, כיבוי והצלה (ללכודים), בוחן תנועה וקצין תנועה.'},{title:'שמירת הזירה',desc:'סימון מיקומי כלי הרכב, שברים על הכביש וסימני בלימה.'},{title:'זיהוי מעורבים',desc:'לקיחת פרטי הנהגים המעורבים, רישיונות ופרטי עדים.'},{title:'נהג פוגע',desc:'עיכוב נהג פוגע / חשוד, שלילת שימוש בסמים/אלכוהול (בדיקת נשיפון).'}]},
+{id:'almab',icon:'🏠',color:'rgba(168,85,247,0.1)',title:'סד"פ קצין בטיפול באלמ"ב',desc:'אלימות במשפחה - סדר פעולות',type:'steps',steps:[{title:'הפרדות',desc:'יש לוודא הפרדה בין בני הזוג ולשמוע את גרסתם לאירוע.'},{title:'נשק',desc:'לבדוק אם לחשוד נשק ואם כן לדרוש תפיסתו והעברתו לחוקר תורן.'},{title:'בחינת הזירה',desc:'במידה ויש הרס / סימני אלימות / ראיות - יש לצלם ולתפוס את הראיות.'},{title:'אירועים קודמים',desc:'לבדוק עבר פלילי של המעורבים בדגש על רצידיביזם באירועים קודמים.'},{title:'קבלת החלטה',desc:'האם לעכב / לעצור את מי מהמעורבים. במידה ואין עיכוב - גביית עדות במידת הצורך.'},{title:'רווחה',desc:'לערב גורמי רווחה במידת הצורך.'},{title:'הפניה למקלט נשים מוכות',desc:'במידה והיא מעוניינת.'},{title:'בדיקה עם החוקר המטפל',desc:'התרשמות החוקר המטפל.'},{title:'מילוי דוח הערכת מסוכנות',desc:'וידוא ביצוע של החוקר.'},{title:'בדוק האם החשוד מחזיק בנשק',desc:'תפוס במידת הצורך.'},{title:'בדוק דו"ח מסוכנות',desc:'סקירת דוחות קודמים.'},{title:'ערב גורמי רווחה',desc:'שירותי רווחה, קב"ס.'},{title:'בדוק התרשמות החוקר',desc:'מבני הזוג והאירוע.'},{title:'בדוק אירועים קודמים ועבר פלילי',desc:'של המעורבים.'},{title:'במידה והוחלט לשחרר',desc:'בחר חלופת מעצר מתאימה.'}]},
+{id:'missing',icon:'🔍',color:'rgba(59,130,246,0.1)',title:'סד"פ קצין בטיפול בנעדרים',desc:'טיפול באירוע נעדרים',type:'steps',steps:[{title:'מידע',desc:'קבלת מירב הפרטים אודות הנעדר מהחוקר. באירוע תגובה הסייר יאסוף מידע ראשוני מהמשל"ט ומהמודיע.'},{title:'מודיע',desc:'חבירה למודיע, תחקור וביצוע הערכת מצב ראשונית.'},{title:'עדויות',desc:'גביית עדות מפורטת מהמודיע.'},{title:'נעדר בסיכון',desc:'בדיקה עם המודיע האם הנעדר סובל ממחלות, מסוכן לעצמו או לסביבה.'},{title:'תמונה',desc:'לקיחת תמונות עדכניות של הנעדר והפצתם ביחד עם תיאור הנעדר לכוחות הרלוונטיים.'},{title:'עדכון מצודה באירוע',desc:'לעלות מול מצודה ולעדכן באירוע וכן לבדוק אירועים קודמים ומודיעינית על הנעדר.'},{title:'סריקות',desc:'ביצוע סריקות עפ"י מודל המעגלים.'},{title:'בתי חולים',desc:'בדיקת בתי חולים בגזרה האם הגיע מטופל אנונימי.'},{title:'איכון',desc:'איכון טלפוני במידה ויש חשש לחיי הנעדר. איתור, פלט שיחות, מעקב אשראי, עין הנץ, רב קו.'},{title:'חבירה וזיהוי',desc:'ברגע שהנעדר אותר - חבירה פיזית, הבנת סיפור המקרה, זיהוי על ידי תעודה מזהה.'},{title:'פתיחת יומן מבצר',desc:'במידה והנעדר לא אותר בזמן סביר.'},{title:'גביית עדויות מהמעגל הקרוב',desc:'חקירת קרובים ומכרים.'},{title:'קטין - עדכון מחלק נוער',desc:'חובה לעדכן.'},{title:'העברת דיווח לסיור',desc:'בצירוף תמונה ותיאור חיצוני ומקומות אפשריים לאיתור.'},{title:'דיווח לחוליית נעדרים ולמשל"ט',desc:'מרחבי / מחוזי.'},{title:'חיפוש במאגרי מידע',desc:'איכונים, אשראי, חשבונות בנק, מצלמות אבטחה, איתוראן.'},{title:'בדיקה במוסדות רפואיים',desc:'בתי חולים, מרפאות באזור.'},{title:'הזעקת כוחות סיוע',desc:'מסוקים, פרשים.'},{title:'העברת דיווח ליחידות נוספות',desc:'בהתאם לנסיבות.'},{title:'פרסומים',desc:'באמצעות חוליית נעדרים.'}]},
+{id:'death',icon:'⚰️',color:'rgba(107,114,128,0.1)',title:'סד"פ קצין בעבירת מ"מ',desc:'מקרה מוות - סדר פעולות',type:'steps',steps:[{title:'מסמכי שחרור גופה',desc:'הבאת 2 מסמכי שחרור גופה ומזכרים לאירוע.'},{title:'תעודת פטירה',desc:'קבלת תעודת פטירה ממד"א.'},{title:'זיהוי הנפטר',desc:'זיהוי על ידי ת.ז, דרכון, תעודה מזהה אחרת עם תמונה.'},{title:'עדויות',desc:'גביית עדויות מאנשים (בד"כ קרובי משפחה מדרגה ראשונה) שיכולים לשפוך אור על סיבות המוות.'},{title:'בדיקה חיצונית של הגופה',desc:'בחינה חיצונית לשלילת פלילי.'},{title:'סריקת זירה',desc:'איתור חפצים שיכולים לשפוך אור על נסיבות המוות.'},{title:'דיווח',desc:'דיווח וקבלת אישורים מהרל"ח המרחבי.'},{title:'נתיחה',desc:'שאילת המשפחה בנוגע לנתיחה.'},{title:'דוחות',desc:'רישום דוחות ומילוי טפסים.'},{title:'שירות',desc:'גישת שירותית - המשפחה באבל, יש להבין ולהכיל.'},{title:'בדיקת סימני פריצה לדירה',desc:'בדיקת סימנים בזירה.'},{title:'סימני פציעה על הגופה',desc:'תיעוד כל סימן חשוד.'},{title:'סימני שקיעת דם בגופה',desc:'בדיקה והתאמה למיקום.'},{title:'סימני מאבק בזירה / גופה',desc:'בחינת סימנים פיזיים.'},{title:'מצב רפואי של הנפטר טרם מותו',desc:'בירור מצב בריאותי קודם.'},{title:'עדויות סותרות',desc:'השוואת גרסאות בין עדים.'},{title:'מאבקי ירושה',desc:'בדיקת מניעים כלכליים.'},{title:'אמירות מעורבים שמעלות חשד',desc:'תיעוד ודיווח.'}]},
+{id:'arrest',icon:'⚖️',color:'rgba(245,158,11,0.1)',title:'חובות הקצין / עצור ללא צו',desc:'הליך מעצר וזכויות עצור',type:'arrest'},
+{id:'bail',icon:'📄',color:'rgba(16,185,129,0.1)',title:'שחרור בערובה',desc:'תנאי שחרור בערובה',type:'bail'},
+{id:'court',icon:'🚔',color:'rgba(239,68,68,0.1)',title:'הבאת העצור בפני שופט',desc:'מועדי הבאה לפי מצב',type:'court'}
 ];
 
-function showScreen(screenId) { 
-  var screens = document.querySelectorAll('.screen'); 
-  for (var i = 0; i < screens.length; i++) { screens[i].classList.remove('active'); } 
-  document.getElementById(screenId).classList.add('active'); 
-  window.scrollTo(0, 0); 
-  if (screenId === 'mainMenu') { renderMainMenu(); } 
-  if (screenId === 'dutyTasks') { renderChecklist(); } 
-  if (screenId === 'eventTypes') { renderEventTypes(); } 
-  if (screenId === 'profile') { renderProfile(); } 
-  if (screenId === 'manpower') { renderManpowerList(); }
-  if (screenId === 'atzurim') { 
-    var now = new Date();
-    document.getElementById('pTime').value = ("0"+now.getHours()).slice(-2)+":"+("0"+now.getMinutes()).slice(-2);
-  }
-}
+var currentStation=null,checkedTasks={};
 
-function goBack(t) { showScreen(t); }
-function selectStation(id) { currentStation = id; saveState(); showScreen('mainMenu'); }
+function showScreen(id){var s=document.querySelectorAll('.screen');for(var i=0;i<s.length;i++)s[i].classList.remove('active');document.getElementById(id).classList.add('active');window.scrollTo(0,0);if(id==='mainMenu')renderMainMenu();if(id==='dutyTasks')renderChecklist();if(id==='eventTypes')renderEventTypes();if(id==='profile')renderProfile();if(id==='manpower')renderManpowerList();if(id==='atzurim'){var n=new Date();document.getElementById('pTime').value=("0"+n.getHours()).slice(-2)+":"+("0"+n.getMinutes()).slice(-2)}}
+function goBack(t){showScreen(t)}
+function selectStation(id){currentStation=id;saveState();showScreen('mainMenu')}
+function renderMainMenu(){if(!currentStation)return;document.getElementById('menuStationName').textContent=stationsData[currentStation].name;var n=new Date(),d=['ראשון','שני','שלישי','רביעי','חמישי','שישי','שבת'],m=['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];document.getElementById('currentDate').textContent='יום '+d[n.getDay()]+', '+n.getDate()+' '+m[n.getMonth()]+' '+n.getFullYear()}
 
-function renderMainMenu() { if (!currentStation) return; document.getElementById('menuStationName').textContent = stationsData[currentStation].name; var now = new Date(); var days = ['ראשון','שני','שלישי','רביעי','חמישי','שישי','שבת']; var months = ['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר']; document.getElementById('currentDate').textContent = 'יום ' + days[now.getDay()] + ', ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear(); }
+function renderChecklist(){
+var c=document.getElementById('checklistContainer');c.innerHTML='';var total=0,checked=0,secs=Object.keys(dutyTasks);
+for(var s=0;s<secs.length;s++){var sn=secs[s],tasks=dutyTasks[sn],se=document.createElement('div');se.className='sec';se.innerHTML='<div class="sec-t">'+sn+'</div>';
+for(var i=0;i<tasks.length;i++){var t=tasks[i];total++;var ic=checkedTasks[t.id];if(ic)checked++;
+var el=document.createElement('div');el.className='ci'+(ic?' checked':'');el.onclick=(function(tid){return function(){toggleTask(tid)}})(t.id);
+var h='<div class="ck">'+(ic?'&#10003;':'')+'</div><div class="ct"><h4 style="color:'+(t.text.indexOf('*')===0?'var(--gold)':'#fff')+'">'+t.text+'</h4><p>'+t.desc+'</p></div>';
+if(ic)h+='<span class="tm">'+checkedTasks[t.id]+'</span>';
+el.innerHTML=h;se.appendChild(el)}c.appendChild(se)}
+var pct=total>0?Math.round((checked/total)*100):0;document.getElementById('taskCount').textContent=checked+'/'+total;document.getElementById('progressPercent').textContent=pct+'%';document.getElementById('progressFill').style.width=pct+'%'}
 
-function renderChecklist() {
-  var container = document.getElementById('checklistContainer'); container.innerHTML = ''; var total = 0; var checked = 0; var sections = Object.keys(dutyTasks);
-  for (var s = 0; s < sections.length; s++) { var sectionName = sections[s]; var tasks = dutyTasks[sectionName]; var sectionEl = document.createElement('div'); sectionEl.className = 'checklist-section'; sectionEl.innerHTML = '<div class="section-title">' + sectionName + '</div>';
-    for (var i = 0; i < tasks.length; i++) { var task = tasks[i]; total++; var isChecked = checkedTasks[task.id]; if (isChecked) checked++;
-      var item = document.createElement('div'); item.className = 'checklist-item' + (isChecked ? ' checked' : ''); item.onclick = (function(taskId) { return function() { toggleTask(taskId); }; })(task.id);
-      var html = '<div class="check-box">' + (isChecked ? '&#10003;' : '') + '</div><div class="check-text"><h4 style="color:'+(task.text.includes('*')?'var(--gold)':'#fff')+'">' + task.text + '</h4><p>' + task.desc + '</p></div>'; if (isChecked) { html += '<span class="check-time">' + checkedTasks[task.id] + '</span>'; } item.innerHTML = html; sectionEl.appendChild(item); } container.appendChild(sectionEl); }
-  var pct = total > 0 ? Math.round((checked / total) * 100) : 0; document.getElementById('taskCount').textContent = checked + '/' + total; document.getElementById('progressPercent').textContent = pct + '%'; document.getElementById('progressFill').style.width = pct + '%';
-}
+function toggleTask(id){if(checkedTasks[id])delete checkedTasks[id];else{var n=new Date();checkedTasks[id]=("0"+n.getHours()).slice(-2)+":"+("0"+n.getMinutes()).slice(-2)}saveState();renderChecklist()}
+function resetChecklist(){if(confirm('לאפס את כל המשימות? (פעולה זו לא ניתנת לביטול)')){checkedTasks={};saveState();renderChecklist();showToast('המשימות אופסו בהצלחה')}}
 
-function toggleTask(taskId) { if (checkedTasks[taskId]) { delete checkedTasks[taskId]; } else { var now = new Date(); checkedTasks[taskId] = ("0"+now.getHours()).slice(-2)+":"+("0"+now.getMinutes()).slice(-2); } saveState(); renderChecklist(); }
-function resetChecklist() { if (confirm('לאפס את כל המשימות? (פעולה זו לא ניתנת לביטול)')) { checkedTasks = {}; saveState(); renderChecklist(); showToast('המשימות אופסו בהצלחה'); } }
+function renderEventTypes(){var c=document.getElementById('eventTypesContainer');c.innerHTML='';for(var i=0;i<eventTypes.length;i++){var e=eventTypes[i],d=document.createElement('div');d.className='ecard';d.onclick=(function(ev){return function(){showEventDetail(ev)}})(e);d.innerHTML='<div class="eh"><div class="eic" style="background:'+e.color+'">'+e.icon+'</div><h3>'+e.title+'</h3></div><p>'+e.desc+'</p>';c.appendChild(d)}}
 
-function renderEventTypes() { var container = document.getElementById('eventTypesContainer'); container.innerHTML = ''; for (var i = 0; i < eventTypes.length; i++) { var ev = eventTypes[i]; var card = document.createElement('div'); card.className = 'event-card'; card.onclick = (function(event) { return function() { showEventDetail(event); }; })(ev); card.innerHTML = '<div class="event-header"><div class="event-icon" style="background:'+ev.color+'">'+ev.icon+'</div><h3>' + ev.title + '</h3></div><p>' + ev.desc + '</p>'; container.appendChild(card); } }
+function showEventDetail(e){
+document.getElementById('eventDetailTitle').textContent=e.title;var c=document.getElementById('eventDetailContent');c.innerHTML='';
+if(e.type==='steps'){var h='<div class="steps-wrap">';for(var i=0;i<e.steps.length;i++){var st=e.steps[i];h+='<div class="stp" style="animation:pop .3s ease '+(i*0.04)+'s both"><div class="stp-n">'+(i+1)+'</div><div class="stp-c"><h4>'+st.title+'</h4><p>'+st.desc+'</p></div></div>'}h+='</div>';c.innerHTML=h}
+else if(e.type==='arrest'){c.innerHTML='<div class="info-sec"><div class="info-panel"><h3>סעיף 23 - מעצר ללא צו</h3><ul><li>עבר בפניו / זה מקרוב עבירה בת מעצר</li><li>חשש שלא יופיע לחקירה / ישבש משפט</li><li>מסכן את ביטחון הציבור/מדינה</li><li>עבירת סמים / ביטחון / אלימות חמורה</li></ul></div><div class="info-panel"><h3>חובות הקצין</h3><ul><li>אזהרת החשוד טרם הודעה</li><li>הסבר על סיבת המעצר</li><li>זכות לייצוג עו"ד וסניגוריה ציבורית</li><li>הודעה לאדם קרוב</li><li>הבאה בפני שופט תוך 24 שעות (חתימה על אסמכתא)</li></ul></div></div>'}
+else if(e.type==='bail'){c.innerHTML='<div class="info-sec"><div class="info-panel"><h3>תנאי שחרור בערובה (קצין ממונה)</h3><ul><li>איסור יציאה מהארץ + הפקדת דרכון (עד 3 חודשים)</li><li>הרחקה ממקום/אזור (עד 15 יום)</li><li>איסור קשר עם מעורבים (עד 30 יום)</li><li>חובת מגורים והתייצבות (עד 15 יום)</li><li>מעצר בית (עד 5 ימים)</li></ul></div></div>'}
+else if(e.type==='court'){c.innerHTML='<div class="info-sec"><div class="info-panel"><h3>מועדי הבאה בפני שופט</h3><ul><li><b>יום חול:</b> תוך 24 שעות</li><li><b>לפני שבת/חג:</b> חובה להביא לפני הכניסה</li><li><b>שבת/חג מעל 48 שעות:</b> בהקדם לאחר הצאת ועד 24 שעות מהמעצר</li><li><b>שבת/חג מעל 72 שעות:</b> תוך 32 שעות מהמעצר</li><li><b>ביקש שלא להביא בשבת:</b> עד 4 שעות מצאת השבת</li></ul></div></div>'}
+showScreen('eventDetail')}
 
-function getArrestHTML() { return '<div class="info-container"><div class="flow-title">עצור ללא צו - תרשים זרימה</div><div class="flow-box blue-bg">מעוכב</div><div class="flow-arrow">&#9660;</div><div class="flow-box">בדיקת סעיף 23</div><div class="flow-list"><li>עבר בפניו / זה מקרוב עבירה בת מעצר</li><li>חשש שלא יופיע להליכי חקירה</li><li>חשש שישבש הליכי משפט</li><li>חשש שיסכן את בטחונו של אדם / ציבור / מדינה</li><li>עבירת מיתה או מאסר עולם / עבירות ביטחון / סמים (למעט שימוש)</li><li>חשש שיפר את תנאי השחרור</li><li>עבירה בת מעצר (עוון / פשע)</li></div><div class="flow-split"><div class="flow-split-col"><div class="flow-label">כן</div><div class="flow-box green-bg">כליאה / ערובה</div></div><div class="flow-split-col"><div class="flow-label">לא</div><div class="flow-box red-bg">שחרור החשוד</div></div></div><div class="flow-arrow" style="margin-top:14px">&#9660;</div><div class="flow-box">בדיקת סעיף 13</div><div class="flow-list"><li>מסוכנות</li><li>שיבוש הליכי חקירה או משפט</li><li>הליכי חקירה מיוחדים</li></div><div class="flow-split"><div class="flow-split-col"><div class="flow-label">כן</div><div class="flow-box green-bg">כליאה / ערובה</div></div><div class="flow-split-col"><div class="flow-label">לא</div><div class="flow-box red-bg">שחרור החשוד</div></div></div><div class="info-block" style="margin-top:28px;"><h4>חובות הקצין בעת מעצר</h4><ul><li>אזהרת החשוד טרם השמעת דבריו.</li><li>הקצין יודיע לעצור על מעצרו ויסביר לו את סיבת המעצר.</li><li>הקצין יסביר לעצור על זכותו כי תימסר הודעה על מעצרו לאדם הקרוב לו ו/או לעו"ד, וכן כי זכותו להיפגש עם עו"ד.</li><li>הקצין יסביר לעצור על זכותו להיות מיוצג על ידי הסנגוריה הציבורית.</li><li>הקצין יודיע לו על משך הזמן שניתן להחזיקו במעצר בטרם ישוחרר.</li><li>במידה והחליט לעצור - יחתים את העצור על "אסמכתא" ויביאו בפני שופט תוך 24 שעות מרגע המעצר.</li></ul></div></div>'; }
-function getBailHTML() { return '<div class="info-container"><div class="info-block"><h4>הקצין הממונה רשאי להתנות בהסכמת החשוד את השחרור בערובה בקיום התנאים הבאים:</h4><ul><li>איסור יציאה מהארץ - עד 3 חודשים כולל הפקדת דרכון.</li><li>הרחקה מאזור מקום או יישוב בארץ - עד 15 יום.</li><li>איסור קשר - איסור לקיים קשר עם מי שיקבע עד 30 ימים.</li><li>חובת מגורים והימצאות באזור - עד 15 יום. חובת התייצבות במשטרה.</li><li>מעצר בית - עד 5 ימים. איסור יציאה ממקום מגורים בכל שעות היממה או חלקן.</li></ul></div></div>'; }
-function getCourtHTML() { return '<div class="info-container"><div class="info-block"><h4>מועד הבאת העצור חל ביום רגיל</h4><ul><li>יש להביא לפני כניסת השבת / חג.</li></ul></div><div class="info-block"><h4>לאחר צאת השבת / חג</h4><ul><li>בוצע מעצר לפני ה-4, ועד 24 שעות מהמעצר, לפי המאוחר.</li></ul></div><div class="info-block"><h4>שבת + חג מעל 72 שעות</h4><ul><li>יש להביא תוך 32 שעות מהמעצר.</li></ul></div><div class="info-block"><h4>שבת / חג מעל 48 שעות</h4><ul><li>יש להביא בהקדם לאחר צאת השבת / חג ועד 24 שעות מהמעצר.</li></ul></div><div class="info-block"><h4>ביקש העצור שלא להביאו לפני שופט לפני שבת</h4><ul><li>יש להביא עד 4 שעות מצאת השבת / חג.</li></ul></div></div>'; }
+function renderProfile(){if(!currentStation)return;var st=stationsData[currentStation],p=st.profile;var h='<div class="pf-card"><h3>פרטים כלליים</h3><div class="pf-row"><span class="lb">שם תחנה</span><span class="vl">'+st.name+'</span></div><div class="pf-row"><span class="lb">מרחב</span><span class="vl">'+st.area+'</span></div><div class="pf-row"><span class="lb">כתובת</span><span class="vl">'+p.address+'</span></div><div class="pf-row"><span class="lb">מפקד תחנה</span><span class="vl">'+p.commander+'</span></div></div><div class="pf-card"><h3>טלפונים מבצעיים</h3><div class="pf-row"><span class="lb">טלפון תחנה</span><span class="vl ph">'+p.phone+'</span></div><div class="pf-row"><span class="lb">פקס</span><span class="vl ph">'+p.fax+'</span></div><div class="pf-row"><span class="lb">קצין תורן</span><span class="vl ph">'+p.dutyOfficer+'</span></div><div class="pf-row"><span class="lb">מוקד</span><span class="vl ph">'+p.moked+'</span></div></div><div class="pf-card"><h3>גבולות גזרה</h3>';for(var i=0;i<p.borders.length;i++)h+='<div class="brd">'+p.borders[i]+'</div>';h+='</div>';document.getElementById('profileContainer').innerHTML=h}
 
-function showEventDetail(event) {
-  document.getElementById('eventDetailTitle').textContent = event.title; var content = document.getElementById('eventDetailContent'); content.innerHTML = '';
-  if (event.type === 'steps') { var html = '<div style="padding: 20px;">'; for (var i = 0; i < event.steps.length; i++) { var step = event.steps[i]; html += '<div class="step-item" style="animation: slideUp 0.4s ease ' + (i * 0.05) + 's both"><div class="step-number">' + (i + 1) + '</div><div class="step-content"><h4>' + step.title + '</h4><p>' + step.desc + '</p></div></div>'; } html += '</div>'; content.innerHTML = html; }
-  else if (event.type === 'arrest') { content.innerHTML = getArrestHTML(); }
-  else if (event.type === 'bail') { content.innerHTML = getBailHTML(); }
-  else if (event.type === 'court') { content.innerHTML = getCourtHTML(); }
-  showScreen('eventDetail');
-}
+function showAdminModal(){document.getElementById('adminModal').classList.add('show');document.getElementById('pinInput').value='';document.getElementById('pinInput').classList.remove('error');setTimeout(function(){document.getElementById('pinInput').focus()},300)}
+function closeAdminModal(){document.getElementById('adminModal').classList.remove('show')}
+function verifyPin(){if(document.getElementById('pinInput').value===ADMIN_PIN){closeAdminModal();showToast('מצב ניהול הופעל בהצלחה')}else{document.getElementById('pinInput').classList.add('error');setTimeout(function(){document.getElementById('pinInput').classList.remove('error')},500)}}
+document.getElementById('pinInput').addEventListener('keyup',function(e){if(e.key==='Enter')verifyPin()});
+function showToast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(function(){t.classList.remove('show')},2500)}
 
-function renderProfile() { if (!currentStation) return; var station = stationsData[currentStation]; var p = station.profile; var html = '<div class="profile-card"><h3>פרטים כלליים</h3><div class="profile-row"><span class="label">שם תחנה</span><span class="value">' + station.name + '</span></div><div class="profile-row"><span class="label">מרחב</span><span class="value">' + station.area + '</span></div><div class="profile-row"><span class="label">כתובת</span><span class="value">' + p.address + '</span></div><div class="profile-row"><span class="label">מפקד תחנה</span><span class="value">' + p.commander + '</span></div></div><div class="profile-card"><h3>טלפונים מבצעיים</h3><div class="profile-row"><span class="label">טלפון תחנה</span><span class="value phone">' + p.phone + '</span></div><div class="profile-row"><span class="label">פקס</span><span class="value phone">' + p.fax + '</span></div><div class="profile-row"><span class="label">קצין תורן</span><span class="value phone">' + p.dutyOfficer + '</span></div><div class="profile-row"><span class="label">מוקד</span><span class="value phone">' + p.moked + '</span></div></div><div class="profile-card"><h3>גבולות גזרה</h3>'; for (var i = 0; i < p.borders.length; i++) { html += '<div style="background: rgba(255,255,255,0.05); padding: 8px 12px; margin-bottom:8px; border-radius:4px; font-size:13px; border-right:2px solid var(--blue-light);">' + p.borders[i] + '</div>'; } html += '</div>'; document.getElementById('profileContainer').innerHTML = html; }
+var prisoners=[];
+function loadPrisoners(){try{var s=localStorage.getItem('tafmak_prisoners');if(s){prisoners=JSON.parse(s);renderPrisonersList()}}catch(e){}}
+function savePrisoners(){localStorage.setItem('tafmak_prisoners',JSON.stringify(prisoners))}
+function addPrisoner(){var nm=document.getElementById('pName').value,gn=document.getElementById('pGender').value,ag=document.getElementById('pAge').value,of=document.getElementById('pOffense').value,tp=document.getElementById('pType').value,tm=document.getElementById('pTime').value;if(!nm||!tm||!of){showToast('שגיאה: חסרים פרטי חובה');return}prisoners.unshift({id:Date.now(),name:nm,gender:gn,age:ag,offense:of,type:tp,time:tm});savePrisoners();renderPrisonersList();document.getElementById('pName').value='';document.getElementById('pAge').value='';document.getElementById('pOffense').value='';showToast('נרשם ביומן בהצלחה')}
+function deletePrisoner(id){if(confirm('למחוק רישום זה מהיומן?')){prisoners=prisoners.filter(function(p){return p.id!==id});savePrisoners();renderPrisonersList()}}
+function renderPrisonersList(){var c=document.getElementById('prisonersListContainer');if(!prisoners.length){c.innerHTML='<p class="empty">אין רשומות ביומן</p>';return}var h='';for(var i=0;i<prisoners.length;i++){var p=prisoners[i],tt=p.type==='atzur'?'עצור':'מעוכב',cls=p.type==='atzur'?'at':'mk';h+='<div class="pcard '+cls+'"><div style="width:100%"><div style="display:flex;justify-content:space-between;align-items:start"><h4>'+p.name+(p.age?' <span style="font-weight:400;font-size:13px;color:var(--gray)">| '+p.age+'</span>':'')+'</h4><button class="del-btn" onclick="deletePrisoner('+p.id+')">&#x1F5D1;</button></div><div style="color:#fff;font-size:13px;margin:4px 0">עבירה: '+p.offense+'</div><div class="meta">'+tt+' ('+p.gender+') | קליטה: <span style="color:var(--gold)">'+p.time+'</span></div></div></div>'}c.innerHTML=h}
 
-function showAdminModal() { document.getElementById('adminModal').classList.add('show'); document.getElementById('pinInput').value = ''; document.getElementById('pinInput').classList.remove('error'); setTimeout(function() { document.getElementById('pinInput').focus(); }, 300); }
-function closeAdminModal() { document.getElementById('adminModal').classList.remove('show'); }
-function verifyPin() { var pin = document.getElementById('pinInput').value; if (pin === ADMIN_PIN) { closeAdminModal(); showToast('מצב ניהול הופעל בהצלחה'); } else { document.getElementById('pinInput').classList.add('error'); setTimeout(function() { document.getElementById('pinInput').classList.remove('error'); }, 500); } }
-document.getElementById('pinInput').addEventListener('keyup', function(e) { if (e.key === 'Enter') { verifyPin(); } });
-function showToast(msg) { var toast = document.getElementById('toast'); toast.textContent = msg; toast.classList.add('show'); setTimeout(function() { toast.classList.remove('show'); }, 2500); }
+var manpower=[];
+function loadManpower(){try{var s=localStorage.getItem('tafmak_manpower');if(s){manpower=JSON.parse(s);renderManpowerList()}}catch(e){}}
+function saveManpower(){localStorage.setItem('tafmak_manpower',JSON.stringify(manpower))}
+function addManpowerItem(){var ms=document.getElementById('mpMission').value,cs=document.getElementById('mpCallSign').value,of=document.getElementById('mpOfficers').value;if(!ms){showToast('שגיאה: חובה להזין שם משימה');return}manpower.unshift({id:Date.now(),mission:ms,callSign:cs||'ללא קוד',officers:of||'כוח לא מפורט'});saveManpower();renderManpowerList();document.getElementById('mpMission').value='';document.getElementById('mpCallSign').value='';document.getElementById('mpOfficers').value='';showToast('הכוח שוגר בהצלחה')}
+function deleteManpowerItem(id){if(confirm('למחוק משימה זו?')){manpower=manpower.filter(function(i){return i.id!==id});saveManpower();renderManpowerList()}}
+function renderManpowerList(){var c=document.getElementById('manpowerListContainer');if(!manpower.length){c.innerHTML='<p class="empty">אין כוחות משובצים</p>';return}var h='';for(var i=0;i<manpower.length;i++){var m=manpower[i];h+='<div class="pcard mp"><div style="width:100%"><div style="display:flex;justify-content:space-between;align-items:start"><h4>'+m.mission+' <span style="background:var(--cyan);color:#000;padding:2px 6px;border-radius:4px;font-size:11px;margin-right:8px;font-family:monospace">קשר: '+m.callSign+'</span></h4><button class="del-btn" onclick="deleteManpowerItem('+m.id+')">&#x1F5D1;</button></div><div style="color:var(--gray);font-size:13px;margin-top:6px;line-height:1.5">'+m.officers.replace(/\n/g,'<br>')+'</div></div></div>'}c.innerHTML=h}
 
-// ניהול עצורים
-var prisoners = [];
-function loadPrisoners() { try { var savedP = localStorage.getItem('tafmak_prisoners'); if (savedP) { prisoners = JSON.parse(savedP); renderPrisonersList(); } } catch(e) {} }
-function savePrisoners() { localStorage.setItem('tafmak_prisoners', JSON.stringify(prisoners)); }
-function addPrisoner() {
-  var name = document.getElementById('pName').value, gender = document.getElementById('pGender').value, age = document.getElementById('pAge').value, offense = document.getElementById('pOffense').value, type = document.getElementById('pType').value, time = document.getElementById('pTime').value;
-  if (!name || !time || !offense) { showToast('שגיאה: חסרים פרטי חובה'); return; }
-  prisoners.unshift({ id: Date.now(), name: name, gender: gender, age: age, offense: offense, type: type, time: time });
-  savePrisoners(); renderPrisonersList();
-  document.getElementById('pName').value = ''; document.getElementById('pAge').value = ''; document.getElementById('pOffense').value = ''; showToast('נרשם ביומן בהצלחה');
-}
-function deletePrisoner(id) { if (confirm('למחוק רישום זה מהיומן?')) { prisoners = prisoners.filter(function(p) { return p.id !== id; }); savePrisoners(); renderPrisonersList(); } }
-function renderPrisonersList() {
-  var container = document.getElementById('prisonersListContainer');
-  if (prisoners.length === 0) { container.innerHTML = '<p style="text-align:center; color:var(--gray); margin-top:20px;">אין רשומות ביומן</p>'; return; }
-  var html = '';
-  for (var i = 0; i < prisoners.length; i++) {
-    var p = prisoners[i], typeText = p.type === 'atzur' ? 'עצור' : 'מעוכב', ageText = p.age ? ' | ' + p.age : '';
-    html += '<div class="prisoner-card ' + p.type + '"><div class="p-info">';
-    html += '<div style="display:flex; justify-content:space-between; align-items:start;"><h4>' + p.name + ' <span style="font-weight:400; font-size:14px; color:var(--gray)">' + ageText + '</span></h4><button class="btn-delete" onclick="deletePrisoner(' + p.id + ')">🗑️</button></div>';
-    html += '<div style="color:#fff; font-size:14px; margin:4px 0;">עבירה: ' + p.offense + '</div>';
-    html += '<div class="p-tech">סטטוס: ' + typeText + ' (' + p.gender + ') | קליטה: <span style="color:var(--gold)">' + p.time + '</span></div>';
-    html += '</div></div>';
-  } container.innerHTML = html;
-}
-
-// ניהול כוח אדם
-var manpower = [];
-function loadManpower() { try { var savedM = localStorage.getItem('tafmak_manpower'); if (savedM) { manpower = JSON.parse(savedM); renderManpowerList(); } } catch(e) {} }
-function saveManpower() { localStorage.setItem('tafmak_manpower', JSON.stringify(manpower)); }
-function addManpowerItem() {
-  var mission = document.getElementById('mpMission').value, callSign = document.getElementById('mpCallSign').value, officers = document.getElementById('mpOfficers').value;
-  if (!mission) { showToast('שגיאה: חובה להזין שם משימה'); return; }
-  manpower.unshift({ id: Date.now(), mission: mission, callSign: callSign || 'ללא קוד', officers: officers || 'כוח לא מפורט' });
-  saveManpower(); renderManpowerList();
-  document.getElementById('mpMission').value = ''; document.getElementById('mpCallSign').value = ''; document.getElementById('mpOfficers').value = ''; showToast('הכוח שוגר בהצלחה');
-}
-function deleteManpowerItem(id) { if (confirm('למחוק משימה זו?')) { manpower = manpower.filter(function(item) { return item.id !== id; }); saveManpower(); renderManpowerList(); } }
-function renderManpowerList() {
-  var container = document.getElementById('manpowerListContainer');
-  if (manpower.length === 0) { container.innerHTML = '<p style="text-align:center; color:var(--gray); margin-top:20px;">אין כוחות משובצים</p>'; return; }
-  var html = '';
-  for (var i = 0; i < manpower.length; i++) {
-    var item = manpower[i];
-    html += '<div class="manpower-card"><div class="p-info">';
-    html += '<div style="display:flex; justify-content:space-between; align-items:start;"><h4>' + item.mission + ' <span style="background:var(--cyan); color:#000; padding:2px 6px; border-radius:3px; font-size:12px; margin-right:8px; font-family:monospace;">קשר: ' + item.callSign + '</span></h4><button class="btn-delete" onclick="deleteManpowerItem(' + item.id + ')">🗑️</button></div>';
-    html += '<div style="color:var(--gray); font-size:14px; margin-top:6px; line-height:1.5;">' + item.officers.replace(/\n/g, '<br>') + '</div>';
-    html += '</div></div>';
-  } container.innerHTML = html;
-}
-
-function loadState() { try { var saved = localStorage.getItem('tafmak_checked'); if (saved) { checkedTasks = JSON.parse(saved); } localStorage.removeItem('tafmak_station'); loadPrisoners(); loadManpower(); } catch(e) {} }
-function saveState() { try { localStorage.setItem('tafmak_checked', JSON.stringify(checkedTasks)); } catch(e) {} }
+function loadState(){try{var s=localStorage.getItem('tafmak_checked');if(s)checkedTasks=JSON.parse(s);localStorage.removeItem('tafmak_station');loadPrisoners();loadManpower()}catch(e){}}
+function saveState(){try{localStorage.setItem('tafmak_checked',JSON.stringify(checkedTasks))}catch(e){}}
 
 loadState();
 </script>
