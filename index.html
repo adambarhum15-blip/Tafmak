@@ -309,4 +309,147 @@ var dutyTasks = {
     {id:'crit1', text:'* הופעה וייצוגיות מלאה', desc:'מדים מגוהצים, גילוח/שיער, צחצוח, דרגות, תגי שם ותעודת מינוי'},
     {id:'crit2', text:'* בדיקת ציוד אישי וניידת', desc:'תקינות קשר, טאבלט, פנס, אפוד זוהר וציוד אישי'},
     {id:'crit3', text:'* בקיאות בגזרה ובתדריך', desc:'הפגנת שליטה באירועים גזרתיים וקבלת דגשים בתדריך'},
-    {id:'crit4', text:'* הגעה לז
+    {id:'crit4', text:'* הגעה לזירה: דיווח + תמונת מצב', desc:'דיווח ראשוני מהיר למשל"ט על הגעה ותמונת מצב ראשונית'},
+    {id:'crit5', text:'* סגירת זירה הרמטית', desc:'שימוש בסרטי סימון, הרחקת סקרנים ומניעת זיהום הזירה'},
+    {id:'crit6', text:'* הפעלת כוח ושליטה', desc:'חלוקת גזרות ומשימות ברורות לשוטרים/מתנדבים'},
+    {id:'crit7', text:'* הפגנת מנהיגות וקור רוח', desc:'תפקוד רגוע תחת לחץ, קבלת החלטות עניינית ואסרטיביות'},
+    {id:'crit8', text:'* אמינות ודיווח', desc:'דיווח אמת, אמינות מלאה ורישום דוחות מפורט'}
+  ],
+  'לפני המשמרת': [
+    {id:'t1',text:'התייצבות מול מת"ח / ק.אג"מ',desc:'קבלת תדרוך ותיק ק.תורן (מעודכן)'},
+    {id:'t2',text:'נהלי תחנה, מדיניות מפקד, נהלי דיווח',desc:'לימוד והכרת נהלים עדכניים'},
+    {id:'t3',text:'בדיקה לגבי מצב שוטף',desc:'ד.ח, מעצרים, זימון חשודים, ידיעות, מאוימים, סד"כ, יס"מ, תגבור, ניידות, מתקנים, גבולות גזרה, כוחות ואירועים נוספים'},
+    {id:'t4',text:'חבירה ליומנאי ובדיקת אמצעים',desc:'יומנים, נשקים, קשרים, רכבים, ציוד, ארון מוצגים, סד"כ כוחות (ומספרי פלאפון)'},
+    {id:'t5',text:'דרכי תקשורת וחבירה לבעלי תפקידים',desc:'קצין חקירות, קצין בילוש, קצין סיור'},
+    {id:'t6',text:'חפיפה',desc:'אירועים מתמשכים / חריגים, עצורים, סטטוס מאוימים'},
+    {id:'t7',text:'חבירה לראש משמרת',desc:'וידוא סד"כים, פערים ומשימות מתוכננות'},
+    {id:'t8',text:'התייצבות מול משל"ט',desc:'דיווח מוכנות'}
+  ],
+  'תוך כדי משמרת': [
+    {id:'t9',text:'עצורים',desc:'מחיצת מגן, מסמכי עצורים, קיום תנאים הולמים, תיאום מעצר / נחשון'},
+    {id:'t10',text:'נוכחות ודגשים בתדריך למשמרת',desc:'תדרוך כוחות נוספים (מתנדבים / רגלי / תגבור)'},
+    {id:'t11',text:'קשר עם כלל גורמי התחנה',desc:'ניידות, בילוש, מש"קים, מתנדבים, חוקר, תגבור, כוחות נוספים'},
+    {id:'t12',text:'וידוא ציוותים מול משל"ט',desc:'בדיקת שיבוצים ותקינות'},
+    {id:'t13',text:'בקרה על מערך אבטחה וזקיפות',desc:'ביקורת פיזית בנקודות'},
+    {id:'t14',text:'בקרה על ביצוע מטלות מבצעיות',desc:'מעקב אחר ביצוע משימות'},
+    {id:'t15',text:'טיפול באזרחים',desc:'וידוא מענה של היומן / מש"ל / חוקר תורן'},
+    {id:'t16',text:'קיום תרגיל',desc:'לניידות / יומן / מש"ל / חוקר תורן'}
+  ]
+};
+
+var eventTypes = [
+{id:'almab',icon:'🏠',color:'rgba(168,85,247,0.12)',title:'סד"פ קצין בטיפול באלמ"ב',desc:'אלימות במשפחה - סדר פעולות',type:'steps',steps:[{title:'הפרדות',desc:'יש לוודא הפרדה בין בני הזוג ולשמוע את גרסתם לאירוע.'},{title:'נשק',desc:'לבדוק אם לחשוד נשק ואם כן לדרוש תפיסתו והעברתו לחוקר תורן.'},{title:'בחינת הזירה',desc:'במידה ויש הרס / סימני אלימות / ראיות - יש לצלם ולתפוס את הראיות.'},{title:'אירועים קודמים',desc:'לבדוק עבר פלילי של המעורבים בדגש על רצידיביזם באירועים קודמים.'},{title:'קבלת החלטה',desc:'האם לעכב / לעצור את מי מהמעורבים. במידה ואין עיכוב - גביית עדות במידת הצורך.'},{title:'רווחה',desc:'לערב גורמי רווחה במידת הצורך.'},{title:'הפניה למקלט נשים מוכות',desc:'במידה והיא מעוניינת.'},{title:'בדיקה עם החוקר המטפל',desc:'התרשמות החוקר המטפל.'},{title:'מילוי דוח הערכת מסוכנות',desc:'וידוא ביצוע של החוקר.'},{title:'בדוק האם החשוד מחזיק בנשק',desc:'תפוס במידת הצורך.'},{title:'בדוק דו"ח מסוכנות',desc:'סקירת דוחות קודמים.'},{title:'ערב גורמי רווחה',desc:'שירותי רווחה, קב"ס.'},{title:'בדוק התרשמות החוקר',desc:'מבני הזוג והאירוע.'},{title:'בדוק אירועים קודמים ועבר פלילי',desc:'של המעורבים.'},{title:'במידה והוחלט לשחרר',desc:'בחר חלופת מעצר מתאימה.'}]},
+{id:'missing',icon:'🔍',color:'rgba(59,130,246,0.12)',title:'סד"פ קצין בטיפול בנעדרים',desc:'טיפול באירוע נעדרים',type:'steps',steps:[{title:'מידע',desc:'קבלת מירב הפרטים אודות הנעדר מהחוקר. באירוע תגובה הסייר יאסוף מידע ראשוני מהמשל"ט ומהמודיע.'},{title:'מודיע',desc:'חבירה למודיע, תחקור וביצוע הערכת מצב ראשונית.'},{title:'עדויות',desc:'גביית עדות מפורטת מהמודיע.'},{title:'נעדר בסיכון',desc:'בדיקה עם המודיע האם הנעדר סובל ממחלות, מסוכן לעצמו או לסביבה.'},{title:'תמונה',desc:'לקיחת תמונות עדכניות של הנעדר והפצתם ביחד עם תיאור הנעדר לכוחות הרלוונטיים.'},{title:'עדכון מצודה באירוע',desc:'לעלות מול מצודה ולעדכן באירוע וכן לבדוק אירועים קודמים ומודיעינית על הנעדר.'},{title:'סריקות',desc:'ביצוע סריקות עפ"י מודל המעגלים.'},{title:'בתי חולים',desc:'בדיקת בתי חולים בגזרה האם הגיע מטופל אנונימי.'},{title:'איכון',desc:'איכון טלפוני במידה ויש חשש לחיי הנעדר. איתור, פלט שיחות, מעקב אשראי, עין הנץ, רב קו.'},{title:'חבירה וזיהוי',desc:'ברגע שהנעדר אותר - חבירה פיזית, הבנת סיפור המקרה, זיהוי על ידי תעודה מזהה.'},{title:'פתיחת יומן מבצר',desc:'במידה והנעדר לא אותר בזמן סביר.'},{title:'גביית עדויות מהמעגל הקרוב',desc:'חקירת קרובים ומכרים.'},{title:'קטין - עדכון מחלק נוער',desc:'חובה לעדכן.'},{title:'העברת דיווח לסיור',desc:'בצירוף תמונה ותיאור חיצוני ומקומות אפשריים לאיתור.'},{title:'דיווח לחוליית נעדרים ולמשל"ט',desc:'מרחבי / מחוזי.'},{title:'חיפוש במאגרי מידע',desc:'איכונים, אשראי, חשבונות בנק, מצלמות אבטחה, איתוראן.'},{title:'בדיקה במוסדות רפואיים',desc:'בתי חולים, מרפאות באזור.'},{title:'הזעקת כוחות סיוע',desc:'מסוקים, פרשים.'},{title:'העברת דיווח ליחידות נוספות',desc:'בהתאם לנסיבות.'},{title:'פרסומים',desc:'באמצעות חוליית נעדרים.'}]},
+{id:'death',icon:'⚰️',color:'rgba(107,114,128,0.15)',title:'סד"פ קצין בעבירת מ"מ',desc:'מקרה מוות - סדר פעולות',type:'steps',steps:[{title:'מסמכי שחרור גופה',desc:'הבאת 2 מסמכי שחרור גופה ומזכרים לאירוע.'},{title:'תעודת פטירה',desc:'קבלת תעודת פטירה ממד"א.'},{title:'זיהוי הנפטר',desc:'זיהוי על ידי ת.ז, דרכון, תעודה מזהה אחרת עם תמונה.'},{title:'עדויות',desc:'גביית עדויות מאנשים (בד"כ קרובי משפחה מדרגה ראשונה) שיכולים לשפוך אור על סיבות המוות.'},{title:'בדיקה חיצונית של הגופה',desc:'בחינה חיצונית לשלילת פלילי.'},{title:'סריקת זירה',desc:'איתור חפצים שיכולים לשפוך אור על נסיבות המוות.'},{title:'דיווח',desc:'דיווח וקבלת אישורים מהרל"ח המרחבי.'},{title:'נתיחה',desc:'שאילת המשפחה בנוגע לנתיחה.'},{title:'דוחות',desc:'רישום דוחות ומילוי טפסים.'},{title:'שירות',desc:'גישת שירותית - המשפחה באבל, יש להבין ולהכיל.'},{title:'בדיקת סימני פריצה לדירה',desc:'בדיקת סימנים בזירה.'},{title:'סימני פציעה על הגופה',desc:'תיעוד כל סימן חשוד.'},{title:'סימני שקיעת דם בגופה',desc:'בדיקה והתאמה למיקום.'},{title:'סימני מאבק בזירה / גופה',desc:'בחינת סימנים פיזיים.'},{title:'מצב רפואי של הנפטר טרם מותו',desc:'בירור מצב בריאותי קודם.'},{title:'עדויות סותרות',desc:'השוואת גרסאות בין עדים.'},{title:'מאבקי ירושה',desc:'בדיקת מניעים כלכליים.'},{title:'אמירות מעורבים שמעלות חשד',desc:'תיעוד ודיווח.'}]}
+];
+
+var currentStation = null;
+var checkedTasks = {};
+
+function showScreen(screenId) { 
+  var screens = document.querySelectorAll('.screen'); 
+  for (var i = 0; i < screens.length; i++) { screens[i].classList.remove('active'); } 
+  document.getElementById(screenId).classList.add('active'); 
+  window.scrollTo(0, 0); 
+  if (screenId === 'mainMenu') { renderMainMenu(); } 
+  if (screenId === 'dutyTasks') { renderChecklist(); } 
+  if (screenId === 'eventTypes') { renderEventTypes(); } 
+  if (screenId === 'profile') { renderProfile(); } 
+  if (screenId === 'manpower') { renderManpowerList(); }
+  if (screenId === 'atzurim') { 
+    var now = new Date();
+    document.getElementById('pTime').value = ("0"+now.getHours()).slice(-2)+":"+("0"+now.getMinutes()).slice(-2);
+  }
+}
+
+function goBack(t) { showScreen(t); }
+function selectStation(id) { currentStation = id; saveState(); showScreen('mainMenu'); }
+
+function renderMainMenu() { if (!currentStation) return; document.getElementById('menuStationName').textContent = stationsData[currentStation].name; var now = new Date(); var days = ['ראשון','שני','שלישי','רביעי','חמישי','שישי','שבת']; var months = ['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר']; document.getElementById('currentDate').textContent = 'יום ' + days[now.getDay()] + ', ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear(); }
+
+function renderChecklist() {
+  var container = document.getElementById('checklistContainer'); container.innerHTML = ''; var total = 0; var checked = 0; var sections = Object.keys(dutyTasks);
+  for (var s = 0; s < sections.length; s++) { var sectionName = sections[s]; var tasks = dutyTasks[sectionName]; var sectionEl = document.createElement('div'); sectionEl.className = 'checklist-section'; sectionEl.innerHTML = '<div class="section-title">' + sectionName + '</div>';
+    for (var i = 0; i < tasks.length; i++) { var task = tasks[i]; total++; var isChecked = checkedTasks[task.id]; if (isChecked) checked++;
+      var item = document.createElement('div'); item.className = 'checklist-item' + (isChecked ? ' checked' : ''); item.onclick = (function(taskId) { return function() { toggleTask(taskId); }; })(task.id);
+      var html = '<div class="check-box">' + (isChecked ? '&#10003;' : '') + '</div><div class="check-text"><h4 style="color:'+(task.text.includes('*')?'var(--gold)':'#fff')+'">' + task.text + '</h4><p>' + task.desc + '</p></div>'; if (isChecked) { html += '<span class="check-time">' + checkedTasks[task.id] + '</span>'; } item.innerHTML = html; sectionEl.appendChild(item); } container.appendChild(sectionEl); }
+  var pct = total > 0 ? Math.round((checked / total) * 100) : 0; document.getElementById('taskCount').textContent = checked + '/' + total; document.getElementById('progressPercent').textContent = pct + '%'; document.getElementById('progressFill').style.width = pct + '%';
+}
+
+function toggleTask(taskId) { if (checkedTasks[taskId]) { delete checkedTasks[taskId]; } else { var now = new Date(); checkedTasks[taskId] = ("0"+now.getHours()).slice(-2)+":"+("0"+now.getMinutes()).slice(-2); } saveState(); renderChecklist(); }
+function resetChecklist() { if (confirm('לאפס את כל המשימות? (פעולה זו לא ניתנת לביטול)')) { checkedTasks = {}; saveState(); renderChecklist(); showToast('המשימות אופסו בהצלחה'); } }
+
+function renderEventTypes() { var container = document.getElementById('eventTypesContainer'); container.innerHTML = ''; for (var i = 0; i < eventTypes.length; i++) { var ev = eventTypes[i]; var card = document.createElement('div'); card.className = 'event-card'; card.onclick = (function(event) { return function() { showEventDetail(event); }; })(ev); card.innerHTML = '<div class="event-header"><h3>' + ev.title + '</h3></div><p>' + ev.desc + '</p>'; container.appendChild(card); } }
+
+function showEventDetail(event) {
+  document.getElementById('eventDetailTitle').textContent = event.title; var content = document.getElementById('eventDetailContent'); content.innerHTML = '';
+  if (event.type === 'steps') { var html = '<div style="padding: 20px;">'; for (var i = 0; i < event.steps.length; i++) { var step = event.steps[i]; html += '<div class="step-item" style="animation: slideUp 0.4s ease ' + (i * 0.05) + 's both"><div class="step-number">' + (i + 1) + '</div><div class="step-content"><h4>' + step.title + '</h4><p>' + step.desc + '</p></div></div>'; } html += '</div>'; content.innerHTML = html; }
+  showScreen('eventDetail');
+}
+
+function renderProfile() { if (!currentStation) return; var station = stationsData[currentStation]; var p = station.profile; var html = '<div class="profile-card"><h3>פרטים כלליים</h3><div class="profile-row"><span class="label">שם תחנה</span><span class="value">' + station.name + '</span></div><div class="profile-row"><span class="label">מרחב</span><span class="value">' + station.area + '</span></div><div class="profile-row"><span class="label">כתובת</span><span class="value">' + p.address + '</span></div><div class="profile-row"><span class="label">מפקד תחנה</span><span class="value">' + p.commander + '</span></div></div><div class="profile-card"><h3>טלפונים מבצעיים</h3><div class="profile-row"><span class="label">טלפון תחנה</span><span class="value phone">' + p.phone + '</span></div><div class="profile-row"><span class="label">פקס</span><span class="value phone">' + p.fax + '</span></div><div class="profile-row"><span class="label">קצין תורן</span><span class="value phone">' + p.dutyOfficer + '</span></div><div class="profile-row"><span class="label">מוקד</span><span class="value phone">' + p.moked + '</span></div></div><div class="profile-card"><h3>גבולות גזרה</h3>'; for (var i = 0; i < p.borders.length; i++) { html += '<div style="background: rgba(255,255,255,0.05); padding: 8px 12px; margin-bottom:8px; border-radius:4px; font-size:13px; border-right:2px solid var(--blue-light);">' + p.borders[i] + '</div>'; } html += '</div>'; document.getElementById('profileContainer').innerHTML = html; }
+
+function showAdminModal() { document.getElementById('adminModal').classList.add('show'); document.getElementById('pinInput').value = ''; document.getElementById('pinInput').classList.remove('error'); setTimeout(function() { document.getElementById('pinInput').focus(); }, 300); }
+function closeAdminModal() { document.getElementById('adminModal').classList.remove('show'); }
+function verifyPin() { var pin = document.getElementById('pinInput').value; if (pin === ADMIN_PIN) { closeAdminModal(); showToast('מצב ניהול הופעל בהצלחה'); } else { document.getElementById('pinInput').classList.add('error'); setTimeout(function() { document.getElementById('pinInput').classList.remove('error'); }, 500); } }
+document.getElementById('pinInput').addEventListener('keyup', function(e) { if (e.key === 'Enter') { verifyPin(); } });
+function showToast(msg) { var toast = document.getElementById('toast'); toast.textContent = msg; toast.classList.add('show'); setTimeout(function() { toast.classList.remove('show'); }, 2500); }
+
+// ניהול עצורים
+var prisoners = [];
+function loadPrisoners() { try { var savedP = localStorage.getItem('tafmak_prisoners'); if (savedP) { prisoners = JSON.parse(savedP); renderPrisonersList(); } } catch(e) {} }
+function savePrisoners() { localStorage.setItem('tafmak_prisoners', JSON.stringify(prisoners)); }
+function addPrisoner() {
+  var name = document.getElementById('pName').value, gender = document.getElementById('pGender').value, age = document.getElementById('pAge').value, offense = document.getElementById('pOffense').value, type = document.getElementById('pType').value, time = document.getElementById('pTime').value;
+  if (!name || !time || !offense) { showToast('שגיאה: חסרים פרטי חובה'); return; }
+  prisoners.unshift({ id: Date.now(), name: name, gender: gender, age: age, offense: offense, type: type, time: time });
+  savePrisoners(); renderPrisonersList();
+  document.getElementById('pName').value = ''; document.getElementById('pAge').value = ''; document.getElementById('pOffense').value = ''; showToast('נרשם ביומן בהצלחה');
+}
+function deletePrisoner(id) { if (confirm('למחוק רישום זה מהיומן?')) { prisoners = prisoners.filter(function(p) { return p.id !== id; }); savePrisoners(); renderPrisonersList(); } }
+function renderPrisonersList() {
+  var container = document.getElementById('prisonersListContainer');
+  if (prisoners.length === 0) { container.innerHTML = '<p style="text-align:center; color:var(--gray); margin-top:20px;">אין רשומות ביומן</p>'; return; }
+  var html = '';
+  for (var i = 0; i < prisoners.length; i++) {
+    var p = prisoners[i], typeText = p.type === 'atzur' ? 'עצור' : 'מעוכב', ageText = p.age ? ' | ' + p.age : '';
+    html += '<div class="prisoner-card ' + p.type + '"><div class="p-info">';
+    html += '<div style="display:flex; justify-content:space-between; align-items:start;"><h4>' + p.name + ' <span style="font-weight:400; font-size:14px; color:var(--gray)">' + ageText + '</span></h4><button class="btn-delete" onclick="deletePrisoner(' + p.id + ')">🗑️</button></div>';
+    html += '<div style="color:#fff; font-size:14px; margin:4px 0;">עבירה: ' + p.offense + '</div>';
+    html += '<div class="p-tech">סטטוס: ' + typeText + ' (' + p.gender + ') | קליטה: <span style="color:var(--gold)">' + p.time + '</span></div>';
+    html += '</div></div>';
+  } container.innerHTML = html;
+}
+
+// ניהול כוח אדם
+var manpower = [];
+function loadManpower() { try { var savedM = localStorage.getItem('tafmak_manpower'); if (savedM) { manpower = JSON.parse(savedM); renderManpowerList(); } } catch(e) {} }
+function saveManpower() { localStorage.setItem('tafmak_manpower', JSON.stringify(manpower)); }
+function addManpowerItem() {
+  var mission = document.getElementById('mpMission').value, callSign = document.getElementById('mpCallSign').value, officers = document.getElementById('mpOfficers').value;
+  if (!mission) { showToast('שגיאה: חובה להזין שם משימה'); return; }
+  manpower.unshift({ id: Date.now(), mission: mission, callSign: callSign || 'ללא קוד', officers: officers || 'כוח לא מפורט' });
+  saveManpower(); renderManpowerList();
+  document.getElementById('mpMission').value = ''; document.getElementById('mpCallSign').value = ''; document.getElementById('mpOfficers').value = ''; showToast('הכוח שוגר בהצלחה');
+}
+function deleteManpowerItem(id) { if (confirm('למחוק משימה זו?')) { manpower = manpower.filter(function(item) { return item.id !== id; }); saveManpower(); renderManpowerList(); } }
+function renderManpowerList() {
+  var container = document.getElementById('manpowerListContainer');
+  if (manpower.length === 0) { container.innerHTML = '<p style="text-align:center; color:var(--gray); margin-top:20px;">אין כוחות משובצים</p>'; return; }
+  var html = '';
+  for (var i = 0; i < manpower.length; i++) {
+    var item = manpower[i];
+    html += '<div class="manpower-card"><div class="p-info">';
+    html += '<div style="display:flex; justify-content:space-between; align-items:start;"><h4>' + item.mission + ' <span style="background:var(--cyan); color:#000; padding:2px 6px; border-radius:3px; font-size:12px; margin-right:8px; font-family:monospace;">קשר: ' + item.callSign + '</span></h4><button class="btn-delete" onclick="deleteManpowerItem(' + item.id + ')">🗑️</button></div>';
+    html += '<div style="color:var(--gray); font-size:14px; margin-top:6px; line-height:1.5;">' + item.officers.replace(/\n/g, '<br>') + '</div>';
+    html += '</div></div>';
+  } container.innerHTML = html;
+}
+
+function loadState() { try { var saved = localStorage.getItem('tafmak_checked'); if (saved) { checkedTasks = JSON.parse(saved); } localStorage.removeItem('tafmak_station'); loadPrisoners(); loadManpower(); } catch(e) {} }
+function saveState() { try { localStorage.setItem('tafmak_checked', JSON.stringify(checkedTasks)); } catch(e) {} }
+
+loadState();
+</script>
+</body>
+</html>
