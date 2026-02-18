@@ -25,6 +25,7 @@
     --text: #e2e8f0;
     --radius: 14px;
     --shadow: 0 4px 24px rgba(0,0,0,0.3);
+    --cyan: #06b6d4; /* צבע חדש לכוח אדם */
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: 'Heebo', sans-serif; background: var(--navy); color: var(--text); min-height: 100vh; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
@@ -167,7 +168,7 @@
   .tavhin-item .ti-desc { font-size: 13px; color: var(--gray); line-height: 1.7; padding-right: 38px; }
   .tavhin-item .ti-bold { font-size: 13px; color: #a78bfa; font-weight: 600; margin-top: 6px; padding-right: 38px; line-height: 1.5; }
 
-  /* סגנון לטופס עצורים */
+  /* טפסים */
   .form-input, .form-select {
     width: 100%;
     background: var(--navy);
@@ -183,6 +184,8 @@
   .form-input:focus, .form-select:focus {
     border-color: var(--blue);
   }
+  
+  /* כרטיס עצורים */
   .prisoner-card {
     background: var(--navy-light);
     border-right: 4px solid var(--gray);
@@ -196,6 +199,21 @@
   }
   .prisoner-card.atzur { border-color: var(--red); }
   .prisoner-card.meukav { border-color: var(--gold); }
+  
+  /* כרטיס כוח אדם */
+  .manpower-card {
+    background: var(--navy-light);
+    border-right: 4px solid var(--cyan);
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 10px;
+    animation: slideUp 0.3s ease;
+  }
+  .mp-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .mp-header h4 { font-size: 16px; font-weight: 700; color: #fff; }
+  .mp-badge { background: rgba(6,182,212,0.15); color: #22d3ee; font-size: 13px; padding: 4px 8px; border-radius: 6px; font-weight: 600; }
+  .mp-officers { font-size: 14px; color: var(--gray); line-height: 1.5; }
+  
   .p-info h4 { font-size: 16px; font-weight: 700; color: #fff; }
   .p-info span { font-size: 13px; color: var(--gray); }
   .btn-delete { background: none; border: none; color: var(--gray-dark); font-size: 20px; cursor: pointer; padding: 5px; }
@@ -223,6 +241,9 @@
     <div class="welcome-card"><h2>שלום, קצין תורן</h2><p id="currentDate"></p></div>
     <div class="menu-grid">
       <div class="menu-card" onclick="showScreen('dutyTasks')"><div class="card-icon gold">📋</div><div class="card-info"><h3>משימות קצין תורן</h3><p>צ׳קליסט לפני ותוך כדי משמרת</p></div></div>
+      
+      <div class="menu-card" onclick="showScreen('manpower')"><div class="card-icon" style="background: linear-gradient(135deg, #06b6d4, #0891b2); color: white;">👥</div><div class="card-info"><h3>ניהול כוח אדם</h3><p>שיבוץ משימות וקודי קריאה</p></div></div>
+      
       <div class="menu-card" onclick="showScreen('atzurim')"><div class="card-icon" style="background: linear-gradient(135deg, #f43f5e, #be123c); color: white;">⛓️</div><div class="card-info"><h3>ניהול עצורים</h3><p>נוסח אזהרה, רישום ומעקב</p></div></div>
       <div class="menu-card" onclick="showScreen('eventTypes')"><div class="card-icon green">🚨</div><div class="card-info"><h3>עיקרון טיפול באירוע</h3><p>סד״פ לפי סוג אירוע</p></div></div>
       <div class="menu-card" onclick="showScreen('profile')"><div class="card-icon blue">🏛️</div><div class="card-info"><h3>פרופיל תחנה</h3><p>פרטי קשר, גבולות גזרה ומידע</p></div></div>
@@ -237,6 +258,29 @@
     <div class="progress-bar-container"><div class="progress-header"><span>התקדמות</span><strong id="progressPercent">0%</strong></div><div class="progress-track"><div class="progress-fill" id="progressFill" style="width: 0%"></div></div></div>
     <div id="checklistContainer"></div>
     <button class="reset-btn" onclick="resetChecklist()">אפס את כל המשימות</button>
+  </div>
+</div>
+
+<div id="manpower" class="screen">
+  <div class="header"><button class="back-btn" onclick="goBack('mainMenu')">&rarr;</button><span class="header-title">ניהול כוח אדם ושיבוץ</span></div>
+  <div class="checklist-content">
+    
+    <div class="info-block" style="background: var(--navy-mid); border: 1px solid var(--cyan);">
+       <h4 style="margin-bottom:12px; color: #fff;">הוספת משימה / כוח</h4>
+       <input type="text" id="mpMission" class="form-input" placeholder="שם המשימה (לדוג': מחסום צפוני)">
+       <div style="display:flex; gap:10px;">
+         <input type="text" id="mpCallSign" class="form-input" placeholder="קוד קריאה / גל" style="width: 140px;" inputmode="numeric">
+       </div>
+       <textarea id="mpOfficers" class="form-input" placeholder="שמות שוטרים (לדוג': משה כהן, דני לוי)" style="height: 80px; resize: none;"></textarea>
+       <button class="btn-confirm" style="width:100%; margin-top:5px; background: #0891b2;" onclick="addManpowerItem()">+ שייך כוח</button>
+    </div>
+
+    <div class="checklist-section">
+      <div class="section-title">פריסת כוחות פעילה</div>
+      <div id="manpowerListContainer">
+        <p style="text-align:center; color:var(--gray); margin-top:20px;">אין כוחות משובצים</p>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -259,9 +303,7 @@
 
     <div class="info-block" style="background: var(--navy-mid); border: 1px solid var(--blue-light);">
        <h4 style="margin-bottom:12px; color: #fff;">הוספת רישום חדש</h4>
-       
        <input type="text" id="pName" class="form-input" placeholder="שם מלא">
-       
        <div style="display:flex; gap:10px; margin-bottom:10px;">
          <select id="pGender" class="form-select" style="width: 90px;">
            <option value="זכר">זכר</option>
@@ -269,9 +311,7 @@
          </select>
          <input type="number" id="pAge" class="form-input" placeholder="גיל" style="width: 80px;">
        </div>
-
        <input type="text" id="pOffense" class="form-input" placeholder="סוג עבירה (לדוגמה: תקיפה)">
-
        <div style="display:flex; gap:10px;">
          <select id="pType" class="form-select">
            <option value="atzur">עצור 🛑</option>
@@ -279,7 +319,6 @@
          </select>
          <input type="time" id="pTime" class="form-input" style="width: 120px;">
        </div>
-       
        <button class="btn-confirm" style="width:100%; margin-top:5px;" onclick="addPrisoner()">+ הוסף לרשימה</button>
     </div>
 
@@ -431,6 +470,7 @@ function showScreen(screenId) {
   if (screenId === 'eventTypes') { renderEventTypes(); } 
   if (screenId === 'profile') { renderProfile(); } 
   if (screenId === 'tavhin') { renderTavhin(); } 
+  if (screenId === 'manpower') { renderManpowerList(); }
   if (screenId === 'atzurim') { 
     var now = new Date();
     var timeStr = ("0" + now.getHours()).slice(-2) + ":" + ("0" + now.getMinutes()).slice(-2);
@@ -555,18 +595,88 @@ function renderPrisonersList() {
     
     html += '<div class="prisoner-card ' + p.type + '">';
     html += '<div class="p-info" style="width:100%">';
-    // שורה ראשונה: שם + גיל + אייקון מחיקה
     html += '<div style="display:flex; justify-content:space-between; align-items:center;">';
     html += '<h4>' + p.name + ageText + '</h4>';
     html += '<button class="btn-delete" onclick="deletePrisoner(' + p.id + ')">🗑️</button>';
     html += '</div>';
-    
-    // שורה שניה: עבירה
     html += '<div style="color:#fff; font-size:14px; margin:4px 0;">עבירה: ' + p.offense + '</div>';
-    
-    // שורה שלישית: פרטים טכניים
     html += '<span style="display:block; margin-top:4px;">' + typeText + ' • ' + p.gender + ' • הוכנס ב: <b style="color:#fff">' + p.time + '</b></span>';
-    
+    html += '</div></div>';
+  }
+  container.innerHTML = html;
+}
+
+// --- ניהול כוח אדם ---
+var manpower = [];
+
+function loadManpower() {
+  try {
+    var savedM = localStorage.getItem('tafmak_manpower');
+    if (savedM) {
+      manpower = JSON.parse(savedM);
+      renderManpowerList();
+    }
+  } catch(e) {}
+}
+
+function saveManpower() {
+  localStorage.setItem('tafmak_manpower', JSON.stringify(manpower));
+}
+
+function addManpowerItem() {
+  var mission = document.getElementById('mpMission').value;
+  var callSign = document.getElementById('mpCallSign').value;
+  var officers = document.getElementById('mpOfficers').value;
+
+  if (!mission) {
+    showToast('נא למלא שם משימה');
+    return;
+  }
+
+  var newItem = {
+    id: Date.now(),
+    mission: mission,
+    callSign: callSign || '-',
+    officers: officers || 'ללא פירוט'
+  };
+
+  manpower.unshift(newItem);
+  saveManpower();
+  renderManpowerList();
+  
+  // ניקוי
+  document.getElementById('mpMission').value = '';
+  document.getElementById('mpCallSign').value = '';
+  document.getElementById('mpOfficers').value = '';
+  showToast('הכוח שובץ בהצלחה');
+}
+
+function deleteManpowerItem(id) {
+  if (confirm('למחוק את המשימה?')) {
+    manpower = manpower.filter(function(item) { return item.id !== id; });
+    saveManpower();
+    renderManpowerList();
+  }
+}
+
+function renderManpowerList() {
+  var container = document.getElementById('manpowerListContainer');
+  if (manpower.length === 0) {
+    container.innerHTML = '<p style="text-align:center; color:var(--gray); margin-top:20px;">אין כוחות משובצים</p>';
+    return;
+  }
+  
+  var html = '';
+  for (var i = 0; i < manpower.length; i++) {
+    var item = manpower[i];
+    html += '<div class="manpower-card">';
+    html += '<div class="mp-header">';
+    html += '<h4>' + item.mission + '</h4>';
+    html += '<div class="mp-badge">' + item.callSign + '</div>';
+    html += '</div>';
+    html += '<div style="display:flex; justify-content:space-between; align-items:start;">';
+    html += '<div class="mp-officers">' + item.officers + '</div>';
+    html += '<button class="btn-delete" onclick="deleteManpowerItem(' + item.id + ')">🗑️</button>';
     html += '</div></div>';
   }
   container.innerHTML = html;
@@ -578,6 +688,7 @@ function loadState() {
     if (saved) { checkedTasks = JSON.parse(saved); } 
     localStorage.removeItem('tafmak_station'); 
     loadPrisoners(); 
+    loadManpower();
   } catch(e) {} 
 }
 
