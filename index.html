@@ -25,7 +25,7 @@
     --text: #e2e8f0;
     --radius: 14px;
     --shadow: 0 4px 24px rgba(0,0,0,0.3);
-    --cyan: #06b6d4; /* צבע חדש לכוח אדם */
+    --cyan: #06b6d4;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: 'Heebo', sans-serif; background: var(--navy); color: var(--text); min-height: 100vh; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
@@ -150,24 +150,7 @@
   .btn-confirm { background: var(--blue); color: #fff; }
   .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px); background: var(--green); color: #fff; padding: 12px 24px; border-radius: 12px; font-size: 14px; font-weight: 600; z-index: 2000; transition: transform 0.3s ease; white-space: nowrap; }
   .toast.show { transform: translateX(-50%) translateY(0); }
-  .tavhin-header { background: linear-gradient(135deg, #7c3aed, #6d28d9); border-radius: 16px; padding: 22px; margin-bottom: 20px; text-align: center; }
-  .tavhin-header h2 { font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 4px; }
-  .tavhin-header p { font-size: 13px; color: rgba(255,255,255,0.7); }
-  .tavhin-total { display: inline-block; background: rgba(255,255,255,0.15); padding: 6px 16px; border-radius: 20px; margin-top: 10px; font-size: 14px; font-weight: 700; color: #fff; }
-  .score-badge { display: inline-block; background: linear-gradient(135deg, #7c3aed, #6d28d9); color: #fff; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 12px; white-space: nowrap; }
-  .tavhin-card { background: var(--navy-light); border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius); padding: 18px 20px; margin-bottom: 12px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 14px; }
-  .tavhin-card:active { transform: scale(0.98); }
-  .tavhin-card .tc-icon { width: 44px; height: 44px; border-radius: 12px; background: rgba(124,58,237,0.12); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
-  .tavhin-card .tc-info { flex: 1; }
-  .tavhin-card .tc-info h3 { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 3px; }
-  .tavhin-card .tc-info p { font-size: 12px; color: var(--gray); }
-  .tavhin-item { background: var(--navy-light); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 16px 18px; margin-bottom: 10px; }
-  .tavhin-item .ti-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-  .tavhin-item .ti-num { width: 28px; height: 28px; border-radius: 50%; background: rgba(124,58,237,0.2); color: #a78bfa; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; }
-  .tavhin-item .ti-title { font-size: 14px; font-weight: 700; color: #fff; flex: 1; line-height: 1.5; }
-  .tavhin-item .ti-desc { font-size: 13px; color: var(--gray); line-height: 1.7; padding-right: 38px; }
-  .tavhin-item .ti-bold { font-size: 13px; color: #a78bfa; font-weight: 600; margin-top: 6px; padding-right: 38px; line-height: 1.5; }
-
+ 
   /* טפסים */
   .form-input, .form-select {
     width: 100%;
@@ -247,7 +230,6 @@
       <div class="menu-card" onclick="showScreen('atzurim')"><div class="card-icon" style="background: linear-gradient(135deg, #f43f5e, #be123c); color: white;">⛓️</div><div class="card-info"><h3>ניהול עצורים</h3><p>נוסח אזהרה, רישום ומעקב</p></div></div>
       <div class="menu-card" onclick="showScreen('eventTypes')"><div class="card-icon green">🚨</div><div class="card-info"><h3>עיקרון טיפול באירוע</h3><p>סד״פ לפי סוג אירוע</p></div></div>
       <div class="menu-card" onclick="showScreen('profile')"><div class="card-icon blue">🏛️</div><div class="card-info"><h3>פרופיל תחנה</h3><p>פרטי קשר, גבולות גזרה ומידע</p></div></div>
-      <div class="menu-card" onclick="showScreen('tavhin')" style="border: 1px solid rgba(124,58,237,0.25)"><div class="card-icon" style="background:linear-gradient(135deg,rgba(124,58,237,0.15),rgba(124,58,237,0.05))">🎓</div><div class="card-info"><h3>דף תבחין</h3><p>קריטריונים למבחן התנסות פיקודית</p></div></div>
     </div>
   </div>
 </div>
@@ -346,16 +328,6 @@
   <div class="profile-content" id="profileContainer"></div>
 </div>
 
-<div id="tavhin" class="screen">
-  <div class="header"><button class="back-btn" onclick="goBack('mainMenu')">&rarr;</button><span class="header-title">דף תבחין</span></div>
-  <div class="checklist-content" id="tavhinContainer"></div>
-</div>
-
-<div id="tavhinDetail" class="screen">
-  <div class="header"><button class="back-btn" onclick="goBack('tavhin')">&rarr;</button><span class="header-title" id="tavhinDetailTitle"></span><span class="score-badge" id="tavhinDetailScore"></span></div>
-  <div class="checklist-content" id="tavhinDetailContent"></div>
-</div>
-
 <div id="adminModal" class="modal-overlay" onclick="if(event.target===this)closeAdminModal()">
   <div class="modal-box"><h3>מצב ניהול</h3><p>הזן קוד מנהל לעריכת תוכן</p><input type="password" class="pin-input" id="pinInput" maxlength="4" inputmode="numeric" placeholder="----"><div class="modal-btns"><button class="btn-cancel" onclick="closeAdminModal()">ביטול</button><button class="btn-confirm" onclick="verifyPin()">אישור</button></div></div>
 </div>
@@ -365,7 +337,39 @@
 var ADMIN_PIN = '1234';
 var stationsData = {ashkelon:{name:'תחנת אשקלון',area:'מרחב לכיש',profile:{address:'רח׳ הנשיא 1, אשקלון',phone:'08-6612222',fax:'08-6612233',commander:'סנ״צ ישראל כהן',dutyOfficer:'08-6612200',moked:'100',borders:['צפון: נחל לכיש עד צומת אשדוד','דרום: נחל שקמה עד גבול עזה','מזרח: כביש 4 - צומת אשקלון','מערב: קו חוף הים התיכון']}},beersheva:{name:'תחנת באר שבע',area:'מרחב הנגב',profile:{address:'שד׳ טוביהו 1, באר שבע',phone:'08-6468222',fax:'08-6468233',commander:'סנ״צ דוד לוי',dutyOfficer:'08-6468200',moked:'100',borders:['צפון: צומת שוקת עד צומת להבים','דרום: צומת ערד עד תל ערד','מזרח: כביש 40 - צומת כסיפה','מערב: כביש 25 - צומת בית קמה']}}};
 
-var dutyTasks = {'לפני המשמרת':[{id:'t1',text:'התייצבות מול מת"ח / ק.אג"מ',desc:'קבלת תדרוך ותיק ק.תורן (מעודכן)'},{id:'t2',text:'נהלי תחנה, מדיניות מפקד, נהלי דיווח',desc:'לימוד והכרת נהלים עדכניים'},{id:'t3',text:'בדיקה לגבי מצב שוטף',desc:'ד.ח, מעצרים, זימון חשודים, ידיעות, מאוימים, סד"כ, יס"מ, תגבור, ניידות, מתקנים, גבולות גזרה, כוחות ואירועים נוספים'},{id:'t4',text:'חבירה ליומנאי ובדיקת אמצעים',desc:'יומנים, נשקים, קשרים, רכבים, ציוד, ארון מוצגים, סד"כ כוחות (ומספרי פלאפון)'},{id:'t5',text:'דרכי תקשורת וחבירה לבעלי תפקידים',desc:'קצין חקירות, קצין בילוש, קצין סיור'},{id:'t6',text:'חפיפה',desc:'אירועים מתמשכים / חריגים, עצורים, סטטוס מאוימים'},{id:'t7',text:'חבירה לראש משמרת',desc:'וידוא סד"כים, פערים ומשימות מתוכננות'},{id:'t8',text:'התייצבות מול משל"ט',desc:'דיווח מוכנות'}],'תוך כדי משמרת':[{id:'t9',text:'עצורים',desc:'מחיצת מגן, מסמכי עצורים, קיום תנאים הולמים, תיאום מעצר / נחשון'},{id:'t10',text:'נוכחות ודגשים בתדריך למשמרת',desc:'תדרוך כוחות נוספים (מתנדבים / רגלי / תגבור)'},{id:'t11',text:'קשר עם כלל גורמי התחנה',desc:'ניידות, בילוש, מש"קים, מתנדבים, חוקר, תגבור, כוחות נוספים'},{id:'t12',text:'וידוא ציוותים מול משל"ט',desc:'בדיקת שיבוצים ותקינות'},{id:'t13',text:'בקרה על מערך אבטחה וזקיפות',desc:'ביקורת פיזית בנקודות'},{id:'t14',text:'בקרה על ביצוע מטלות מבצעיות',desc:'מעקב אחר ביצוע משימות'},{id:'t15',text:'טיפול באזרחים',desc:'וידוא מענה של היומן / מש"ל / חוקר תורן'},{id:'t16',text:'קיום תרגיל',desc:'לניידות / יומן / מש"ל / חוקר תורן'}]};
+// כאן עודכן הצ'ק ליסט עם הדגשים מהתבחין (במקום המסך הנפרד)
+var dutyTasks = {
+  '❗ דגשים קריטיים למבחן (תבחין)': [
+    {id:'crit1', text:'* הופעה וייצוגיות מלאה', desc:'מדים מגוהצים, גילוח/שיער, צחצוח, דרגות, תגי שם ותעודת מינוי'},
+    {id:'crit2', text:'* בדיקת ציוד אישי וניידת', desc:'תקינות קשר, טאבלט, פנס, אפוד זוהר וציוד אישי'},
+    {id:'crit3', text:'* בקיאות בגזרה ובתדריך', desc:'הפגנת שליטה באירועים גזרתיים וקבלת דגשים בתדריך'},
+    {id:'crit4', text:'* הגעה לזירה: דיווח + תמונת מצב', desc:'דיווח ראשוני מהיר למשל"ט על הגעה ותמונת מצב ראשונית'},
+    {id:'crit5', text:'* סגירת זירה הרמטית', desc:'שימוש בסרטי סימון, הרחקת סקרנים ומניעת זיהום הזירה'},
+    {id:'crit6', text:'* הפעלת כוח ושליטה', desc:'חלוקת גזרות ומשימות ברורות לשוטרים/מתנדבים'},
+    {id:'crit7', text:'* הפגנת מנהיגות וקור רוח', desc:'תפקוד רגוע תחת לחץ, קבלת החלטות עניינית ואסרטיביות'},
+    {id:'crit8', text:'* אמינות ודיווח', desc:'דיווח אמת, אמינות מלאה ורישום דוחות מפורט'}
+  ],
+  'לפני המשמרת': [
+    {id:'t1',text:'התייצבות מול מת"ח / ק.אג"מ',desc:'קבלת תדרוך ותיק ק.תורן (מעודכן)'},
+    {id:'t2',text:'נהלי תחנה, מדיניות מפקד, נהלי דיווח',desc:'לימוד והכרת נהלים עדכניים'},
+    {id:'t3',text:'בדיקה לגבי מצב שוטף',desc:'ד.ח, מעצרים, זימון חשודים, ידיעות, מאוימים, סד"כ, יס"מ, תגבור, ניידות, מתקנים, גבולות גזרה, כוחות ואירועים נוספים'},
+    {id:'t4',text:'חבירה ליומנאי ובדיקת אמצעים',desc:'יומנים, נשקים, קשרים, רכבים, ציוד, ארון מוצגים, סד"כ כוחות (ומספרי פלאפון)'},
+    {id:'t5',text:'דרכי תקשורת וחבירה לבעלי תפקידים',desc:'קצין חקירות, קצין בילוש, קצין סיור'},
+    {id:'t6',text:'חפיפה',desc:'אירועים מתמשכים / חריגים, עצורים, סטטוס מאוימים'},
+    {id:'t7',text:'חבירה לראש משמרת',desc:'וידוא סד"כים, פערים ומשימות מתוכננות'},
+    {id:'t8',text:'התייצבות מול משל"ט',desc:'דיווח מוכנות'}
+  ],
+  'תוך כדי משמרת': [
+    {id:'t9',text:'עצורים',desc:'מחיצת מגן, מסמכי עצורים, קיום תנאים הולמים, תיאום מעצר / נחשון'},
+    {id:'t10',text:'נוכחות ודגשים בתדריך למשמרת',desc:'תדרוך כוחות נוספים (מתנדבים / רגלי / תגבור)'},
+    {id:'t11',text:'קשר עם כלל גורמי התחנה',desc:'ניידות, בילוש, מש"קים, מתנדבים, חוקר, תגבור, כוחות נוספים'},
+    {id:'t12',text:'וידוא ציוותים מול משל"ט',desc:'בדיקת שיבוצים ותקינות'},
+    {id:'t13',text:'בקרה על מערך אבטחה וזקיפות',desc:'ביקורת פיזית בנקודות'},
+    {id:'t14',text:'בקרה על ביצוע מטלות מבצעיות',desc:'מעקב אחר ביצוע משימות'},
+    {id:'t15',text:'טיפול באזרחים',desc:'וידוא מענה של היומן / מש"ל / חוקר תורן'},
+    {id:'t16',text:'קיום תרגיל',desc:'לניידות / יומן / מש"ל / חוקר תורן'}
+  ]
+};
 
 var eventTypes = [
 {id:'almab',icon:'🏠',color:'rgba(168,85,247,0.12)',title:'סד"פ קצין בטיפול באלמ"ב',desc:'אלימות במשפחה - סדר פעולות',type:'steps',steps:[{title:'הפרדות',desc:'יש לוודא הפרדה בין בני הזוג ולשמוע את גרסתם לאירוע.'},{title:'נשק',desc:'לבדוק אם לחשוד נשק ואם כן לדרוש תפיסתו והעברתו לחוקר תורן.'},{title:'בחינת הזירה',desc:'במידה ויש הרס / סימני אלימות / ראיות - יש לצלם ולתפוס את הראיות.'},{title:'אירועים קודמים',desc:'לבדוק עבר פלילי של המעורבים בדגש על רצידיביזם באירועים קודמים.'},{title:'קבלת החלטה',desc:'האם לעכב / לעצור את מי מהמעורבים. במידה ואין עיכוב - גביית עדות במידת הצורך.'},{title:'רווחה',desc:'לערב גורמי רווחה במידת הצורך.'},{title:'הפניה למקלט נשים מוכות',desc:'במידה והיא מעוניינת.'},{title:'בדיקה עם החוקר המטפל',desc:'התרשמות החוקר המטפל.'},{title:'מילוי דוח הערכת מסוכנות',desc:'וידוא ביצוע של החוקר.'},{title:'בדוק האם החשוד מחזיק בנשק',desc:'תפוס במידת הצורך.'},{title:'בדוק דו"ח מסוכנות',desc:'סקירת דוחות קודמים.'},{title:'ערב גורמי רווחה',desc:'שירותי רווחה, קב"ס.'},{title:'בדוק התרשמות החוקר',desc:'מבני הזוג והאירוע.'},{title:'בדוק אירועים קודמים ועבר פלילי',desc:'של המעורבים.'},{title:'במידה והוחלט לשחרר',desc:'בחר חלופת מעצר מתאימה.'}]},
@@ -379,87 +383,6 @@ var eventTypes = [
 var currentStation = null;
 var checkedTasks = {};
 
-var tavhinSections = [
-  {
-    id: 'ts1',
-    icon: '👮',
-    title: 'תפיסת תפקיד',
-    subtitle: 'הופעה, ציוד ומוכנות',
-    points: 20,
-    items: [
-       { title: 'הופעה וייצוגיות', desc: 'הופעה תקנית עפ"י נהלים: מדים מגוהצים, גילוח/שיער מסודר, דרגות, תגי שם, תעודת מינוי.' },
-       { title: 'בדיקת ציוד ואמצעים', desc: 'בדיקת תקינות ניידת, מכשיר קשר, טאבלט, אפוד זוהר, פנס וציוד אישי.' },
-       { title: 'קבלת משמרת ותדריך', desc: 'הגעה בזמן, השתתפות בתדריך, קבלת דגשים והבנת המשימות למשמרת.' },
-       { title: 'הכרת הגזרה', desc: 'התמצאות בגזרה, הכרת נקודות תורפה ואירועים גזרתיים רלוונטיים.' }
-    ]
-  },
-  {
-    id: 'ts2',
-    icon: '🚨',
-    title: 'ניהול זירה ואירוע',
-    subtitle: 'תפעול אירוע מקצה לקצה',
-    points: 50,
-    items: [
-       { title: 'הגעה ודיווח ראשוני', desc: 'הגעה מהירה ובטוחה לאירוע, דיווח ראשוני למשל"ט על הגעה ותמונת מצב ראשונית.' },
-       { title: 'סגירת זירה', desc: 'תיחום הזירה, שימוש בסרטי סימון, הרחקת סקרנים ומניעת זיהום הזירה.' },
-       { title: 'ניהול והפעלת כוחות', desc: 'חלוקת גזרות ומשימות לשוטרים/מתנדבים, שליטה בכוח ומתן הוראות ברורות.' },
-       { title: 'טיפול במעורבים', desc: 'זיהוי מעורבים (חשודים/מתלוננים), תשאול ראשוני, עיכוב או מעצר עפ"י סמכות.' },
-       { title: 'טיפול במוצגים', desc: 'איתור מוצגים בזירה, שמירה עליהם ותפיסתם עפ"י נהלים (שרשרת סם/מוצג).' }
-    ]
-  },
-  {
-    id: 'ts3',
-    icon: '👑',
-    title: 'ניהול ומנהיגות באירוע',
-    subtitle: 'פיקוד תחת לחץ',
-    points: 10,
-    items: [
-       { title: 'קור רוח ושליטה', desc: 'תפקוד רגוע ומקצועי תחת לחץ, הקרנת ביטחון לכוח ולאזרחים.' },
-       { title: 'קבלת החלטות', desc: 'קבלת החלטות עניינית ומקצועית המבוססת על נתונים והערכת מצב.' },
-       { title: 'אסרטיביות', desc: 'עמידה על עקרונות אכיפה, הפגנת סמכות מול מעורבים וחשודים.' }
-    ]
-  },
-  {
-    id: 'ts4',
-    icon: '🤝',
-    title: 'תפקוד כללי',
-    subtitle: 'בטיחות, אתיקה ושירות',
-    points: 20,
-    items: [
-       { title: 'בטיחות', desc: 'שמירה על בטיחות אישית, בטיחות הכוח והאזרחים, נהיגה מבצעית זהירה.' },
-       { title: 'יחסי אנוש ושירות', desc: 'מתן שירות מכבד לאזרח, שפה נאותה, יחסי עבודה תקינים עם עמיתים.' },
-       { title: 'אמינות ודיווח', desc: 'דיווח אמת, דיווחים אמינים ומדויקים למשל"ט ולמפקדים, רישום דוחות מפורט.' }
-    ]
-  }
-];
-
-function renderTavhin() {
-  var container = document.getElementById('tavhinContainer');
-  var html = '<div class="tavhin-header"><h2>דף תבחין התנסות פיקודית בשטח</h2><p>קק"צ ייעודי 2025</p><div class="tavhin-total">סה"כ: 100 נקודות</div></div>';
-  for (var i = 0; i < tavhinSections.length; i++) {
-    var sec = tavhinSections[i];
-    html += '<div class="tavhin-card" onclick="showTavhinDetail(\'' + sec.id + '\')"><div class="tc-icon">' + sec.icon + '</div><div class="tc-info"><h3>' + sec.title + '</h3><p>' + sec.subtitle + '</p></div><span class="score-badge">' + sec.points + ' נק</span></div>';
-  }
-  container.innerHTML = html;
-}
-
-function showTavhinDetail(sectionId) {
-  var sec = null;
-  for (var i = 0; i < tavhinSections.length; i++) { if (tavhinSections[i].id === sectionId) { sec = tavhinSections[i]; break; } }
-  if (!sec) return;
-  document.getElementById('tavhinDetailTitle').textContent = sec.title;
-  document.getElementById('tavhinDetailScore').textContent = sec.points + ' נקודות';
-  var html = '<div class="section-title">' + sec.subtitle + '</div>';
-  for (var i = 0; i < sec.items.length; i++) {
-    var item = sec.items[i];
-    html += '<div class="tavhin-item"><div class="ti-head"><div class="ti-num">' + (i+1) + '</div><div class="ti-title">' + item.title + '</div></div><div class="ti-desc">' + item.desc + '</div>';
-    if (item.bold) { html += '<div class="ti-bold">' + item.bold + '</div>'; }
-    html += '</div>';
-  }
-  document.getElementById('tavhinDetailContent').innerHTML = html;
-  showScreen('tavhinDetail');
-}
-
 function showScreen(screenId) { 
   var screens = document.querySelectorAll('.screen'); 
   for (var i = 0; i < screens.length; i++) { screens[i].classList.remove('active'); } 
@@ -469,7 +392,6 @@ function showScreen(screenId) {
   if (screenId === 'dutyTasks') { renderChecklist(); } 
   if (screenId === 'eventTypes') { renderEventTypes(); } 
   if (screenId === 'profile') { renderProfile(); } 
-  if (screenId === 'tavhin') { renderTavhin(); } 
   if (screenId === 'manpower') { renderManpowerList(); }
   if (screenId === 'atzurim') { 
     var now = new Date();
