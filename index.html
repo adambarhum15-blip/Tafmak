@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
@@ -16,199 +17,208 @@
   --green:#10b981;--green2:#34d399;--green-dim:rgba(16,185,129,0.08);
   --red:#ef4444;--red2:#f87171;--red-dim:rgba(239,68,68,0.06);
   --cyan:#06b6d4;--cyan2:#22d3ee;--cyan-dim:rgba(6,182,212,0.08);
-  --purple:#8b5cf6;
+  --orange:#d97706;--orange2:#f59e0b;--orange-dim:rgba(217,119,6,0.1);
   --gray:#8494a7;--gray2:#4b5563;--text:#e8ecf4;
-  --glass:rgba(13,17,25,0.7);--glass2:rgba(20,25,36,0.85);
   --R:12px;--R2:16px;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-tap-highlight-color:transparent}
-body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse 80% 60% at 50% -20%,rgba(59,130,246,0.06),transparent 70%),radial-gradient(ellipse 50% 40% at 80% 100%,rgba(139,92,246,0.04),transparent);pointer-events:none;z-index:0}
+body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse 80% 60% at 50% -20%,rgba(59,130,246,0.06),transparent 70%);pointer-events:none;z-index:0}
 
 .siren-bar{position:fixed;top:0;left:0;width:100%;height:3px;z-index:9000;background:linear-gradient(90deg,#ff003c 0%,#ff003c 50%,#003cff 50%,#003cff 100%);background-size:200% 100%;animation:sirenSlide .7s linear infinite}
 @keyframes sirenSlide{to{background-position:-200% 0}}
-
-.screen{display:none;min-height:100vh;padding-bottom:100px;position:relative;z-index:1}
+.screen{display:none;min-height:100vh;padding-bottom:120px;position:relative;z-index:1}
 .screen.active{display:block;animation:screenIn .3s ease}
 @keyframes screenIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 @keyframes pop{from{opacity:0;transform:scale(.96) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}
-@keyframes slideUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
 @keyframes shake{25%{transform:translateX(5px)}50%{transform:translateX(-5px)}75%{transform:translateX(3px)}}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
-@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
 
-/* ===== STATION SELECT ===== */
+/* STATION SELECT */
 .station-select{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:30px}
 .logo-area{text-align:center;margin-bottom:48px;animation:pop .6s ease}
 .logo-ring{width:130px;height:130px;border-radius:32px;background:linear-gradient(145deg,rgba(59,130,246,0.12),rgba(139,92,246,0.08));display:flex;align-items:center;justify-content:center;margin:0 auto 24px;position:relative;border:1px solid rgba(59,130,246,0.15);box-shadow:0 0 60px rgba(59,130,246,0.1),inset 0 1px 0 rgba(255,255,255,0.05)}
-.logo-ring::before{content:'';position:absolute;top:-2px;left:-2px;right:-2px;bottom:-2px;border-radius:34px;background:linear-gradient(135deg,rgba(59,130,246,0.2),transparent,rgba(139,92,246,0.2),transparent);animation:spin 6s linear infinite;z-index:0}
-@keyframes spin{to{transform:rotate(360deg)}}
 .logo-ring img{width:85px;height:85px;position:relative;z-index:2;filter:drop-shadow(0 0 15px rgba(59,130,246,0.3))}
 .logo-ring .fb{display:none;font-size:50px;position:relative;z-index:2}
 .logo-area h1{font-size:38px;font-weight:900;color:#fff;letter-spacing:2px;text-shadow:0 0 40px rgba(59,130,246,0.25)}
-.logo-area>p{font-size:12px;color:var(--gray);margin-top:8px;font-weight:600;letter-spacing:4px;text-transform:uppercase}
-
+.logo-area>p{font-size:12px;color:var(–gray);margin-top:8px;font-weight:600;letter-spacing:4px;text-transform:uppercase}
 .s-btns{width:100%;max-width:380px;display:flex;flex-direction:column;gap:12px;animation:pop .8s ease}
-.s-btn{background:var(--s1);border:1px solid rgba(255,255,255,0.05);border-radius:var(--R2);padding:20px 22px;display:flex;align-items:center;gap:16px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
-.s-btn::after{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(135deg,rgba(59,130,246,0.04),transparent);opacity:0;transition:.2s}
-.s-btn:active{transform:scale(.97);border-color:var(--accent)}
-.s-btn:active::after{opacity:1}
-.s-btn .ic{width:50px;height:50px;border-radius:var(--R);background:var(--accent-dim);border:1px solid rgba(59,130,246,0.1);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.s-btn{background:var(–s1);border:1px solid rgba(255,255,255,0.05);border-radius:var(–R2);padding:20px 22px;display:flex;align-items:center;gap:16px;cursor:pointer;transition:all .2s}
+.s-btn:active{transform:scale(.97);border-color:var(–accent)}
+.s-btn .ic{width:50px;height:50px;border-radius:var(–R);background:var(–accent-dim);border:1px solid rgba(59,130,246,0.1);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
 .s-btn h3{font-size:18px;font-weight:800;color:#fff}
-.s-btn .sub{font-size:12px;color:var(--gold);margin-top:2px;font-weight:700}
-.s-btn .arr{margin-right:auto;color:var(--gray2);font-size:18px}
+.s-btn .sub{font-size:12px;color:var(–gold);margin-top:2px;font-weight:700}
+.s-btn .arr{margin-right:auto;color:var(–gray2);font-size:18px}
 
-/* ===== HEADER ===== */
-.hdr{background:var(--glass);padding:16px 20px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(255,255,255,0.04);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
-.hdr-back{background:var(--s2);border:1px solid rgba(255,255,255,0.06);color:var(--text);width:36px;height:36px;border-radius:10px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s}
-.hdr-back:active{transform:scale(.9);background:var(--s3)}
+/* HEADER */
+.hdr{background:rgba(6,8,16,0.92);padding:16px 20px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(255,255,255,0.04);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
+.hdr-back{background:var(–s2);border:1px solid rgba(255,255,255,0.06);color:var(–text);width:36px;height:36px;border-radius:10px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s}
+.hdr-back:active{transform:scale(.9)}
 .hdr-t{font-size:17px;font-weight:800;color:#fff;flex:1}
-.hdr-badge{background:linear-gradient(135deg,var(--accent),#2563eb);color:#fff;font-size:11px;font-weight:800;padding:5px 12px;border-radius:20px;box-shadow:0 0 16px rgba(59,130,246,0.3);letter-spacing:.3px}
-.hdr-gear{background:none;border:none;color:var(--gray2);font-size:20px;cursor:pointer;padding:6px;transition:.15s}
-.hdr-gear:active{color:var(--gold)}
+.hdr-badge{background:linear-gradient(135deg,var(–accent),#2563eb);color:#fff;font-size:11px;font-weight:800;padding:5px 12px;border-radius:20px;box-shadow:0 0 16px rgba(59,130,246,0.3)}
+.hdr-gear{background:none;border:none;color:var(–gray2);font-size:20px;cursor:pointer;padding:6px;transition:.15s}
+.hdr-gear:active{color:var(–gold)}
+.hdr-gear.on{color:var(–orange);animation:pulse 1.5s infinite}
 
-/* ===== WELCOME CARD ===== */
+/* WELCOME */
 .pad{padding:20px}
-.welcome{background:linear-gradient(135deg,#0c1a38 0%,#14306a 50%,#1a3d80 100%);border-radius:var(--R2);padding:26px;margin-bottom:24px;position:relative;overflow:hidden;border:1px solid rgba(59,130,246,0.12);box-shadow:0 8px 40px rgba(0,0,0,0.3)}
-.welcome::before{content:'';position:absolute;top:-60%;right:-40%;width:100%;height:200%;background:radial-gradient(ellipse,rgba(59,130,246,0.1),transparent 70%);pointer-events:none}
-.welcome::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(96,165,250,0.3),transparent)}
+.welcome{background:linear-gradient(135deg,#0c1a38 0%,#14306a 50%,#1a3d80 100%);border-radius:var(–R2);padding:26px;margin-bottom:24px;position:relative;overflow:hidden;border:1px solid rgba(59,130,246,0.12);box-shadow:0 8px 40px rgba(0,0,0,0.3)}
+.welcome::before{content:’’;position:absolute;top:-60%;right:-40%;width:100%;height:200%;background:radial-gradient(ellipse,rgba(59,130,246,0.1),transparent 70%);pointer-events:none}
 .welcome h2{font-size:24px;font-weight:900;color:#fff;position:relative;z-index:2}
-.welcome p{font-size:13px;color:rgba(255,255,255,0.55);margin-top:5px;font-weight:500;position:relative;z-index:2}
+.welcome p{font-size:13px;color:rgba(255,255,255,0.55);margin-top:5px;position:relative;z-index:2}
 
-/* ===== MENU GRID ===== */
+/* MENU GRID */
 .mgrid{display:flex;flex-direction:column;gap:10px}
-.mc{background:var(--s1);border:1px solid rgba(255,255,255,0.04);border-radius:var(--R2);padding:18px 20px;display:flex;align-items:center;gap:16px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
-.mc::before{content:'';position:absolute;right:0;top:0;bottom:0;width:3px;border-radius:3px 0 0 3px}
-.mc:active{transform:scale(.98);background:var(--s2)}
-.mc.cg::before{background:var(--gold);box-shadow:0 0 8px var(--gold-dim)}
-.mc.cc::before{background:var(--cyan);box-shadow:0 0 8px var(--cyan-dim)}
-.mc.cr::before{background:var(--red);box-shadow:0 0 8px var(--red-dim)}
-.mc.ce::before{background:var(--green);box-shadow:0 0 8px var(--green-dim)}
-.mc.cb::before{background:var(--accent);box-shadow:0 0 8px var(--accent-dim)}
-.mc .mi{width:48px;height:48px;border-radius:var(--R);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04)}
+.mc{background:var(–s1);border:1px solid rgba(255,255,255,0.04);border-radius:var(–R2);padding:18px 20px;display:flex;align-items:center;gap:16px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.mc::before{content:’’;position:absolute;right:0;top:0;bottom:0;width:3px;border-radius:3px 0 0 3px}
+.mc:active{transform:scale(.98);background:var(–s2)}
+.mc.cg::before{background:var(–gold)} .mc.cc::before{background:var(–cyan)} .mc.cr::before{background:var(–red)} .mc.ce::before{background:var(–green)} .mc.cb::before{background:var(–accent)}
+.mc .mi{width:48px;height:48px;border-radius:var(–R);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04)}
 .mc h3{font-size:15px;font-weight:800;color:#fff;margin-bottom:3px}
-.mc p{font-size:12px;color:var(--gray);line-height:1.4}
+.mc p{font-size:12px;color:var(–gray);line-height:1.4}
 
-/* ===== CHECKLIST ===== */
+/* CHECKLIST */
 .sec{margin-bottom:26px}
-.sec-t{font-size:12px;font-weight:800;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid rgba(229,168,37,0.12);display:inline-block}
-.ci{background:var(--s1);border:1px solid rgba(255,255,255,0.04);border-radius:var(--R);padding:14px 16px;margin-bottom:8px;display:flex;align-items:flex-start;gap:12px;cursor:pointer;transition:all .15s}
+.sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.sec-t{font-size:12px;font-weight:800;color:var(–gold);letter-spacing:2px;text-transform:uppercase;padding-bottom:8px;border-bottom:1px solid rgba(229,168,37,0.12)}
+.ci{background:var(–s1);border:1px solid rgba(255,255,255,0.04);border-radius:var(–R);padding:14px 16px;margin-bottom:8px;display:flex;align-items:flex-start;gap:12px;cursor:pointer;transition:all .15s}
 .ci:active{transform:scale(.98)}
-.ci.checked{background:var(--green-dim);border-color:rgba(16,185,129,0.18)}
-.ck{width:22px;height:22px;border-radius:6px;border:2px solid var(--gray2);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;font-size:12px;color:transparent;transition:.2s;background:rgba(0,0,0,0.3)}
-.ci.checked .ck{background:var(--green);border-color:var(--green);color:#fff;box-shadow:0 0 12px rgba(16,185,129,0.25)}
-.ci .ct{flex:1}
-.ci .ct h4{font-size:14px;font-weight:700;color:#fff;line-height:1.5}
-.ci.checked .ct h4{color:var(--gray);text-decoration:line-through}
-.ci .ct p{font-size:12px;color:var(--gray2);margin-top:3px;line-height:1.5}
-.ci .tm{font-size:11px;color:var(--green2);font-weight:700;font-family:monospace;white-space:nowrap}
+.ci.done{background:var(–green-dim);border-color:rgba(16,185,129,0.18)}
+.ck{width:22px;height:22px;border-radius:6px;border:2px solid var(–gray2);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;font-size:12px;color:transparent;transition:.2s;background:rgba(0,0,0,0.3)}
+.ci.done .ck{background:var(–green);border-color:var(–green);color:#fff;box-shadow:0 0 12px rgba(16,185,129,0.25)}
+.ci.done .ct h4{color:var(–gray);text-decoration:line-through}
+.ct{flex:1}
+.ct h4{font-size:14px;font-weight:700;color:#fff;line-height:1.5}
+.ct p{font-size:12px;color:var(–gray2);margin-top:3px;line-height:1.5}
+.tm{font-size:11px;color:var(–green2);font-weight:700;font-family:monospace;white-space:nowrap}
 
-/* ===== PROGRESS ===== */
-.prog{background:var(--s1);border-radius:var(--R2);padding:16px 18px;margin-bottom:20px;border:1px solid rgba(255,255,255,0.04)}
+/* PROGRESS */
+.prog{background:var(–s1);border-radius:var(–R2);padding:16px 18px;margin-bottom:20px;border:1px solid rgba(255,255,255,0.04)}
 .prog-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-.prog-h span{font-size:11px;color:var(--gray);font-weight:700;letter-spacing:1px;text-transform:uppercase}
-.prog-h strong{font-size:16px;color:var(--accent2);font-weight:900}
+.prog-h span{font-size:11px;color:var(–gray);font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.prog-h strong{font-size:16px;color:var(–accent2);font-weight:900}
 .prog-bar{height:4px;background:rgba(0,0,0,0.4);border-radius:10px;overflow:hidden}
-.prog-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:10px;transition:width .5s ease;box-shadow:0 0 14px rgba(59,130,246,0.4);position:relative}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(–accent),var(–accent2));border-radius:10px;transition:width .5s ease;box-shadow:0 0 14px rgba(59,130,246,0.4)}
 
-/* ===== FORMS ===== */
-.fi,.fs{width:100%;background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.07);color:#fff;padding:13px 16px;border-radius:8px;font-family:'Heebo',sans-serif;font-size:14px;font-weight:500;outline:none;margin-bottom:10px;transition:.2s;-webkit-appearance:none}
-.fi:focus,.fs:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(59,130,246,0.1)}
-.fs{color:#ccc}
-.fs option{background:var(--s2);color:#fff}
-
-.btn-action{background:linear-gradient(135deg,var(--accent),#1d4ed8);color:#fff;padding:14px;border-radius:10px;font-family:'Heebo',sans-serif;font-size:14px;font-weight:800;cursor:pointer;border:none;letter-spacing:.5px;transition:.15s;box-shadow:0 4px 16px rgba(59,130,246,0.2)}
-.btn-action:active{transform:scale(.97);filter:brightness(1.1)}
-.reset-btn{background:var(--red-dim);border:1px solid rgba(239,68,68,0.15);color:var(--red);padding:13px;border-radius:10px;font-family:'Heebo',sans-serif;font-size:13px;font-weight:700;cursor:pointer;width:100%;margin-top:12px}
-
-/* ===== FORM BLOCKS ===== */
-.fblock{background:var(--s1);border:1px solid rgba(255,255,255,0.04);border-radius:var(--R2);padding:20px;margin-bottom:16px;position:relative;overflow:hidden}
-.fblock::before{content:'';position:absolute;top:0;right:0;left:0;height:2px}
-.fblock.fc::before{background:linear-gradient(90deg,var(--cyan),transparent)}
-.fblock.fr::before{background:linear-gradient(90deg,var(--red),transparent)}
+/* FORMS */
+.fi,.fs{width:100%;background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.07);color:#fff;padding:13px 16px;border-radius:8px;font-family:‘Heebo’,sans-serif;font-size:14px;font-weight:500;outline:none;margin-bottom:10px;transition:.2s;-webkit-appearance:none}
+.fi:focus,.fs:focus{border-color:var(–accent);box-shadow:0 0 0 3px rgba(59,130,246,0.1)}
+.fs option{background:var(–s2);color:#fff}
+.btn-action{background:linear-gradient(135deg,var(–accent),#1d4ed8);color:#fff;padding:14px;border-radius:10px;font-family:‘Heebo’,sans-serif;font-size:14px;font-weight:800;cursor:pointer;border:none;transition:.15s;box-shadow:0 4px 16px rgba(59,130,246,0.2)}
+.btn-action:active{transform:scale(.97)}
+.reset-btn{background:var(–red-dim);border:1px solid rgba(239,68,68,0.15);color:var(–red);padding:13px;border-radius:10px;font-family:‘Heebo’,sans-serif;font-size:13px;font-weight:700;cursor:pointer;width:100%;margin-top:12px}
+.fblock{background:var(–s1);border:1px solid rgba(255,255,255,0.04);border-radius:var(–R2);padding:20px;margin-bottom:16px;position:relative;overflow:hidden}
+.fblock::before{content:’’;position:absolute;top:0;right:0;left:0;height:2px}
+.fblock.fc::before{background:linear-gradient(90deg,var(–cyan),transparent)}
+.fblock.fr::before{background:linear-gradient(90deg,var(–red),transparent)}
 .fblock h4{margin-bottom:14px;font-size:14px;font-weight:800}
 
-/* ===== PRISONER / MANPOWER CARDS ===== */
-.pcard{background:var(--s1);border:1px solid rgba(255,255,255,0.04);border-radius:var(--R);padding:16px;margin-bottom:10px;position:relative;overflow:hidden;animation:pop .3s ease}
-.pcard::after{content:'';position:absolute;right:0;top:0;bottom:0;width:3px}
-.pcard.at::after{background:var(--red);box-shadow:0 0 10px var(--red-dim)}
-.pcard.mk::after{background:var(--gold);box-shadow:0 0 10px var(--gold-dim)}
-.pcard.mp::after{background:var(--cyan);box-shadow:0 0 10px var(--cyan-dim)}
+/* CARDS */
+.pcard{background:var(–s1);border:1px solid rgba(255,255,255,0.04);border-radius:var(–R);padding:16px;margin-bottom:10px;position:relative;overflow:hidden;animation:pop .3s ease}
+.pcard::after{content:’’;position:absolute;right:0;top:0;bottom:0;width:3px}
+.pcard.at::after{background:var(–red)} .pcard.mk::after{background:var(–gold)} .pcard.mp::after{background:var(–cyan)}
 .pcard h4{font-size:15px;font-weight:800;color:#fff}
-.pcard .meta{font-size:11px;color:var(--gray);font-family:monospace;background:rgba(0,0,0,0.3);padding:4px 8px;border-radius:6px;display:inline-block;margin-top:6px;border:1px solid rgba(255,255,255,0.04)}
-.del-btn{background:none;border:none;color:var(--gray2);font-size:16px;cursor:pointer;padding:4px;transition:.15s}
-.del-btn:active{color:var(--red);transform:scale(1.15)}
+.pcard .meta{font-size:11px;color:var(–gray);font-family:monospace;background:rgba(0,0,0,0.3);padding:4px 8px;border-radius:4px;display:inline-block;margin-top:6px;border:1px solid rgba(255,255,255,0.04)}
+.del-btn{background:none;border:none;color:var(–gray2);font-size:16px;cursor:pointer;padding:4px;transition:.15s}
+.del-btn:active{color:var(–red);transform:scale(1.15)}
 
-/* ===== WARNING ===== */
-.warn-box{background:var(--red-dim);border:1px solid rgba(239,68,68,0.1);border-right:3px solid var(--red);border-radius:var(--R2);padding:18px;margin-bottom:16px}
-.warn-box h4{color:var(--red2);font-size:14px;margin-bottom:10px;font-weight:800}
-.warn-box p{font-size:15px;line-height:1.7;font-weight:600;color:var(--text)}
+/* WARNING */
+.warn-box{background:var(–red-dim);border:1px solid rgba(239,68,68,0.1);border-right:3px solid var(–red);border-radius:var(–R2);padding:18px;margin-bottom:16px}
+.warn-box h4{color:var(–red2);font-size:14px;margin-bottom:10px;font-weight:800}
+.warn-box p{font-size:15px;line-height:1.7;font-weight:600}
 
-/* ===== EVENTS ===== */
-.ecard{background:var(--s1);border:1px solid rgba(255,255,255,0.04);border-radius:var(--R2);padding:18px 20px;margin-bottom:10px;cursor:pointer;transition:.2s;position:relative;overflow:hidden}
-.ecard::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--green);border-radius:0 2px 2px 0}
-.ecard:active{transform:scale(.98);background:var(--s2)}
+/* EVENTS */
+.ecard{background:var(–s1);border:1px solid rgba(255,255,255,0.04);border-radius:var(–R2);padding:18px 20px;margin-bottom:10px;cursor:pointer;transition:.2s;position:relative;overflow:hidden}
+.ecard::before{content:’’;position:absolute;left:0;top:0;bottom:0;width:3px;background:var(–green);border-radius:0 2px 2px 0}
+.ecard:active{transform:scale(.98);background:var(–s2)}
 .ecard .eh{display:flex;align-items:center;gap:12px;margin-bottom:6px}
-.ecard .eic{width:42px;height:42px;border-radius:var(--R);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.ecard .eic{width:42px;height:42px;border-radius:var(–R);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
 .ecard h3{font-size:15px;font-weight:800;color:#fff}
-.ecard>p{font-size:12px;color:var(--gray);line-height:1.4;padding-right:54px}
+.ecard>p{font-size:12px;color:var(–gray);line-height:1.4;padding-right:54px}
 
-/* ===== STEPS ===== */
+/* STEPS */
 .steps-wrap{padding:20px}
 .stp{display:flex;gap:14px;margin-bottom:22px;position:relative}
-.stp-n{width:28px;height:28px;border-radius:8px;background:rgba(0,0,0,0.4);border:1px solid rgba(59,130,246,0.4);color:var(--accent2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0;z-index:2;box-shadow:0 0 12px rgba(59,130,246,0.12)}
-.stp:not(:last-child)::after{content:'';position:absolute;right:13px;top:28px;bottom:-22px;width:1px;background:linear-gradient(180deg,rgba(59,130,246,0.25),transparent);z-index:1}
+.stp-n{width:28px;height:28px;border-radius:8px;background:rgba(0,0,0,0.4);border:1px solid rgba(59,130,246,0.4);color:var(–accent2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0;z-index:2;box-shadow:0 0 12px rgba(59,130,246,0.12)}
+.stp:not(:last-child)::after{content:’’;position:absolute;right:13px;top:28px;bottom:-22px;width:1px;background:linear-gradient(180deg,rgba(59,130,246,0.25),transparent);z-index:1}
+.stp-c{flex:1}
 .stp-c h4{font-size:14px;font-weight:700;color:#fff;line-height:28px;margin-bottom:3px}
-.stp-c p{font-size:13px;color:var(--gray);line-height:1.6}
+.stp-c p{font-size:13px;color:var(–gray);line-height:1.6}
 
-/* ===== PROFILE ===== */
-.pf-card{background:var(--s1);border:1px solid rgba(255,255,255,0.04);border-radius:var(--R2);padding:20px;margin-bottom:14px}
-.pf-card h3{font-size:11px;font-weight:800;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.04)}
+/* PROFILE */
+.pf-card{background:var(–s1);border:1px solid rgba(255,255,255,0.04);border-radius:var(–R2);padding:20px;margin-bottom:14px}
+.pf-card h3{font-size:11px;font-weight:800;color:var(–gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.04)}
 .pf-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.025)}
 .pf-row:last-child{border:none}
-.pf-row .lb{font-size:12px;color:var(--gray);font-weight:600}
+.pf-row .lb{font-size:12px;color:var(–gray);font-weight:600}
 .pf-row .vl{font-size:13px;font-weight:800;color:#fff}
-.pf-row .vl.ph{color:var(--accent2);direction:ltr;font-family:monospace;font-size:14px}
-.brd{background:rgba(255,255,255,0.025);padding:9px 14px;margin-bottom:6px;border-radius:8px;font-size:12px;border-right:2px solid var(--accent);color:rgba(255,255,255,0.8);line-height:1.5}
+.pf-row .vl.ph{color:var(–accent2);direction:ltr;font-family:monospace;font-size:14px}
+.brd{background:rgba(255,255,255,0.025);padding:9px 14px;margin-bottom:6px;border-radius:8px;font-size:12px;border-right:2px solid var(–accent);color:rgba(255,255,255,0.8)}
 
-/* ===== INFO PANELS ===== */
+/* INFO PANELS */
 .info-sec{padding:20px}
-.info-panel{background:var(--s1);border:1px solid rgba(255,255,255,0.04);border-radius:var(--R2);padding:22px;margin-bottom:14px}
-.info-panel h3{color:var(--gold);font-size:14px;margin-bottom:14px;font-weight:800}
+.info-panel{background:var(–s1);border:1px solid rgba(255,255,255,0.04);border-radius:var(–R2);padding:22px;margin-bottom:14px}
+.info-panel h3{color:var(–gold);font-size:14px;margin-bottom:14px;font-weight:800}
 .info-panel ul{list-style:none;padding:0}
-.info-panel li{font-size:13px;color:var(--gray);line-height:2;padding-right:18px;position:relative}
-.info-panel li::before{content:'';position:absolute;right:0;top:12px;width:5px;height:5px;border-radius:50%;background:var(--accent);opacity:.5}
-.info-panel li b{color:var(--text);font-weight:700}
+.info-panel li{font-size:13px;color:var(–gray);line-height:2;padding-right:18px;position:relative}
+.info-panel li::before{content:’’;position:absolute;right:0;top:12px;width:5px;height:5px;border-radius:50%;background:var(–accent);opacity:.5}
+.info-panel li b{color:var(–text);font-weight:700}
 
-/* ===== MODAL ===== */
-.modal-bg{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.85);z-index:1000;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+/* MODAL */
+.modal-bg{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.85);z-index:1000;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 .modal-bg.show{display:flex}
-.modal{background:var(--s2);border:1px solid rgba(59,130,246,0.15);border-radius:20px;padding:32px;width:100%;max-width:320px;text-align:center;animation:pop .3s ease;box-shadow:0 0 50px rgba(59,130,246,0.08)}
+.modal{background:var(–s2);border:1px solid rgba(59,130,246,0.15);border-radius:20px;padding:32px;width:100%;max-width:340px;text-align:center;animation:pop .3s ease}
 .modal h3{color:#fff;font-size:18px;font-weight:800;margin-bottom:6px}
-.modal>p{color:var(--gray);font-size:13px;margin-bottom:18px}
-.pin{width:100%;background:rgba(0,0,0,0.4);border:2px solid rgba(255,255,255,0.08);color:var(--accent2);font-family:monospace;font-size:32px;font-weight:900;text-align:center;letter-spacing:14px;padding:14px;border-radius:var(--R);outline:none;margin-bottom:18px}
-.pin:focus{border-color:var(--accent);box-shadow:0 0 20px rgba(59,130,246,0.15)}
-.pin.error{border-color:var(--red);animation:shake .4s}
-.mbtn{flex:1;padding:13px;border-radius:var(--R);font-family:'Heebo',sans-serif;font-size:14px;font-weight:700;cursor:pointer;border:none;transition:.15s}
+.modal>p{color:var(–gray);font-size:13px;margin-bottom:18px}
+.pin{width:100%;background:rgba(0,0,0,0.4);border:2px solid rgba(255,255,255,0.08);color:var(–accent2);font-family:monospace;font-size:32px;font-weight:900;text-align:center;letter-spacing:14px;padding:14px;border-radius:var(–R);outline:none;margin-bottom:18px}
+.pin:focus{border-color:var(–accent);box-shadow:0 0 20px rgba(59,130,246,0.15)}
+.pin.err{border-color:var(–red);animation:shake .4s}
+.mbtn{flex:1;padding:13px;border-radius:var(–R);font-family:‘Heebo’,sans-serif;font-size:14px;font-weight:700;cursor:pointer;border:none;transition:.15s}
 .mbtn:active{transform:scale(.96)}
-.mbtn-c{background:rgba(255,255,255,0.04);color:var(--gray)}
-.mbtn-ok{background:linear-gradient(135deg,var(--accent),#1d4ed8);color:#fff;box-shadow:0 4px 16px rgba(59,130,246,0.2)}
+.mbtn-c{background:rgba(255,255,255,0.05);color:var(–gray)}
+.mbtn-ok{background:linear-gradient(135deg,var(–accent),#1d4ed8);color:#fff}
+.mbtn-save{background:linear-gradient(135deg,var(–orange),#b45309);color:#fff}
 
-/* ===== TOAST ===== */
-.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(100px);background:rgba(16,185,129,0.95);color:#fff;padding:12px 28px;border-radius:14px;font-size:13px;font-weight:700;z-index:2000;transition:transform .3s ease;white-space:nowrap;box-shadow:0 8px 30px rgba(0,0,0,0.3);backdrop-filter:blur(10px)}
+/* EDIT OVERLAY */
+.edit-bg{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.88);z-index:1100;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.edit-bg.show{display:flex}
+.edit-box{background:var(–s2);border:1px solid rgba(217,119,6,0.25);border-radius:20px;padding:26px;width:100%;max-width:380px;animation:pop .25s ease;box-shadow:0 0 50px rgba(0,0,0,0.5);max-height:90vh;overflow-y:auto}
+.edit-box h3{color:#fff;font-size:16px;font-weight:800;margin-bottom:4px}
+.edit-box .elbl{color:var(–gray);font-size:12px;margin-bottom:16px}
+.edit-box .ebtns{display:flex;gap:10px;margin-top:8px}
+
+/* ADMIN BAR */
+.admin-bar{display:none;position:fixed;bottom:0;left:0;right:0;background:linear-gradient(90deg,#92400e,#b45309);padding:10px 20px;z-index:500;box-shadow:0 -4px 24px rgba(180,83,9,0.3);align-items:center;justify-content:space-between}
+.admin-bar.show{display:flex}
+.admin-bar span{font-size:13px;font-weight:800;color:#fff}
+.admin-bar .ab-exit{background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.15);color:#fff;padding:6px 16px;border-radius:8px;font-family:‘Heebo’,sans-serif;font-size:12px;font-weight:700;cursor:pointer}
+
+/* ADMIN EDIT BUTTONS */
+.adm-edit{display:none;background:var(–orange-dim);border:1px solid rgba(217,119,6,0.25);color:var(–orange2);font-family:‘Heebo’,sans-serif;font-size:11px;font-weight:700;padding:4px 10px;border-radius:6px;cursor:pointer;transition:.15s;white-space:nowrap}
+.adm-edit:active{transform:scale(.95)}
+.adm-add{display:none;background:var(–green-dim);border:1px solid rgba(16,185,129,0.2);color:var(–green);font-family:‘Heebo’,sans-serif;font-size:13px;font-weight:700;padding:10px;border-radius:8px;cursor:pointer;width:100%;text-align:center;margin-top:10px}
+.adm-del{display:none;background:none;border:none;color:var(–red2);font-size:14px;cursor:pointer;padding:2px 4px;flex-shrink:0}
+.adm-del:active{transform:scale(1.2)}
+
+/* TOAST */
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(100px);background:rgba(16,185,129,0.95);color:#fff;padding:12px 28px;border-radius:14px;font-size:13px;font-weight:700;z-index:2000;transition:transform .3s ease;white-space:nowrap;box-shadow:0 8px 30px rgba(0,0,0,0.3)}
 .toast.show{transform:translateX(-50%) translateY(0)}
-.empty{text-align:center;color:var(--gray2);padding:30px 0;font-size:13px}
+.toast.adm-bar-offset{bottom:60px}
+.empty{text-align:center;color:var(–gray2);padding:30px 0;font-size:13px}
 </style>
+
 </head>
 <body>
 
 <div class="siren-bar"></div>
 
+<!-- STATION SELECT -->
+
 <div id="stationSelect" class="screen active">
   <div class="station-select">
     <div class="logo-area">
       <div class="logo-ring">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Israel_police_logo.svg/512px-Israel_police_logo.svg.png" alt="משטרת ישראל" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Israel_police_logo.svg/512px-Israel_police_logo.svg.png" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
         <div class="fb" style="display:none">🛡️</div>
       </div>
       <h1>תפמ״ק</h1>
@@ -221,8 +231,10 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:
   </div>
 </div>
 
+<!-- MAIN MENU -->
+
 <div id="mainMenu" class="screen">
-  <div class="hdr"><button class="hdr-back" onclick="goBack('stationSelect')">&rarr;</button><span class="hdr-t" id="menuStationName"></span><button class="hdr-gear" onclick="showAdminModal()">&#9881;</button></div>
+  <div class="hdr"><button class="hdr-back" onclick="goBack('stationSelect')">&rarr;</button><span class="hdr-t" id="menuStationName"></span><button class="hdr-gear" id="gearBtn" onclick="onGearClick()">&#9881;</button></div>
   <div class="pad">
     <div class="welcome"><h2>שלום, קצין תורן</h2><p id="currentDate"></p></div>
     <div class="mgrid">
@@ -235,76 +247,68 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:
   </div>
 </div>
 
+<!-- DUTY TASKS -->
+
 <div id="dutyTasks" class="screen">
   <div class="hdr"><button class="hdr-back" onclick="goBack('mainMenu')">&rarr;</button><span class="hdr-t">משימות קצין תורן</span><span class="hdr-badge" id="taskCount">0/0</span></div>
-  <div class="pad">
-    <div class="prog"><div class="prog-h"><span>התקדמות מבצעית</span><strong id="progressPercent">0%</strong></div><div class="prog-bar"><div class="prog-fill" id="progressFill" style="width:0%"></div></div></div>
-    <div id="checklistContainer"></div>
-    <button class="reset-btn" onclick="resetChecklist()">&#x21bb; אפס משימות למשמרת חדשה</button>
-  </div>
+  <div class="pad"><div class="prog"><div class="prog-h"><span>התקדמות מבצעית</span><strong id="progressPercent">0%</strong></div><div class="prog-bar"><div class="prog-fill" id="progressFill" style="width:0%"></div></div></div><div id="checklistContainer"></div><button class="reset-btn" onclick="resetChecklist()">&#x21bb; אפס משימות למשמרת חדשה</button></div>
 </div>
+
+<!-- MANPOWER -->
 
 <div id="manpower" class="screen">
   <div class="hdr"><button class="hdr-back" onclick="goBack('mainMenu')">&rarr;</button><span class="hdr-t">ניהול סד"כ ושיבוץ</span></div>
   <div class="pad">
-    <div class="fblock fc">
-      <h4 style="color:var(--cyan)">שיבוץ משימה / כוח חדש</h4>
-      <input type="text" id="mpMission" class="fi" placeholder="שם המשימה (לדוג': מחסום צפוני)">
-      <input type="text" id="mpCallSign" class="fi" placeholder="קוד קריאה בקשר / גל" inputmode="numeric">
-      <textarea id="mpOfficers" class="fi" placeholder="שמות שוטרים המשובצים" style="height:80px;resize:none"></textarea>
-      <button class="btn-action" style="width:100%;background:linear-gradient(135deg,var(--cyan),#0891b2)" onclick="addManpowerItem()">שגר כוח למשימה</button>
-    </div>
+    <div class="fblock fc"><h4 style="color:var(--cyan)">שיבוץ משימה / כוח חדש</h4><input type="text" id="mpMission" class="fi" placeholder="שם המשימה"><input type="text" id="mpCallSign" class="fi" placeholder="קוד קריאה בקשר" inputmode="numeric"><textarea id="mpOfficers" class="fi" placeholder="שמות שוטרים" style="height:80px;resize:none"></textarea><button class="btn-action" style="width:100%;background:linear-gradient(135deg,var(--cyan),#0891b2)" onclick="addManpowerItem()">שגר כוח למשימה</button></div>
     <div class="sec"><div class="sec-t" style="color:var(--cyan);border-bottom-color:rgba(6,182,212,0.12)">פריסת כוחות פעילה</div><div id="manpowerListContainer"><p class="empty">אין כוחות משובצים</p></div></div>
   </div>
 </div>
 
+<!-- ATZURIM -->
+
 <div id="atzurim" class="screen">
   <div class="hdr"><button class="hdr-back" onclick="goBack('mainMenu')">&rarr;</button><span class="hdr-t">יומן עצורים ומעוכבים</span></div>
   <div class="pad">
-    <div class="warn-box">
-      <h4>📢 נוסח אזהרה לעצור (חובה)</h4>
-      <p>"הנך חשוד ב[סוג העבירה]. אין חובתך לומר דבר, אך כל מה שתאמר עשוי לשמש ראיה נגדך. הימנעות מלהשיב לשאלות עשויה לחזק את הראיות נגדך. זכותך להיוועץ בעורך דין."</p>
-    </div>
-    <div class="fblock fr">
-      <h4 style="color:#fff">רישום קליטה חדש</h4>
-      <input type="text" id="pName" class="fi" placeholder="שם החשוד המלא">
-      <div style="display:flex;gap:10px;margin-bottom:0">
-        <select id="pGender" class="fs" style="width:100px"><option value="זכר">זכר</option><option value="נקבה">נקבה</option></select>
-        <input type="number" id="pAge" class="fi" placeholder="גיל" style="width:80px">
-      </div>
-      <input type="text" id="pOffense" class="fi" placeholder="סעיף עבירה (לדוגמה: תקיפה)">
-      <div style="display:flex;gap:10px">
-        <select id="pType" class="fs"><option value="atzur">עצור 🛑</option><option value="meukav">מעוכב ✋</option></select>
-        <input type="time" id="pTime" class="fi" style="width:120px;font-family:monospace;font-size:16px">
-      </div>
-      <button class="btn-action" style="width:100%;background:linear-gradient(135deg,var(--red),#b91c1c)" onclick="addPrisoner()">הכנס ליומן המשמרת</button>
-    </div>
+    <div class="warn-box"><h4>📢 נוסח אזהרה לעצור (חובה)</h4><p>"הנך חשוד ב[סוג העבירה]. אין חובתך לומר דבר, אך כל מה שתאמר עשוי לשמש ראיה נגדך. הימנעות מלהשיב לשאלות עשויה לחזק את הראיות נגדך. זכותך להיוועץ בעורך דין."</p></div>
+    <div class="fblock fr"><h4 style="color:#fff">רישום קליטה חדש</h4><input type="text" id="pName" class="fi" placeholder="שם החשוד המלא"><div style="display:flex;gap:10px;margin-bottom:0"><select id="pGender" class="fs" style="width:100px"><option value="זכר">זכר</option><option value="נקבה">נקבה</option></select><input type="number" id="pAge" class="fi" placeholder="גיל" style="width:80px"></div><input type="text" id="pOffense" class="fi" placeholder="סעיף עבירה"><div style="display:flex;gap:10px"><select id="pType" class="fs"><option value="atzur">עצור 🛑</option><option value="meukav">מעוכב ✋</option></select><input type="time" id="pTime" class="fi" style="width:120px;font-family:monospace;font-size:16px"></div><button class="btn-action" style="width:100%;background:linear-gradient(135deg,var(--red),#b91c1c)" onclick="addPrisoner()">הכנס ליומן המשמרת</button></div>
     <div class="sec"><div class="sec-t" style="color:var(--red);border-bottom-color:rgba(239,68,68,0.12)">רשימת סטטוס פעילה</div><div id="prisonersListContainer"><p class="empty">אין רשומות ביומן</p></div></div>
   </div>
 </div>
 
-<div id="eventTypes" class="screen">
-  <div class="hdr"><button class="hdr-back" onclick="goBack('mainMenu')">&rarr;</button><span class="hdr-t">עיקרון טיפול באירוע</span></div>
-  <div class="pad" id="eventTypesContainer"></div>
+<!-- EVENT TYPES / DETAIL -->
+
+<div id="eventTypes" class="screen"><div class="hdr"><button class="hdr-back" onclick="goBack('mainMenu')">&rarr;</button><span class="hdr-t">עיקרון טיפול באירוע</span></div><div class="pad" id="eventTypesContainer"></div></div>
+<div id="eventDetail" class="screen"><div class="hdr"><button class="hdr-back" onclick="goBack('eventTypes')">&rarr;</button><span class="hdr-t" id="eventDetailTitle"></span></div><div id="eventDetailContent"></div></div>
+
+<!-- PROFILE -->
+
+<div id="profile" class="screen"><div class="hdr"><button class="hdr-back" onclick="goBack('mainMenu')">&rarr;</button><span class="hdr-t">פרופיל תחנה</span></div><div class="pad" id="profileContainer"></div></div>
+
+<!-- PIN MODAL -->
+
+<div id="pinModal" class="modal-bg" onclick="if(event.target===this)closePinModal()">
+  <div class="modal"><h3>הזדהות מערכת</h3><p>הזן קוד אבטחה לכניסה למצב עריכה</p><input type="password" class="pin" id="pinInput" maxlength="4" inputmode="numeric" placeholder="----"><div style="display:flex;gap:10px"><button class="mbtn mbtn-c" onclick="closePinModal()">ביטול</button><button class="mbtn mbtn-ok" onclick="verifyPin()">אישור</button></div></div>
 </div>
 
-<div id="eventDetail" class="screen">
-  <div class="hdr"><button class="hdr-back" onclick="goBack('eventTypes')">&rarr;</button><span class="hdr-t" id="eventDetailTitle"></span></div>
-  <div id="eventDetailContent"></div>
+<!-- EDIT MODAL -->
+
+<div id="editBg" class="edit-bg" onclick="if(event.target===this)closeEditModal()">
+  <div class="edit-box"><h3 id="editTitle">עריכה</h3><div class="elbl" id="editLabel"></div><div id="editFields"></div><div class="ebtns"><button class="mbtn mbtn-c" onclick="closeEditModal()">ביטול</button><button class="mbtn mbtn-save" onclick="saveEditModal()">💾 שמור</button></div></div>
 </div>
 
-<div id="profile" class="screen">
-  <div class="hdr"><button class="hdr-back" onclick="goBack('mainMenu')">&rarr;</button><span class="hdr-t">פרופיל תחנה</span></div>
-  <div class="pad" id="profileContainer"></div>
-</div>
+<!-- ADMIN BAR -->
 
-<div id="adminModal" class="modal-bg" onclick="if(event.target===this)closeAdminModal()">
-  <div class="modal"><h3>הזדהות מערכת</h3><p>הזן קוד אבטחה</p><input type="password" class="pin" id="pinInput" maxlength="4" inputmode="numeric" placeholder="----"><div style="display:flex;gap:10px"><button class="mbtn mbtn-c" onclick="closeAdminModal()">ביטול</button><button class="mbtn mbtn-ok" onclick="verifyPin()">אישור</button></div></div>
-</div>
+<div class="admin-bar" id="adminBar"><span>🔓 מצב עריכה פעיל</span><button class="ab-exit" onclick="exitAdmin()">יציאה ✕</button></div>
+
 <div class="toast" id="toast"></div>
 
 <script>
 var ADMIN_PIN='1234';
+var isAdmin=false;
+var _editCb=null;
+var _lastEvt=null;
+
+/* ========== DATA ========== */
 var stationsData={ashkelon:{name:'תחנת אשקלון',area:'מרחב לכיש',profile:{address:'רח׳ הנשיא 1, אשקלון',phone:'08-6612222',fax:'08-6612233',commander:'סנ״צ ישראל כהן',dutyOfficer:'08-6612200',moked:'100',borders:['צפון: נחל לכיש עד צומת אשדוד','דרום: נחל שקמה עד גבול עזה','מזרח: כביש 4 - צומת אשקלון','מערב: קו חוף הים התיכון']}},beersheva:{name:'תחנת באר שבע',area:'מרחב הנגב',profile:{address:'שד׳ טוביהו 1, באר שבע',phone:'08-6468222',fax:'08-6468233',commander:'סנ״צ דוד לוי',dutyOfficer:'08-6468200',moked:'100',borders:['צפון: צומת שוקת עד צומת להבים','דרום: צומת ערד עד תל ערד','מזרח: כביש 40 - צומת כסיפה','מערב: כביש 25 - צומת בית קמה']}}};
 
 var dutyTasks={
@@ -316,97 +320,187 @@ var dutyTasks={
 {id:'crit5',text:'* סגירת זירה הרמטית',desc:'שימוש בסרטי סימון, הרחקת סקרנים ומניעת זיהום הזירה'},
 {id:'crit6',text:'* הפעלת כוח ושליטה',desc:'חלוקת גזרות ומשימות ברורות לשוטרים/מתנדבים'},
 {id:'crit7',text:'* הפגנת מנהיגות וקור רוח',desc:'תפקוד רגוע תחת לחץ, קבלת החלטות עניינית ואסרטיביות'},
-{id:'crit8',text:'* אמינות ודיווח',desc:'דיווח אמת, אמינות מלאה ורישום דוחות מפורט'}
-],
+{id:'crit8',text:'* אמינות ודיווח',desc:'דיווח אמת, אמינות מלאה ורישום דוחות מפורט'}],
 'לפני המשמרת':[
 {id:'t1',text:'התייצבות מול מת"ח / ק.אג"מ',desc:'קבלת תדרוך ותיק ק.תורן (מעודכן)'},
 {id:'t2',text:'נהלי תחנה, מדיניות מפקד, נהלי דיווח',desc:'לימוד והכרת נהלים עדכניים'},
-{id:'t3',text:'בדיקה לגבי מצב שוטף',desc:'ד.ח, מעצרים, זימון חשודים, ידיעות, מאוימים, סד"כ, יס"מ, תגבור, ניידות, מתקנים, גבולות גזרה, כוחות ואירועים נוספים'},
-{id:'t4',text:'חבירה ליומנאי ובדיקת אמצעים',desc:'יומנים, נשקים, קשרים, רכבים, ציוד, ארון מוצגים, סד"כ כוחות (ומספרי פלאפון)'},
+{id:'t3',text:'בדיקה לגבי מצב שוטף',desc:'ד.ח, מעצרים, זימון חשודים, ידיעות, מאוימים, סד"כ, יס"מ, תגבור, ניידות, מתקנים, גבולות גזרה'},
+{id:'t4',text:'חבירה ליומנאי ובדיקת אמצעים',desc:'יומנים, נשקים, קשרים, רכבים, ציוד, ארון מוצגים, סד"כ כוחות'},
 {id:'t5',text:'דרכי תקשורת וחבירה לבעלי תפקידים',desc:'קצין חקירות, קצין בילוש, קצין סיור'},
 {id:'t6',text:'חפיפה',desc:'אירועים מתמשכים / חריגים, עצורים, סטטוס מאוימים'},
 {id:'t7',text:'חבירה לראש משמרת',desc:'וידוא סד"כים, פערים ומשימות מתוכננות'},
-{id:'t8',text:'התייצבות מול משל"ט',desc:'דיווח מוכנות'}
-],
+{id:'t8',text:'התייצבות מול משל"ט',desc:'דיווח מוכנות'}],
 'תוך כדי משמרת':[
 {id:'t9',text:'עצורים',desc:'מחיצת מגן, מסמכי עצורים, קיום תנאים הולמים, תיאום מעצר / נחשון'},
 {id:'t10',text:'נוכחות ודגשים בתדריך למשמרת',desc:'תדרוך כוחות נוספים (מתנדבים / רגלי / תגבור)'},
-{id:'t11',text:'קשר עם כלל גורמי התחנה',desc:'ניידות, בילוש, מש"קים, מתנדבים, חוקר, תגבור, כוחות נוספים'},
+{id:'t11',text:'קשר עם כלל גורמי התחנה',desc:'ניידות, בילוש, מש"קים, מתנדבים, חוקר, תגבור'},
 {id:'t12',text:'וידוא ציוותים מול משל"ט',desc:'בדיקת שיבוצים ותקינות'},
 {id:'t13',text:'בקרה על מערך אבטחה וזקיפות',desc:'ביקורת פיזית בנקודות'},
 {id:'t14',text:'בקרה על ביצוע מטלות מבצעיות',desc:'מעקב אחר ביצוע משימות'},
 {id:'t15',text:'טיפול באזרחים',desc:'וידוא מענה של היומן / מש"ל / חוקר תורן'},
-{id:'t16',text:'קיום תרגיל',desc:'לניידות / יומן / מש"ל / חוקר תורן'}
-]};
+{id:'t16',text:'קיום תרגיל',desc:'לניידות / יומן / מש"ל / חוקר תורן'}]};
 
 var eventTypes=[
-{id:'murder',icon:'🔪',color:'rgba(220,38,38,0.1)',title:'סד"פ זירת פשע חמור / רצח',desc:'טיפול ראשוני בזירה מורכבת',type:'steps',steps:[{title:'הגעה בטוחה ודיווח',desc:'הגעה תוך סריקת נתיב מילוט של חשודים. דיווח מיידי למשל"ט ולפיקוד.'},{title:'הקפאת מצב וסגירת זירה',desc:'סגירת זירה רחבה ככל הניתן בסרט סימון. הרחקת סקרנים והצבת שוטרים בשערים.'},{title:'הצלת חיים',desc:'סיוע לכוחות הרפואה תוך פגיעה מינימלית בזירה ובראיות.'},{title:'איתור ובידוד עדים',desc:'איתור עדי ראייה, לקיחת פרטיהם ובידודם זה מזה למניעת תיאום גרסאות.'},{title:'מעורבים וחשודים',desc:'מעצר חשודים במידה וישנם, חיפוש נשק, כבילה והפרדה.'},{title:'הזעקת כוחות מקצועיים',desc:'זימון חוקר תורן, קצין חקירות, מעבדת זיהוי פלילי (מז"פ) ופיקוד.'}]},
-{id:'sexcrime',icon:'⚠️',color:'rgba(234,179,8,0.1)',title:'סד"פ עבירות מין',desc:'דגשים לטיפול בעבירות מין',type:'steps',steps:[{title:'רגישות ופרטיות',desc:'הרחקת סקרנים, מתן פרטיות מלאה לנפגע/ת, יחס מכיל ורגיש.'},{title:'גביית עדות ראשונית',desc:'תחקור ראשוני קצר בלבד להבנת האירוע ואיתור החשוד. לא לחקור לעומק!'},{title:'חוקר/ת עבירות מין',desc:'הזעקת חוקר/ת עבירות מין במיידי. עדיפות לחוקרת אישה עבור נפגעת אישה.'},{title:'שמירת ראיות פתולוגיות',desc:'הדרכת הנפגע/ת לא להתקלח, לא לצחצח שיניים ולא להחליף בגדים.'},{title:'איסוף פריטים',desc:'במידה והבגדים הוחלפו, יש לאסוף אותם אך ורק בשקית נייר (לא פלסטיק!).'},{title:'חדר אקוטי',desc:'תיאום הפניה וליווי של הנפגע/ת לחדר אקוטי (מרכז סיוע בבית חולים).'}]},
-{id:'accident',icon:'💥',color:'rgba(249,115,22,0.1)',title:'סד"פ ת.ד קשה / קטלנית',desc:'טיפול בתאונת דרכים עם נפגעים',type:'steps',steps:[{title:'חסימת ציר',desc:'חסימת התנועה למניעת תאונת שרשרת והגנה על הכוחות המטפלים.'},{title:'הזעקת כוחות',desc:'מד"א, כיבוי והצלה (ללכודים), בוחן תנועה וקצין תנועה.'},{title:'שמירת הזירה',desc:'סימון מיקומי כלי הרכב, שברים על הכביש וסימני בלימה.'},{title:'זיהוי מעורבים',desc:'לקיחת פרטי הנהגים המעורבים, רישיונות ופרטי עדים.'},{title:'נהג פוגע',desc:'עיכוב נהג פוגע / חשוד, שלילת שימוש בסמים/אלכוהול (בדיקת נשיפון).'}]},
-{id:'almab',icon:'🏠',color:'rgba(168,85,247,0.1)',title:'סד"פ קצין בטיפול באלמ"ב',desc:'אלימות במשפחה - סדר פעולות',type:'steps',steps:[{title:'הפרדות',desc:'יש לוודא הפרדה בין בני הזוג ולשמוע את גרסתם לאירוע.'},{title:'נשק',desc:'לבדוק אם לחשוד נשק ואם כן לדרוש תפיסתו והעברתו לחוקר תורן.'},{title:'בחינת הזירה',desc:'במידה ויש הרס / סימני אלימות / ראיות - יש לצלם ולתפוס את הראיות.'},{title:'אירועים קודמים',desc:'לבדוק עבר פלילי של המעורבים בדגש על רצידיביזם באירועים קודמים.'},{title:'קבלת החלטה',desc:'האם לעכב / לעצור את מי מהמעורבים. במידה ואין עיכוב - גביית עדות במידת הצורך.'},{title:'רווחה',desc:'לערב גורמי רווחה במידת הצורך.'},{title:'הפניה למקלט נשים מוכות',desc:'במידה והיא מעוניינת.'},{title:'בדיקה עם החוקר המטפל',desc:'התרשמות החוקר המטפל.'},{title:'מילוי דוח הערכת מסוכנות',desc:'וידוא ביצוע של החוקר.'},{title:'בדוק האם החשוד מחזיק בנשק',desc:'תפוס במידת הצורך.'},{title:'בדוק דו"ח מסוכנות',desc:'סקירת דוחות קודמים.'},{title:'ערב גורמי רווחה',desc:'שירותי רווחה, קב"ס.'},{title:'בדוק התרשמות החוקר',desc:'מבני הזוג והאירוע.'},{title:'בדוק אירועים קודמים ועבר פלילי',desc:'של המעורבים.'},{title:'במידה והוחלט לשחרר',desc:'בחר חלופת מעצר מתאימה.'}]},
-{id:'missing',icon:'🔍',color:'rgba(59,130,246,0.1)',title:'סד"פ קצין בטיפול בנעדרים',desc:'טיפול באירוע נעדרים',type:'steps',steps:[{title:'מידע',desc:'קבלת מירב הפרטים אודות הנעדר מהחוקר. באירוע תגובה הסייר יאסוף מידע ראשוני מהמשל"ט ומהמודיע.'},{title:'מודיע',desc:'חבירה למודיע, תחקור וביצוע הערכת מצב ראשונית.'},{title:'עדויות',desc:'גביית עדות מפורטת מהמודיע.'},{title:'נעדר בסיכון',desc:'בדיקה עם המודיע האם הנעדר סובל ממחלות, מסוכן לעצמו או לסביבה.'},{title:'תמונה',desc:'לקיחת תמונות עדכניות של הנעדר והפצתם ביחד עם תיאור הנעדר לכוחות הרלוונטיים.'},{title:'עדכון מצודה באירוע',desc:'לעלות מול מצודה ולעדכן באירוע וכן לבדוק אירועים קודמים ומודיעינית על הנעדר.'},{title:'סריקות',desc:'ביצוע סריקות עפ"י מודל המעגלים.'},{title:'בתי חולים',desc:'בדיקת בתי חולים בגזרה האם הגיע מטופל אנונימי.'},{title:'איכון',desc:'איכון טלפוני במידה ויש חשש לחיי הנעדר. איתור, פלט שיחות, מעקב אשראי, עין הנץ, רב קו.'},{title:'חבירה וזיהוי',desc:'ברגע שהנעדר אותר - חבירה פיזית, הבנת סיפור המקרה, זיהוי על ידי תעודה מזהה.'},{title:'פתיחת יומן מבצר',desc:'במידה והנעדר לא אותר בזמן סביר.'},{title:'גביית עדויות מהמעגל הקרוב',desc:'חקירת קרובים ומכרים.'},{title:'קטין - עדכון מחלק נוער',desc:'חובה לעדכן.'},{title:'העברת דיווח לסיור',desc:'בצירוף תמונה ותיאור חיצוני ומקומות אפשריים לאיתור.'},{title:'דיווח לחוליית נעדרים ולמשל"ט',desc:'מרחבי / מחוזי.'},{title:'חיפוש במאגרי מידע',desc:'איכונים, אשראי, חשבונות בנק, מצלמות אבטחה, איתוראן.'},{title:'בדיקה במוסדות רפואיים',desc:'בתי חולים, מרפאות באזור.'},{title:'הזעקת כוחות סיוע',desc:'מסוקים, פרשים.'},{title:'העברת דיווח ליחידות נוספות',desc:'בהתאם לנסיבות.'},{title:'פרסומים',desc:'באמצעות חוליית נעדרים.'}]},
-{id:'death',icon:'⚰️',color:'rgba(107,114,128,0.1)',title:'סד"פ קצין בעבירת מ"מ',desc:'מקרה מוות - סדר פעולות',type:'steps',steps:[{title:'מסמכי שחרור גופה',desc:'הבאת 2 מסמכי שחרור גופה ומזכרים לאירוע.'},{title:'תעודת פטירה',desc:'קבלת תעודת פטירה ממד"א.'},{title:'זיהוי הנפטר',desc:'זיהוי על ידי ת.ז, דרכון, תעודה מזהה אחרת עם תמונה.'},{title:'עדויות',desc:'גביית עדויות מאנשים (בד"כ קרובי משפחה מדרגה ראשונה) שיכולים לשפוך אור על סיבות המוות.'},{title:'בדיקה חיצונית של הגופה',desc:'בחינה חיצונית לשלילת פלילי.'},{title:'סריקת זירה',desc:'איתור חפצים שיכולים לשפוך אור על נסיבות המוות.'},{title:'דיווח',desc:'דיווח וקבלת אישורים מהרל"ח המרחבי.'},{title:'נתיחה',desc:'שאילת המשפחה בנוגע לנתיחה.'},{title:'דוחות',desc:'רישום דוחות ומילוי טפסים.'},{title:'שירות',desc:'גישת שירותית - המשפחה באבל, יש להבין ולהכיל.'},{title:'בדיקת סימני פריצה לדירה',desc:'בדיקת סימנים בזירה.'},{title:'סימני פציעה על הגופה',desc:'תיעוד כל סימן חשוד.'},{title:'סימני שקיעת דם בגופה',desc:'בדיקה והתאמה למיקום.'},{title:'סימני מאבק בזירה / גופה',desc:'בחינת סימנים פיזיים.'},{title:'מצב רפואי של הנפטר טרם מותו',desc:'בירור מצב בריאותי קודם.'},{title:'עדויות סותרות',desc:'השוואת גרסאות בין עדים.'},{title:'מאבקי ירושה',desc:'בדיקת מניעים כלכליים.'},{title:'אמירות מעורבים שמעלות חשד',desc:'תיעוד ודיווח.'}]},
+{id:'murder',icon:'🔪',color:'rgba(220,38,38,0.1)',title:'סד"פ זירת פשע חמור / רצח',desc:'טיפול ראשוני בזירה מורכבת',type:'steps',steps:[{title:'הגעה בטוחה ודיווח',desc:'הגעה תוך סריקת נתיב מילוט של חשודים. דיווח מיידי למשל"ט ולפיקוד.'},{title:'הקפאת מצב וסגירת זירה',desc:'סגירת זירה רחבה ככל הניתן בסרט סימון. הרחקת סקרנים והצבת שוטרים.'},{title:'הצלת חיים',desc:'סיוע לכוחות הרפואה תוך פגיעה מינימלית בזירה ובראיות.'},{title:'איתור ובידוד עדים',desc:'איתור עדי ראייה, לקיחת פרטיהם ובידודם זה מזה.'},{title:'מעורבים וחשודים',desc:'מעצר חשודים, חיפוש נשק, כבילה והפרדה.'},{title:'הזעקת כוחות מקצועיים',desc:'זימון חוקר תורן, קצין חקירות, מז"פ ופיקוד.'}]},
+{id:'sexcrime',icon:'⚠️',color:'rgba(234,179,8,0.1)',title:'סד"פ עבירות מין',desc:'דגשים לטיפול בעבירות מין',type:'steps',steps:[{title:'רגישות ופרטיות',desc:'הרחקת סקרנים, מתן פרטיות מלאה לנפגע/ת.'},{title:'גביית עדות ראשונית',desc:'תחקור ראשוני קצר בלבד. לא לחקור לעומק!'},{title:'חוקר/ת עבירות מין',desc:'הזעקת חוקר/ת עבירות מין במיידי.'},{title:'שמירת ראיות',desc:'לא להתקלח, לא לצחצח שיניים, לא להחליף בגדים.'},{title:'איסוף פריטים',desc:'בגדים שהוחלפו - שקית נייר בלבד (לא פלסטיק!).'},{title:'חדר אקוטי',desc:'תיאום הפניה וליווי לחדר אקוטי בבית חולים.'}]},
+{id:'accident',icon:'💥',color:'rgba(249,115,22,0.1)',title:'סד"פ ת.ד קשה / קטלנית',desc:'טיפול בתאונת דרכים עם נפגעים',type:'steps',steps:[{title:'חסימת ציר',desc:'חסימת התנועה למניעת תאונת שרשרת.'},{title:'הזעקת כוחות',desc:'מד"א, כיבוי והצלה, בוחן תנועה וקצין תנועה.'},{title:'שמירת הזירה',desc:'סימון מיקומי כלי רכב, שברים וסימני בלימה.'},{title:'זיהוי מעורבים',desc:'פרטי נהגים, רישיונות ופרטי עדים.'},{title:'נהג פוגע',desc:'עיכוב נהג פוגע, בדיקת נשיפון.'}]},
+{id:'almab',icon:'🏠',color:'rgba(168,85,247,0.1)',title:'סד"פ קצין בטיפול באלמ"ב',desc:'אלימות במשפחה - סדר פעולות',type:'steps',steps:[{title:'הפרדות',desc:'הפרדה בין בני הזוג ושמיעת גרסתם.'},{title:'נשק',desc:'בדיקה אם לחשוד נשק - תפיסה והעברה לחוקר.'},{title:'בחינת הזירה',desc:'צילום סימני אלימות ותפיסת ראיות.'},{title:'אירועים קודמים',desc:'בדיקת עבר פלילי ורצידיביזם.'},{title:'קבלת החלטה',desc:'עיכוב/מעצר או גביית עדות.'},{title:'רווחה',desc:'עירוב גורמי רווחה.'},{title:'הפניה למקלט',desc:'הצעת מקלט לנשים מוכות.'},{title:'בדיקה עם חוקר מטפל',desc:'התרשמות החוקר.'},{title:'דוח הערכת מסוכנות',desc:'וידוא ביצוע.'},{title:'חלופת מעצר',desc:'בחירת חלופה אם הוחלט לשחרר.'}]},
+{id:'missing',icon:'🔍',color:'rgba(59,130,246,0.1)',title:'סד"פ קצין בטיפול בנעדרים',desc:'טיפול באירוע נעדרים',type:'steps',steps:[{title:'מידע',desc:'קבלת פרטים מהחוקר/מודיע.'},{title:'תחקור מודיע',desc:'הערכת מצב ראשונית.'},{title:'עדויות',desc:'גביית עדות מפורטת.'},{title:'נעדר בסיכון',desc:'בדיקת מחלות, סכנה עצמית.'},{title:'תמונה',desc:'הפצת תמונות ותיאור.'},{title:'עדכון מצודה',desc:'בדיקת אירועים קודמים.'},{title:'סריקות',desc:'מודל מעגלים.'},{title:'בתי חולים',desc:'בדיקת מטופל אנונימי.'},{title:'איכון',desc:'טלפוני, אשראי, עין הנץ.'},{title:'חבירה וזיהוי',desc:'זיהוי בת.ז.'},{title:'יומן מבצר',desc:'פתיחה אם לא אותר.'},{title:'עדויות מעגל קרוב',desc:'חקירת קרובים.'},{title:'קטין - מחלק נוער',desc:'חובת עדכון.'},{title:'דיווח לסיור',desc:'תמונה ותיאור.'},{title:'חוליית נעדרים',desc:'דיווח.'},{title:'מאגרי מידע',desc:'מצלמות, איתוראן.'},{title:'מוסדות רפואיים',desc:'בתי חולים.'},{title:'כוחות סיוע',desc:'מסוקים, פרשים.'},{title:'יחידות נוספות',desc:'בהתאם לנסיבות.'},{title:'פרסומים',desc:'חוליית נעדרים.'}]},
+{id:'death',icon:'⚰️',color:'rgba(107,114,128,0.1)',title:'סד"פ קצין בעבירת מ"מ',desc:'מקרה מוות - סדר פעולות',type:'steps',steps:[{title:'מסמכי שחרור גופה',desc:'הבאת 2 מסמכים.'},{title:'תעודת פטירה',desc:'קבלה ממד"א.'},{title:'זיהוי הנפטר',desc:'ת.ז, דרכון.'},{title:'עדויות',desc:'גביית עדויות מקרובים.'},{title:'בדיקה חיצונית',desc:'שלילת פלילי.'},{title:'סריקת זירה',desc:'איתור חפצים.'},{title:'דיווח',desc:'אישורים מרל"ח.'},{title:'נתיחה',desc:'שאילת המשפחה.'},{title:'דוחות',desc:'רישום ומילוי טפסים.'},{title:'שירות',desc:'המשפחה באבל - הכלה.'},{title:'סימני פריצה',desc:'בדיקת סימנים.'},{title:'סימני פציעה',desc:'תיעוד סימן חשוד.'},{title:'שקיעת דם',desc:'בדיקה והתאמה.'},{title:'סימני מאבק',desc:'בחינת סימנים.'},{title:'מצב רפואי קודם',desc:'בירור.'},{title:'עדויות סותרות',desc:'השוואת גרסאות.'},{title:'מאבקי ירושה',desc:'מניעים כלכליים.'},{title:'אמירות חשודות',desc:'תיעוד ודיווח.'}]},
 {id:'arrest',icon:'⚖️',color:'rgba(245,158,11,0.1)',title:'חובות הקצין / עצור ללא צו',desc:'הליך מעצר וזכויות עצור',type:'arrest'},
 {id:'bail',icon:'📄',color:'rgba(16,185,129,0.1)',title:'שחרור בערובה',desc:'תנאי שחרור בערובה',type:'bail'},
-{id:'court',icon:'🚔',color:'rgba(239,68,68,0.1)',title:'הבאת העצור בפני שופט',desc:'מועדי הבאה לפי מצב',type:'court'}
-];
+{id:'court',icon:'🚔',color:'rgba(239,68,68,0.1)',title:'הבאת העצור בפני שופט',desc:'מועדי הבאה לפי מצב',type:'court'}];
 
-var currentStation=null,checkedTasks={};
+var currentStation=null,checkedTasks={},prisoners=[],manpower=[];
 
-function showScreen(id){var s=document.querySelectorAll('.screen');for(var i=0;i<s.length;i++)s[i].classList.remove('active');document.getElementById(id).classList.add('active');window.scrollTo(0,0);if(id==='mainMenu')renderMainMenu();if(id==='dutyTasks')renderChecklist();if(id==='eventTypes')renderEventTypes();if(id==='profile')renderProfile();if(id==='manpower')renderManpowerList();if(id==='atzurim'){var n=new Date();document.getElementById('pTime').value=("0"+n.getHours()).slice(-2)+":"+("0"+n.getMinutes()).slice(-2)}}
+/* ========== ADMIN SYSTEM ========== */
+function onGearClick(){if(isAdmin){exitAdmin()}else{showPinModal()}}
+function showPinModal(){document.getElementById('pinModal').classList.add('show');document.getElementById('pinInput').value='';document.getElementById('pinInput').classList.remove('err');setTimeout(function(){document.getElementById('pinInput').focus()},200)}
+function closePinModal(){document.getElementById('pinModal').classList.remove('show')}
+function verifyPin(){if(document.getElementById('pinInput').value===ADMIN_PIN){closePinModal();enterAdmin()}else{document.getElementById('pinInput').classList.add('err');setTimeout(function(){document.getElementById('pinInput').classList.remove('err')},500)}}
+document.getElementById('pinInput').addEventListener('keyup',function(e){if(e.key==='Enter')verifyPin()});
+
+function enterAdmin(){isAdmin=true;document.getElementById('adminBar').classList.add('show');document.getElementById('gearBtn').classList.add('on');showToast('מצב עריכה פעיל — לחץ על ✏️ לעריכה');refreshScreen()}
+function exitAdmin(){isAdmin=false;document.getElementById('adminBar').classList.remove('show');document.getElementById('gearBtn').classList.remove('on');showToast('יצאת ממצב עריכה');refreshScreen()}
+function refreshScreen(){var a=document.querySelector('.screen.active');if(!a)return;var id=a.id;if(id==='dutyTasks')renderChecklist();if(id==='eventTypes')renderEventTypes();if(id==='profile')renderProfile();if(id==='mainMenu')renderMainMenu();if(id==='eventDetail'&&_lastEvt)showEventDetail(_lastEvt)}
+
+/* ========== EDIT MODAL ========== */
+function openEditModal(title,label,fields,cb){
+  document.getElementById('editTitle').textContent=title;
+  document.getElementById('editLabel').textContent=label||'';
+  var c=document.getElementById('editFields');c.innerHTML='';
+  for(var i=0;i<fields.length;i++){var f=fields[i];
+    if(f.type==='textarea')c.innerHTML+='<textarea class="fi" id="ef_'+i+'" placeholder="'+(f.ph||'')+'" style="height:80px;resize:none">'+(f.val||'')+'</textarea>';
+
+```
+else c.innerHTML+='<input class="fi" id="ef_'+i+'" type="text" placeholder="'+(f.ph||'')+'" value="'+(f.val||'')+'">';}
+```
+
+_editCb={fn:cb,n:fields.length};
+document.getElementById(‘editBg’).classList.add(‘show’);
+setTimeout(function(){var el=document.getElementById(‘ef_0’);if(el)el.focus()},200)}
+function closeEditModal(){document.getElementById(‘editBg’).classList.remove(‘show’);_editCb=null}
+function saveEditModal(){if(!_editCb)return;var v=[];for(var i=0;i<*editCb.n;i++){var el=document.getElementById(’ef*’+i);v.push(el?el.value:’’)}
+_editCb.fn(v);closeEditModal();saveAllData();showToast(‘✅ השינויים נשמרו’)}
+
+/* ========== PERSISTENCE ========== */
+function saveAllData(){try{localStorage.setItem(‘tafmak_stations2’,JSON.stringify(stationsData));localStorage.setItem(‘tafmak_duties2’,JSON.stringify(dutyTasks));localStorage.setItem(‘tafmak_events2’,JSON.stringify(eventTypes));localStorage.setItem(‘tafmak_checked’,JSON.stringify(checkedTasks));localStorage.setItem(‘tafmak_prisoners’,JSON.stringify(prisoners));localStorage.setItem(‘tafmak_manpower’,JSON.stringify(manpower))}catch(e){}}
+function loadAllData(){try{
+var s;
+s=localStorage.getItem(‘tafmak_stations2’);if(s)stationsData=JSON.parse(s);
+s=localStorage.getItem(‘tafmak_duties2’);if(s)dutyTasks=JSON.parse(s);
+s=localStorage.getItem(‘tafmak_events2’);if(s)eventTypes=JSON.parse(s);
+s=localStorage.getItem(‘tafmak_checked’);if(s)checkedTasks=JSON.parse(s);
+s=localStorage.getItem(‘tafmak_prisoners’);if(s)prisoners=JSON.parse(s);
+s=localStorage.getItem(‘tafmak_manpower’);if(s)manpower=JSON.parse(s);
+localStorage.removeItem(‘tafmak_station’);
+}catch(e){}}
+
+/* ========== SCREENS ========== */
+function showScreen(id){var s=document.querySelectorAll(’.screen’);for(var i=0;i<s.length;i++)s[i].classList.remove(‘active’);document.getElementById(id).classList.add(‘active’);window.scrollTo(0,0);if(id===‘mainMenu’)renderMainMenu();if(id===‘dutyTasks’)renderChecklist();if(id===‘eventTypes’)renderEventTypes();if(id===‘profile’)renderProfile();if(id===‘manpower’)renderManpowerList();if(id===‘atzurim’){renderPrisonersList();var n=new Date();document.getElementById(‘pTime’).value=(“0”+n.getHours()).slice(-2)+”:”+(“0”+n.getMinutes()).slice(-2)}}
 function goBack(t){showScreen(t)}
-function selectStation(id){currentStation=id;saveState();showScreen('mainMenu')}
-function renderMainMenu(){if(!currentStation)return;document.getElementById('menuStationName').textContent=stationsData[currentStation].name;var n=new Date(),d=['ראשון','שני','שלישי','רביעי','חמישי','שישי','שבת'],m=['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];document.getElementById('currentDate').textContent='יום '+d[n.getDay()]+', '+n.getDate()+' '+m[n.getMonth()]+' '+n.getFullYear()}
+function selectStation(id){currentStation=id;saveAllData();showScreen(‘mainMenu’)}
+function renderMainMenu(){if(!currentStation)return;document.getElementById(‘menuStationName’).textContent=stationsData[currentStation].name;var n=new Date(),d=[‘ראשון’,‘שני’,‘שלישי’,‘רביעי’,‘חמישי’,‘שישי’,‘שבת’],m=[‘ינואר’,‘פברואר’,‘מרץ’,‘אפריל’,‘מאי’,‘יוני’,‘יולי’,‘אוגוסט’,‘ספטמבר’,‘אוקטובר’,‘נובמבר’,‘דצמבר’];document.getElementById(‘currentDate’).textContent=’יום ‘+d[n.getDay()]+’, ‘+n.getDate()+’ ‘+m[n.getMonth()]+’ ’+n.getFullYear()}
+function showToast(msg){var t=document.getElementById(‘toast’);t.textContent=msg;if(isAdmin)t.classList.add(‘adm-bar-offset’);else t.classList.remove(‘adm-bar-offset’);t.classList.add(‘show’);setTimeout(function(){t.classList.remove(‘show’)},2500)}
 
+/* ========== CHECKLIST ========== */
 function renderChecklist(){
-var c=document.getElementById('checklistContainer');c.innerHTML='';var total=0,checked=0,secs=Object.keys(dutyTasks);
-for(var s=0;s<secs.length;s++){var sn=secs[s],tasks=dutyTasks[sn],se=document.createElement('div');se.className='sec';se.innerHTML='<div class="sec-t">'+sn+'</div>';
-for(var i=0;i<tasks.length;i++){var t=tasks[i];total++;var ic=checkedTasks[t.id];if(ic)checked++;
-var el=document.createElement('div');el.className='ci'+(ic?' checked':'');el.onclick=(function(tid){return function(){toggleTask(tid)}})(t.id);
-var h='<div class="ck">'+(ic?'&#10003;':'')+'</div><div class="ct"><h4 style="color:'+(t.text.indexOf('*')===0?'var(--gold)':'#fff')+'">'+t.text+'</h4><p>'+t.desc+'</p></div>';
-if(ic)h+='<span class="tm">'+checkedTasks[t.id]+'</span>';
-el.innerHTML=h;se.appendChild(el)}c.appendChild(se)}
-var pct=total>0?Math.round((checked/total)*100):0;document.getElementById('taskCount').textContent=checked+'/'+total;document.getElementById('progressPercent').textContent=pct+'%';document.getElementById('progressFill').style.width=pct+'%'}
+var c=document.getElementById(‘checklistContainer’);c.innerHTML=’’;var total=0,checked=0,secs=Object.keys(dutyTasks);
+for(var s=0;s<secs.length;s++){var sn=secs[s],tasks=dutyTasks[sn],se=document.createElement(‘div’);se.className=‘sec’;
+var hdr=’<div class="sec-hdr"><div class="sec-t">’+sn+’</div>’;
+if(isAdmin)hdr+=’<button class="adm-edit" style="display:inline-block" onclick="addTask(\''+esc(sn)+'\')">+ משימה</button>’;
+hdr+=’</div>’;se.innerHTML=hdr;
+for(var i=0;i<tasks.length;i++){(function(sn2,idx){
+var t=tasks[idx];total++;var ic=checkedTasks[t.id];if(ic)checked++;
+var el=document.createElement(‘div’);el.className=‘ci’+(ic?’ done’:’’);
+var h=’<div class="ck">’+(ic?’✓’:’’)+’</div><div class="ct"><h4 style="color:'+(t.text.indexOf('*')===0?'var(--gold)':'#fff')+'">’+t.text+’</h4><p>’+t.desc+’</p></div>’;
+if(ic)h+=’<span class="tm">’+checkedTasks[t.id]+’</span>’;
+if(isAdmin)h+=’<button class="adm-edit" style="display:inline-block;margin-right:6px" onclick="event.stopPropagation();editTask(\''+esc(sn2)+'\','+idx+')">✏️</button><button class="adm-del" style="display:inline-block" onclick="event.stopPropagation();delTask(\''+esc(sn2)+'\','+idx+')">✕</button>’;
+el.innerHTML=h;
+el.onclick=function(e){if(e.target.tagName===‘BUTTON’)return;toggleTask(t.id)};
+se.appendChild(el)})(sn,i)}
+c.appendChild(se)}
+if(isAdmin){var ab=document.createElement(‘button’);ab.className=‘adm-add’;ab.style.display=‘block’;ab.textContent=’+ הוסף קטגוריה חדשה’;ab.onclick=addSection;c.appendChild(ab)}
+var pct=total>0?Math.round((checked/total)*100):0;document.getElementById(‘taskCount’).textContent=checked+’/’+total;document.getElementById(‘progressPercent’).textContent=pct+’%’;document.getElementById(‘progressFill’).style.width=pct+’%’}
 
-function toggleTask(id){if(checkedTasks[id])delete checkedTasks[id];else{var n=new Date();checkedTasks[id]=("0"+n.getHours()).slice(-2)+":"+("0"+n.getMinutes()).slice(-2)}saveState();renderChecklist()}
-function resetChecklist(){if(confirm('לאפס את כל המשימות? (פעולה זו לא ניתנת לביטול)')){checkedTasks={};saveState();renderChecklist();showToast('המשימות אופסו בהצלחה')}}
+function toggleTask(id){if(checkedTasks[id])delete checkedTasks[id];else{var n=new Date();checkedTasks[id]=(“0”+n.getHours()).slice(-2)+”:”+(“0”+n.getMinutes()).slice(-2)}saveAllData();renderChecklist()}
+function resetChecklist(){if(confirm(‘לאפס את כל המשימות?’)){checkedTasks={};saveAllData();renderChecklist();showToast(‘המשימות אופסו’)}}
+function addTask(sn){openEditModal(‘הוספת משימה’,‘קטגוריה: ‘+sn,[{ph:‘כותרת המשימה’,val:’’},{ph:‘תיאור / פירוט’,val:’’}],function(v){if(!v[0])return;dutyTasks[sn].push({id:‘c’+Date.now(),text:v[0],desc:v[1]||’’});renderChecklist()})}
+function editTask(sn,i){var t=dutyTasks[sn][i];openEditModal(‘עריכת משימה’,’’,[{ph:‘כותרת’,val:t.text},{ph:‘תיאור’,val:t.desc}],function(v){if(!v[0])return;t.text=v[0];t.desc=v[1]||’’;renderChecklist()})}
+function delTask(sn,i){if(confirm(‘למחוק משימה זו?’)){dutyTasks[sn].splice(i,1);saveAllData();renderChecklist();showToast(‘המשימה נמחקה’)}}
+function addSection(){openEditModal(‘הוספת קטגוריה’,‘שם הקטגוריה ככותרת’,[{ph:‘שם הקטגוריה’,val:’’}],function(v){if(!v[0])return;dutyTasks[v[0]]=[];renderChecklist()})}
+function esc(s){return s.replace(/\/g,’\\’).replace(/’/g,”\’”)}
 
-function renderEventTypes(){var c=document.getElementById('eventTypesContainer');c.innerHTML='';for(var i=0;i<eventTypes.length;i++){var e=eventTypes[i],d=document.createElement('div');d.className='ecard';d.onclick=(function(ev){return function(){showEventDetail(ev)}})(e);d.innerHTML='<div class="eh"><div class="eic" style="background:'+e.color+'">'+e.icon+'</div><h3>'+e.title+'</h3></div><p>'+e.desc+'</p>';c.appendChild(d)}}
+/* ========== EVENTS ========== */
+function renderEventTypes(){var c=document.getElementById(‘eventTypesContainer’);c.innerHTML=’’;for(var i=0;i<eventTypes.length;i++){(function(idx){var e=eventTypes[idx];var d=document.createElement(‘div’);d.className=‘ecard’;d.onclick=function(){showEventDetail(e)};d.innerHTML=’<div class="eh"><div class="eic" style="background:'+e.color+'">’+e.icon+’</div><h3>’+e.title+’</h3></div><p>’+e.desc+’</p>’;c.appendChild(d)})(i)}}
 
 function showEventDetail(e){
-document.getElementById('eventDetailTitle').textContent=e.title;var c=document.getElementById('eventDetailContent');c.innerHTML='';
-if(e.type==='steps'){var h='<div class="steps-wrap">';for(var i=0;i<e.steps.length;i++){var st=e.steps[i];h+='<div class="stp" style="animation:pop .3s ease '+(i*0.04)+'s both"><div class="stp-n">'+(i+1)+'</div><div class="stp-c"><h4>'+st.title+'</h4><p>'+st.desc+'</p></div></div>'}h+='</div>';c.innerHTML=h}
-else if(e.type==='arrest'){c.innerHTML='<div class="info-sec"><div class="info-panel"><h3>סעיף 23 - מעצר ללא צו</h3><ul><li>עבר בפניו / זה מקרוב עבירה בת מעצר</li><li>חשש שלא יופיע לחקירה / ישבש משפט</li><li>מסכן את ביטחון הציבור/מדינה</li><li>עבירת סמים / ביטחון / אלימות חמורה</li></ul></div><div class="info-panel"><h3>חובות הקצין</h3><ul><li>אזהרת החשוד טרם הודעה</li><li>הסבר על סיבת המעצר</li><li>זכות לייצוג עו"ד וסניגוריה ציבורית</li><li>הודעה לאדם קרוב</li><li>הבאה בפני שופט תוך 24 שעות (חתימה על אסמכתא)</li></ul></div></div>'}
-else if(e.type==='bail'){c.innerHTML='<div class="info-sec"><div class="info-panel"><h3>תנאי שחרור בערובה (קצין ממונה)</h3><ul><li>איסור יציאה מהארץ + הפקדת דרכון (עד 3 חודשים)</li><li>הרחקה ממקום/אזור (עד 15 יום)</li><li>איסור קשר עם מעורבים (עד 30 יום)</li><li>חובת מגורים והתייצבות (עד 15 יום)</li><li>מעצר בית (עד 5 ימים)</li></ul></div></div>'}
-else if(e.type==='court'){c.innerHTML='<div class="info-sec"><div class="info-panel"><h3>מועדי הבאה בפני שופט</h3><ul><li><b>יום חול:</b> תוך 24 שעות</li><li><b>לפני שבת/חג:</b> חובה להביא לפני הכניסה</li><li><b>שבת/חג מעל 48 שעות:</b> בהקדם לאחר הצאת ועד 24 שעות מהמעצר</li><li><b>שבת/חג מעל 72 שעות:</b> תוך 32 שעות מהמעצר</li><li><b>ביקש שלא להביא בשבת:</b> עד 4 שעות מצאת השבת</li></ul></div></div>'}
-showScreen('eventDetail')}
+_lastEvt=e;document.getElementById(‘eventDetailTitle’).textContent=e.title;var c=document.getElementById(‘eventDetailContent’);c.innerHTML=’’;
+if(e.type===‘steps’){var h=’<div class="steps-wrap">’;for(var i=0;i<e.steps.length;i++){(function(idx){
+var st=e.steps[idx];h+=’<div class="stp" style="animation:pop .3s ease '+(idx*0.04)+'s both"><div class="stp-n">’+(idx+1)+’</div><div class="stp-c"><h4>’+st.title+’</h4><p>’+st.desc+’</p></div>’;
+if(isAdmin)h+=’<div style="display:flex;gap:4px;flex-shrink:0;align-items:center"><button class="adm-edit" style="display:block" onclick="editStep(\''+e.id+'\','+idx+')">✏️</button><button class="adm-del" style="display:block" onclick="delStep(\''+e.id+'\','+idx+')">✕</button></div>’;
+h+=’</div>’})(i)}
+if(isAdmin)h+=’<button class="adm-add" style="display:block" onclick="addStep(\''+e.id+'\')">+ הוסף שלב חדש</button>’;
+h+=’</div>’;c.innerHTML=h}
+else if(e.type===‘arrest’){c.innerHTML=’<div class="info-sec"><div class="info-panel"><h3>סעיף 23 - מעצר ללא צו</h3><ul><li>עבר בפניו עבירה בת מעצר</li><li>חשש שלא יופיע לחקירה / ישבש משפט</li><li>מסכן ביטחון הציבור/מדינה</li><li>עבירת סמים / ביטחון / אלימות חמורה</li></ul></div><div class="info-panel"><h3>חובות הקצין</h3><ul><li>אזהרת החשוד טרם הודעה</li><li>הסבר על סיבת המעצר</li><li>זכות לייצוג עו”ד וסניגוריה ציבורית</li><li>הודעה לאדם קרוב</li><li>הבאה בפני שופט תוך 24 שעות</li></ul></div></div>’}
+else if(e.type===‘bail’){c.innerHTML=’<div class="info-sec"><div class="info-panel"><h3>תנאי שחרור בערובה</h3><ul><li>איסור יציאה מהארץ + הפקדת דרכון (עד 3 חודשים)</li><li>הרחקה ממקום/אזור (עד 15 יום)</li><li>איסור קשר עם מעורבים (עד 30 יום)</li><li>חובת מגורים והתייצבות (עד 15 יום)</li><li>מעצר בית (עד 5 ימים)</li></ul></div></div>’}
+else if(e.type===‘court’){c.innerHTML=’<div class="info-sec"><div class="info-panel"><h3>מועדי הבאה בפני שופט</h3><ul><li><b>יום חול:</b> תוך 24 שעות</li><li><b>לפני שבת/חג:</b> חובה להביא לפני הכניסה</li><li><b>שבת/חג מעל 48 שעות:</b> בהקדם ועד 24 שעות</li><li><b>שבת/חג מעל 72 שעות:</b> תוך 32 שעות</li><li><b>ביקש שלא להביא בשבת:</b> עד 4 שעות מצאת השבת</li></ul></div></div>’}
+showScreen(‘eventDetail’)}
 
-function renderProfile(){if(!currentStation)return;var st=stationsData[currentStation],p=st.profile;var h='<div class="pf-card"><h3>פרטים כלליים</h3><div class="pf-row"><span class="lb">שם תחנה</span><span class="vl">'+st.name+'</span></div><div class="pf-row"><span class="lb">מרחב</span><span class="vl">'+st.area+'</span></div><div class="pf-row"><span class="lb">כתובת</span><span class="vl">'+p.address+'</span></div><div class="pf-row"><span class="lb">מפקד תחנה</span><span class="vl">'+p.commander+'</span></div></div><div class="pf-card"><h3>טלפונים מבצעיים</h3><div class="pf-row"><span class="lb">טלפון תחנה</span><span class="vl ph">'+p.phone+'</span></div><div class="pf-row"><span class="lb">פקס</span><span class="vl ph">'+p.fax+'</span></div><div class="pf-row"><span class="lb">קצין תורן</span><span class="vl ph">'+p.dutyOfficer+'</span></div><div class="pf-row"><span class="lb">מוקד</span><span class="vl ph">'+p.moked+'</span></div></div><div class="pf-card"><h3>גבולות גזרה</h3>';for(var i=0;i<p.borders.length;i++)h+='<div class="brd">'+p.borders[i]+'</div>';h+='</div>';document.getElementById('profileContainer').innerHTML=h}
+function findEvt(id){for(var i=0;i<eventTypes.length;i++)if(eventTypes[i].id===id)return eventTypes[i];return null}
+function addStep(eid){var ev=findEvt(eid);if(!ev)return;openEditModal(‘הוספת שלב’,‘ל: ‘+ev.title,[{ph:‘כותרת השלב’,val:’’},{ph:‘תיאור’,val:’’,type:‘textarea’}],function(v){if(!v[0])return;ev.steps.push({title:v[0],desc:v[1]||’’});showEventDetail(ev)})}
+function editStep(eid,i){var ev=findEvt(eid);if(!ev)return;var st=ev.steps[i];openEditModal(‘עריכת שלב’,‘שלב ‘+(i+1),[{ph:‘כותרת’,val:st.title},{ph:‘תיאור’,val:st.desc,type:‘textarea’}],function(v){if(!v[0])return;st.title=v[0];st.desc=v[1]||’’;showEventDetail(ev)})}
+function delStep(eid,i){var ev=findEvt(eid);if(!ev)return;if(confirm(‘למחוק שלב זה?’)){ev.steps.splice(i,1);saveAllData();showEventDetail(ev);showToast(‘השלב נמחק’)}}
 
-function showAdminModal(){document.getElementById('adminModal').classList.add('show');document.getElementById('pinInput').value='';document.getElementById('pinInput').classList.remove('error');setTimeout(function(){document.getElementById('pinInput').focus()},300)}
-function closeAdminModal(){document.getElementById('adminModal').classList.remove('show')}
-function verifyPin(){if(document.getElementById('pinInput').value===ADMIN_PIN){closeAdminModal();showToast('מצב ניהול הופעל בהצלחה')}else{document.getElementById('pinInput').classList.add('error');setTimeout(function(){document.getElementById('pinInput').classList.remove('error')},500)}}
-document.getElementById('pinInput').addEventListener('keyup',function(e){if(e.key==='Enter')verifyPin()});
-function showToast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(function(){t.classList.remove('show')},2500)}
+/* ========== PROFILE (EDITABLE) ========== */
+function renderProfile(){
+if(!currentStation)return;var st=stationsData[currentStation],p=st.profile;
+var A=isAdmin;
+var h=’<div class="pf-card"><h3>פרטים כלליים</h3>’;
+h+=pfRow(‘שם תחנה’,st.name,A,function(){openEditModal(‘עריכת שם תחנה’,’’,[{ph:‘שם’,val:st.name}],function(v){if(v[0])st.name=v[0];renderProfile()})});
+h+=pfRow(‘מרחב’,st.area,A,function(){openEditModal(‘עריכת מרחב’,’’,[{ph:‘מרחב’,val:st.area}],function(v){if(v[0])st.area=v[0];renderProfile()})});
+h+=pfRow(‘כתובת’,p.address,A,function(){openEditModal(‘עריכת כתובת’,’’,[{ph:‘כתובת’,val:p.address}],function(v){if(v[0])p.address=v[0];renderProfile()})});
+h+=pfRow(‘מפקד תחנה’,p.commander,A,function(){openEditModal(‘עריכת מפקד’,’’,[{ph:‘שם מפקד’,val:p.commander}],function(v){if(v[0])p.commander=v[0];renderProfile()})});
+h+=’</div><div class="pf-card"><h3>טלפונים מבצעיים</h3>’;
+h+=pfRow(‘טלפון תחנה’,p.phone,A,function(){openEditModal(‘טלפון תחנה’,’’,[{ph:‘טלפון’,val:p.phone}],function(v){if(v[0])p.phone=v[0];renderProfile()})},‘ph’);
+h+=pfRow(‘פקס’,p.fax,A,function(){openEditModal(‘פקס’,’’,[{ph:‘פקס’,val:p.fax}],function(v){if(v[0])p.fax=v[0];renderProfile()})},‘ph’);
+h+=pfRow(‘קצין תורן’,p.dutyOfficer,A,function(){openEditModal(‘טלפון קצין תורן’,’’,[{ph:‘טלפון’,val:p.dutyOfficer}],function(v){if(v[0])p.dutyOfficer=v[0];renderProfile()})},‘ph’);
+h+=pfRow(‘מוקד’,p.moked,A,function(){openEditModal(‘מוקד’,’’,[{ph:‘מספר’,val:p.moked}],function(v){if(v[0])p.moked=v[0];renderProfile()})},‘ph’);
+h+=’</div><div class="pf-card"><h3>גבולות גזרה</h3>’;
+for(var i=0;i<p.borders.length;i++){(function(idx){
+h+=’<div class="brd" style="display:flex;align-items:center;justify-content:space-between">’
+h+=’<span>’+p.borders[idx]+’</span>’;
+if(A)h+=’<button class="adm-edit" style="display:inline-block;margin-right:8px" onclick="editBorder('+idx+')">✏️</button>’;
+h+=’</div>’})(i)}
+if(A)h+=’<button class="adm-add" style="display:block" onclick="addBorder()">+ הוסף גבול</button>’;
+h+=’</div>’;document.getElementById(‘profileContainer’).innerHTML=h;
+if(A){var rows=document.querySelectorAll(’#profileContainer .pf-row’);for(var r=0;r<rows.length;r++){rows[r].style.cursor=‘pointer’;rows[r].style.borderRadius=‘6px’;rows[r].style.padding=‘10px 8px’;rows[r].style.margin=‘0 -8px’;rows[r].style.transition=’.15s’}}}
 
-var prisoners=[];
-function loadPrisoners(){try{var s=localStorage.getItem('tafmak_prisoners');if(s){prisoners=JSON.parse(s);renderPrisonersList()}}catch(e){}}
-function savePrisoners(){localStorage.setItem('tafmak_prisoners',JSON.stringify(prisoners))}
-function addPrisoner(){var nm=document.getElementById('pName').value,gn=document.getElementById('pGender').value,ag=document.getElementById('pAge').value,of=document.getElementById('pOffense').value,tp=document.getElementById('pType').value,tm=document.getElementById('pTime').value;if(!nm||!tm||!of){showToast('שגיאה: חסרים פרטי חובה');return}prisoners.unshift({id:Date.now(),name:nm,gender:gn,age:ag,offense:of,type:tp,time:tm});savePrisoners();renderPrisonersList();document.getElementById('pName').value='';document.getElementById('pAge').value='';document.getElementById('pOffense').value='';showToast('נרשם ביומן בהצלחה')}
-function deletePrisoner(id){if(confirm('למחוק רישום זה מהיומן?')){prisoners=prisoners.filter(function(p){return p.id!==id});savePrisoners();renderPrisonersList()}}
-function renderPrisonersList(){var c=document.getElementById('prisonersListContainer');if(!prisoners.length){c.innerHTML='<p class="empty">אין רשומות ביומן</p>';return}var h='';for(var i=0;i<prisoners.length;i++){var p=prisoners[i],tt=p.type==='atzur'?'עצור':'מעוכב',cls=p.type==='atzur'?'at':'mk';h+='<div class="pcard '+cls+'"><div style="width:100%"><div style="display:flex;justify-content:space-between;align-items:start"><h4>'+p.name+(p.age?' <span style="font-weight:400;font-size:13px;color:var(--gray)">| '+p.age+'</span>':'')+'</h4><button class="del-btn" onclick="deletePrisoner('+p.id+')">&#x1F5D1;</button></div><div style="color:#fff;font-size:13px;margin:4px 0">עבירה: '+p.offense+'</div><div class="meta">'+tt+' ('+p.gender+') | קליטה: <span style="color:var(--gold)">'+p.time+'</span></div></div></div>'}c.innerHTML=h}
+function pfRow(label,value,adm,fn,cls){
+var id=‘pf_’+Math.random().toString(36).substr(2,6);
+var h=’<div class=“pf-row” ‘+(adm?‘onclick=“window._pfCbs['’+id+’']()” style=“cursor:pointer”’:’’)+’>’+
+‘<span class="lb">’+label+(adm?’ ✏️’:’’)+’</span>’+
+‘<span class="vl'+(cls?' '+cls:'')+'">’+value+’</span></div>’;
+if(!window._pfCbs)window._pfCbs={};
+if(fn)window._pfCbs[id]=fn;
+return h}
 
-var manpower=[];
-function loadManpower(){try{var s=localStorage.getItem('tafmak_manpower');if(s){manpower=JSON.parse(s);renderManpowerList()}}catch(e){}}
-function saveManpower(){localStorage.setItem('tafmak_manpower',JSON.stringify(manpower))}
-function addManpowerItem(){var ms=document.getElementById('mpMission').value,cs=document.getElementById('mpCallSign').value,of=document.getElementById('mpOfficers').value;if(!ms){showToast('שגיאה: חובה להזין שם משימה');return}manpower.unshift({id:Date.now(),mission:ms,callSign:cs||'ללא קוד',officers:of||'כוח לא מפורט'});saveManpower();renderManpowerList();document.getElementById('mpMission').value='';document.getElementById('mpCallSign').value='';document.getElementById('mpOfficers').value='';showToast('הכוח שוגר בהצלחה')}
-function deleteManpowerItem(id){if(confirm('למחוק משימה זו?')){manpower=manpower.filter(function(i){return i.id!==id});saveManpower();renderManpowerList()}}
-function renderManpowerList(){var c=document.getElementById('manpowerListContainer');if(!manpower.length){c.innerHTML='<p class="empty">אין כוחות משובצים</p>';return}var h='';for(var i=0;i<manpower.length;i++){var m=manpower[i];h+='<div class="pcard mp"><div style="width:100%"><div style="display:flex;justify-content:space-between;align-items:start"><h4>'+m.mission+' <span style="background:var(--cyan);color:#000;padding:2px 6px;border-radius:4px;font-size:11px;margin-right:8px;font-family:monospace">קשר: '+m.callSign+'</span></h4><button class="del-btn" onclick="deleteManpowerItem('+m.id+')">&#x1F5D1;</button></div><div style="color:var(--gray);font-size:13px;margin-top:6px;line-height:1.5">'+m.officers.replace(/\n/g,'<br>')+'</div></div></div>'}c.innerHTML=h}
+function editBorder(i){var p=stationsData[currentStation].profile;openEditModal(‘עריכת גבול’,’’,[{ph:‘גבול’,val:p.borders[i]}],function(v){if(v[0])p.borders[i]=v[0];renderProfile()})}
+function addBorder(){var p=stationsData[currentStation].profile;openEditModal(‘הוספת גבול’,’’,[{ph:‘תיאור הגבול’,val:’’}],function(v){if(v[0]){p.borders.push(v[0]);renderProfile()}})}
 
-function loadState(){try{var s=localStorage.getItem('tafmak_checked');if(s)checkedTasks=JSON.parse(s);localStorage.removeItem('tafmak_station');loadPrisoners();loadManpower()}catch(e){}}
-function saveState(){try{localStorage.setItem('tafmak_checked',JSON.stringify(checkedTasks))}catch(e){}}
+/* ========== PRISONERS ========== */
+function addPrisoner(){var nm=document.getElementById(‘pName’).value,gn=document.getElementById(‘pGender’).value,ag=document.getElementById(‘pAge’).value,of=document.getElementById(‘pOffense’).value,tp=document.getElementById(‘pType’).value,tm=document.getElementById(‘pTime’).value;if(!nm||!tm||!of){showToast(‘חסרים פרטי חובה’);return}prisoners.unshift({id:Date.now(),name:nm,gender:gn,age:ag,offense:of,type:tp,time:tm});saveAllData();renderPrisonersList();document.getElementById(‘pName’).value=’’;document.getElementById(‘pAge’).value=’’;document.getElementById(‘pOffense’).value=’’;showToast(‘נרשם ביומן’)}
+function deletePrisoner(id){if(confirm(‘למחוק רישום?’)){prisoners=prisoners.filter(function(p){return p.id!==id});saveAllData();renderPrisonersList()}}
+function renderPrisonersList(){var c=document.getElementById(‘prisonersListContainer’);if(!prisoners.length){c.innerHTML=’<p class="empty">אין רשומות ביומן</p>’;return}var h=’’;for(var i=0;i<prisoners.length;i++){var p=prisoners[i],tt=p.type===‘atzur’?‘עצור’:‘מעוכב’,cls=p.type===‘atzur’?‘at’:‘mk’;h+=’<div class="pcard '+cls+'"><div style="width:100%"><div style="display:flex;justify-content:space-between;align-items:start"><h4>’+p.name+(p.age?’ <span style="font-weight:400;font-size:13px;color:var(--gray)">| ‘+p.age+’</span>’:’’)+’</h4><button class="del-btn" onclick="deletePrisoner('+p.id+')">🗑</button></div><div style="color:#fff;font-size:13px;margin:4px 0">עבירה: ‘+p.offense+’</div><div class="meta">’+tt+’ (’+p.gender+’) | קליטה: <span style="color:var(--gold)">’+p.time+’</span></div></div></div>’}c.innerHTML=h}
 
-loadState();
+/* ========== MANPOWER ========== */
+function addManpowerItem(){var ms=document.getElementById(‘mpMission’).value,cs=document.getElementById(‘mpCallSign’).value,of=document.getElementById(‘mpOfficers’).value;if(!ms){showToast(‘חובה להזין שם משימה’);return}manpower.unshift({id:Date.now(),mission:ms,callSign:cs||‘ללא’,officers:of||‘לא פורט’});saveAllData();renderManpowerList();document.getElementById(‘mpMission’).value=’’;document.getElementById(‘mpCallSign’).value=’’;document.getElementById(‘mpOfficers’).value=’’;showToast(‘הכוח שוגר’)}
+function deleteManpowerItem(id){if(confirm(‘למחוק?’)){manpower=manpower.filter(function(i){return i.id!==id});saveAllData();renderManpowerList()}}
+function renderManpowerList(){var c=document.getElementById(‘manpowerListContainer’);if(!manpower.length){c.innerHTML=’<p class="empty">אין כוחות משובצים</p>’;return}var h=’’;for(var i=0;i<manpower.length;i++){var m=manpower[i];h+=’<div class="pcard mp"><div style="width:100%"><div style="display:flex;justify-content:space-between;align-items:start"><h4>’+m.mission+’ <span style="background:var(--cyan);color:#000;padding:2px 6px;border-radius:4px;font-size:11px;margin-right:8px;font-family:monospace">’+m.callSign+’</span></h4><button class="del-btn" onclick="deleteManpowerItem('+m.id+')">🗑</button></div><div style="color:var(--gray);font-size:13px;margin-top:6px;line-height:1.5">’+m.officers.replace(/\n/g,’<br>’)+’</div></div></div>’}c.innerHTML=h}
+
+/* ========== INIT ========== */
+loadAllData();
 </script>
+
 </body>
 </html>
